@@ -1,0 +1,42 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="row gy-3 overflow-hidden">
+    <div class="col-12">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="name" id="name" formControlName="name" autocomplete="given-name">
+        <label for="name" class="form-label">Nombre</label>
+        </div>
+        @if(!isValidField('name')){
+            <div class="alert alert-danger" role="alert">
+                El nombre es obligatorio
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" formControlName="email" autocomplete="email">
+        <label for="email" class="form-label">Correo electrónico</label>
+        </div>
+        @if(!isValidField('email')){
+            <div class="alert alert-danger" role="alert">
+                El correo electrónico no es válido
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" name="password" formControlName="password" autocomplete="new-password">
+        <label for="password" class="form-label">Contraseña</label>
+        </div>
+        @if(!isValidField('password')){
+            <div class="alert alert-danger" role="alert">
+                La contraseña debe tener al menos 6 caracteres
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        <div class="d-grid">
+        <button class="btn bsb-btn-xl btn-primary" type="submit" [disabled]="registerForm.invalid" >Registrarse</button>
+        </div>
+    </div>
+    </div>
+  </form>
