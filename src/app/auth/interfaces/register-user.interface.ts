@@ -1,6 +1,8 @@
+import { AbstractControl } from "@angular/forms";
+
 export interface UserRegisterInfo {
     name:     string;
-    email:    string;
+    email:    string|undefined |null;
     password: string;
     avatar:   string;
 }
@@ -48,4 +50,8 @@ export interface User {
 export interface LoginResponse {
     access_token:  string;
     refresh_token: string;
+}
+
+export interface isEmailAvailableResponse {
+    isAvailable: boolean;
 }

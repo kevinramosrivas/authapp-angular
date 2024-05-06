@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo } from '../interfaces/register-user.interface';
+import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo, isEmailAvailableResponse } from '../interfaces/register-user.interface';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -36,7 +36,34 @@ export class AuthService {
             this.setAuthentication(resp, this.token, this.refreshToken);
           },
           error: () => {
-            this._authStatus.set(AuthStatus.notAuthenticated);
+            //intentar refrescar el token
+            this.refreshingToken().subscribe(
+              {
+                next: (resp: LoginResponse) => {
+                  this.token = resp.access_token;
+                  this.refreshToken = resp.refresh_token;
+                  this.http.get<User>(`${this.urlbase}/auth/profile`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${this.token}`
+                    }
+                  })
+                  .subscribe(
+                    {
+                      next: (resp: User) => {
+                        this.setAuthentication(resp, this.token, this.refreshToken);
+                      },
+                      error: () => {
+                        this._authStatus.set(AuthStatus.notAuthenticated);
+                      }
+                    }
+                  );
+                },
+                error: () => {
+                  this.logout();
+                }
+              }
+            );
           }
         }
       );
@@ -46,14 +73,8 @@ export class AuthService {
   }
 
   public refreshingToken() {
-    return this.http.post<LoginResponse>(`${this.urlbase}/auth/refresh`, {refreshToken: this.refreshToken})
+    return this.http.post<LoginResponse>(`${this.urlbase}/auth/refresh-token`, {refreshToken: this.refreshToken})
     .pipe(
-      tap((resp: LoginResponse) => {
-        this.token = resp.access_token;
-        this.refreshToken = resp.refresh_token;
-        localStorage.setItem('token', this.token);
-        localStorage.setItem('refreshToken', this.refreshToken);
-      }),
       catchError(() => {
         this._authStatus.set(AuthStatus.notAuthenticated);
         return throwError(() => {
@@ -108,11 +129,30 @@ export class AuthService {
       }),
       catchError(err => {
         return throwError(() => {
-          return err.error.message;
+          return err;
         });
       })
     )
 
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
+  }
+
+
+  validateEmail(email: string) {
+    return this.http.post<isEmailAvailableResponse>(`${this.urlbase}/users/is-available`, {"email":email})
+    .pipe(
+      catchError(err => {
+        return throwError(() => {
+          return err.error.message;
+        });
+      })
+    );
   }
 
 

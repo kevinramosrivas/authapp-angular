@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth-service.service';
 import { UserRegisterInfo } from '../../interfaces/register-user.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { EmailValidator } from '../../services/email-validator.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class FormRegisterComponent {
 
   public registerForm = this.fb.group({
     name: ['Jhon Doe', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')] ],
+    email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
     password: ['12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
   });
 
@@ -39,9 +40,13 @@ export class FormRegisterComponent {
 
 
   onSubmit() {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
     this.body = {
       name: this.registerForm.value.name!,
-      email: this.registerForm.value.email!,
+      email: this.registerForm.get('email')?.value,
       password: this.registerForm.value.password!,
       avatar: 'https://ui-avatars.com/api/?name=' + (this.registerForm.value.name)?.replace(' ', '+'),
     }
@@ -55,14 +60,14 @@ export class FormRegisterComponent {
           icon: 'success',
           confirmButtonText: 'Aceptar'
         }).then(() => {
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/home']);
         })
 
       },
       error: (error) => {
         Swal.fire({
           title: 'Error',
-          text: error.toString(),
+          text: "Error al registrar usuario",
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });

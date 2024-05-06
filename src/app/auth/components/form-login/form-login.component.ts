@@ -23,12 +23,16 @@ export class FormLoginComponent {
     email: '',
     password: ''
   };
+  public loginError = false;
 
   public loginForm = this.fb.group({
     email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
     password: ['12345678', [Validators.required, Validators.minLength(6)]]
   });
 
+  public isValidField(field: string): boolean|undefined {
+    return !((this.loginForm.get(field)?.touched || this.loginForm.get(field)?.dirty) && !this.loginForm.get(field)?.valid);
+  }
   login(){
     this.body = {
       email: this.loginForm.value.email!,
@@ -37,9 +41,11 @@ export class FormLoginComponent {
     this.authService.loginUser(this.body).subscribe({
       next: () => {
         this.router.navigate(['/home']);
+
       },
       error: (err) => {
-        console.log(err);
+        this.router.navigate(['auth/login']);
+        this.loginError = true;
       }
     });
   }

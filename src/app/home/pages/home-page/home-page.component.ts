@@ -13,5 +13,10 @@ export class HomePageComponent{
   public currentUser = this.authService.currentUser;
 
 
+  public logout(){
+    this.authService.logout();
+  }
+
+
 
 }

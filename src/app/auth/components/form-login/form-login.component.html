@@ -5,12 +5,22 @@
         <input type="email" class="form-control" name="email" id="email" formControlName="email" required>
         <label for="email" class="form-label">Correo electrónico</label>
         </div>
+        @if(!isValidField('email')){
+            <div class="alert alert-danger" role="alert">
+                El correo electrónico no es válido
+            </div>
+        }
     </div>
     <div class="col-12">
         <div class="form-floating mb-3">
         <input type="password" class="form-control" name="password" id="password" formControlName="password" required>
         <label for="password" class="form-label">Contraseña</label>
         </div>
+        @if(!isValidField('password')){
+            <div class="alert alert-danger" role="alert">
+                La contraseña es obligatoria y debe tener al menos 6 caracteres
+            </div>
+        }
     </div>
     <div class="col-12">
         <div class="form-check">
@@ -21,8 +31,13 @@
         </div>
     </div>
     <div class="col-12">
+        @if(loginError){
+            <div class="alert alert-danger" role="alert">
+                No se pudo iniciar sesión. Por favor, verifica tus credenciales.
+            </div>
+        }
         <div class="d-grid">
-        <button class="btn bsb-btn-xl btn-primary" type="submit">Iniciar sesión</button>
+        <button class="btn bsb-btn-xl btn-primary" type="submit" [disabled]="loginForm.invalid" >Iniciar sesión</button>
         </div>
     </div>
     </div>
