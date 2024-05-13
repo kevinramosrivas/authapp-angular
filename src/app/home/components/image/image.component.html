@@ -1,0 +1,15 @@
+
+<img src="" alt="Living" [src]="src" 
+[attr.width]="i_width" 
+[attr.height]="i_height" 
+(load)="onLoad()"
+[classList]="i_class"
+[ngClass]="{'d-none':loading()}"
+>
+@if(loading()){
+    <img [classList]="i_class" src="assets/loader.svg" alt="loader">
+}
+
+
+
+
