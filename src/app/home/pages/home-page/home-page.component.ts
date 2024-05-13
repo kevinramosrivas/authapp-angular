@@ -11,7 +11,6 @@ import { FormControl } from '@angular/forms';
   styleUrl: './home-page.style.css',
 })
 export class HomePageComponent implements OnInit{  
-  private authService =  inject(AuthService);
   public homeService = inject(HomeService);
   public products: Product[] = [];
   public categories: Categorie[] = [];
@@ -30,14 +29,6 @@ export class HomePageComponent implements OnInit{
       }
     }
     );
-  }
-
-
-  public currentUser = this.authService.currentUser;
-
-
-  public logout(){
-    this.authService.logout();
   }
 
 

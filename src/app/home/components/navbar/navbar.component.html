@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg bsb-navbar bsb-navbar-hover bsb-navbar-caret bsb-tpl-navbar-sticky bg-white border-bottom border-light-subtle" data-bsb-sticky-target="#header">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="3.5rem" height="3.5rem" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
+          <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5v-1a2 2 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693Q8.844 9.002 8 9c-5 0-6 3-6 4m7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1"/>
+        </svg>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          @if(!currentUser()){
+            <ul class="navbar-nav align-items-center justify-content-center ms-auto">
+                <li class="nav-item">
+                  <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" aria-current="page" [routerLink]="['/auth/login']">Iniciar Sesión</a>
+                </li>
+            </ul>
+          }
+          @if(currentUser()){
+            <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
+              <li class="nav-item">
+                <a class="btn btn-dark rounded-pill" aria-current="page"  role="button" [routerLink]="['/home/secret']">
+                  Administrar Productos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" [routerLink]="['/auth/register']">Registrar nuevo administrador</a>
+              </li>
+              <li class="nav-item">
+                <div class="dropdown">
+                  <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img [src]="currentUser()?.avatar" alt="profile_image" class="rounded-circle" width="30rem" height="30rem">
+                    {{currentUser()?.name}}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li> <a  href="#" class="dropdown-item">Mi perfil</a></li>
+                    <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          }
+        </div>
+      </div>
+    </div>
+</nav>
