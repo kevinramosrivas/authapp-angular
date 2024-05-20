@@ -1,48 +1,15 @@
   <!-- Header -->
   <header id="header" class="sticky-top bsb-tpl-header-sticky bsb-tpl-header-sticky-animationX">
-
     <!-- Navbar Component -->
     <home-navbar/>
 
   </header>
 
-  <!-- Featured  Component -->
+  
   <section class="py-3 py-md-5 py-xl-8 bg-light">
-
+  <!-- Banner  Component -->
     <div class="container">
-      <article class="animate__animated animate__bounceInDown">
-        <div class="card border-light-subtle">
-          <div class="row g-0">
-            <div class="col-12 col-md-6 order-1 order-md-0 d-flex align-items-center">
-              <div class="card-body p-md-4 p-xl-6 p-xxl-9">
-                <div class="entry-header mb-3">
-                  <ul class="entry-meta list-unstyled d-flex mb-4">
-                    <li class="mx-1">
-                      <a class="d-inline-flex px-2 py-1 link-accent text-accent-emphasis bg-accent-subtle border border-accent-subtle rounded-2 text-decoration-none fs-7" href="https://angular.dev" target="_blank">
-                        <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*jlg3PXZ6PYdUGy40tXybKw.gif" alt="angular_icon" width="40rem" height="40rem" >
-                      </a>
-                    </li>
-                    <li class="mx-1">
-                      <a class="d-inline-flex px-2 py-1 link-accent text-accent-emphasis bg-accent-subtle border border-accent-subtle rounded-2 text-decoration-none fs-7" href="https://jwt.io" target="_blank">
-                        <img src="https://jwt.io/img/pic_logo.svg" alt="jwt_icon" width="40rem" height="40rem">
-                      </a>
-                    </li>
-                  </ul>
-                  <h2 class="card-title entry-title display-3 fw-bold mb-4 lh-1">
-                    <a class="link-dark text-decoration-none" href="#!">CMS Auth App</a>
-                  </h2>
-                </div>
-                <p class="card-text entry-summary text-secondary mb-4">
-                  Hola, bienvenido, inicie sesión para acceder a la administración de productos.
-                </p>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
-              <image-component  src="https://random.imagecdn.app/700/300" i_class="img-fluid rounded-end object-fit-cover"/>
-            </div>
-          </div>
-        </div>
-      </article>
+      <home-banner [categories]="categories"/>
     </div>
   </section>
 
@@ -51,20 +18,6 @@
 
     <!-- Blog 5 - Bootstrap Brain Component -->
     <section class="bsb-blog-5 py-3 py-md-5 py-xl-8 bsb-section-py-xxl-1">
-      <div class="container">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-12  col-md-6">
-            <h2 class="h4 mb-4 mb-md-5">Productos recientemente añadidos</h2>
-          </div>
-          <div class="col-12 col-md-4">
-            <select class="form-select form-select-lg" aria-label="Default select example" [formControl]="categorieInput">
-              @for(category of categories; track category){
-                <option value="{{category.id}}">{{category.name}}</option>
-              }
-            </select>
-          </div>
-        </div>
-      </div>
 
       <div class="container overflow-hidden">
         <div class="row">

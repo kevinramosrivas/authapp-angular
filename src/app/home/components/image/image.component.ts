@@ -18,6 +18,7 @@ export class ImageComponent implements OnInit{
   @Input() i_height: string = '';
   @Input() i_class: string = '';
   public loading = signal(true);
+  public defaultImage = 'assets/not-found.svg';
 
   ngOnInit(): void {
     //si no se define un ancho o alto, se asigna un valor por defecto
@@ -30,6 +31,12 @@ export class ImageComponent implements OnInit{
   } 
 
   public onLoad(){
+    this.loading.set(false);
+  }
+  public onError(){
+    this.src = this.defaultImage;
+    this.i_width = '250rem';
+    this.i_height = '250rem';
     this.loading.set(false);
   }
 }

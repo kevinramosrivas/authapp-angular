@@ -1,0 +1,47 @@
+<article class="animate__animated animate__bounceInDown">
+    <div class="card border-light-subtle">
+      <div class="row g-0">
+        <div class="col-12 col-md-6 order-1 order-md-0 d-flex align-items-center">
+          <div class="card-body p-md-4 p-xl-6 p-xxl-9">
+            <div class="entry-header mb-3">
+              <ul class="entry-meta list-unstyled d-flex mb-4">
+                <li class="mx-1">
+                  <a class="d-inline-flex px-2 py-1 link-accent text-accent-emphasis bg-accent-subtle border border-accent-subtle rounded-2 text-decoration-none fs-7" href="https://angular.dev" target="_blank">
+                    <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*jlg3PXZ6PYdUGy40tXybKw.gif" alt="angular_icon" width="40rem" height="40rem" >
+                  </a>
+                </li>
+                <li class="mx-1">
+                  <a class="d-inline-flex px-2 py-1 link-accent text-accent-emphasis bg-accent-subtle border border-accent-subtle rounded-2 text-decoration-none fs-7" href="https://jwt.io" target="_blank">
+                    <img src="https://jwt.io/img/pic_logo.svg" alt="jwt_icon" width="40rem" height="40rem">
+                  </a>
+                </li>
+              </ul>
+              <h2 class="card-title entry-title display-3 fw-bold mb-4 lh-1">
+                <a class="link-dark text-decoration-none" href="#!">Angular-Platzi Store</a>
+              </h2>
+            </div>
+            <p class="card-text entry-summary text-secondary mb-4">
+              Encuentra los mejores productos a los mejores precios, en Angular-Platzi Store.
+            </p>
+            <div class="alert alert-warning" role="alert">
+              Este sitio web es un proyecto de aprendizaje, no se realizan compras reales.
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @for(categorie of categories; track categorie){
+                    <div class="carousel-item" [ngClass]="{'active': $first}">
+                        <image-component  src="{{categorie.image| url}}" i_class="d-block w-100 object-fit-cover animate__animated animate__zoomInRight" i_height="400rem" data-bs-interval="5"/>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Encuentra lo mejor para ti en la categoria {{categorie.name}}</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</article>

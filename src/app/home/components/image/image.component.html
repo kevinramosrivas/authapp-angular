@@ -1,10 +1,12 @@
 
+<!-- mostrar otra imagen si la imagen no carga -->
 <img src="" alt="Living" [src]="src" 
 [attr.width]="i_width" 
 [attr.height]="i_height" 
 (load)="onLoad()"
 [classList]="i_class"
 [ngClass]="{'d-none':loading()}"
+(error)="onError()"
 >
 @if(loading()){
     <img [classList]="i_class" src="assets/loader.svg" alt="loader">

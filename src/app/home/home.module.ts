@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ImageComponent } from './components/image/image.component';
+import { BannerComponent } from './components/banner/banner.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ImageComponent } from './components/image/image.component';
     HomePageComponent,
     ProductCardComponent,
     NavbarComponent,
-    ImageComponent
+    ImageComponent,
+    BannerComponent
   ],
   imports: [
     CommonModule,
