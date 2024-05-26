@@ -8,7 +8,7 @@ import { FormLoginComponent } from './components/form-login/form-login.component
 import { FormRegisterComponent } from './components/form-register/form-register.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { MessageAuthComponent } from './components/message-auth/message-auth.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { EmailValidator, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,12 +18,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormLoginComponent,
     FormRegisterComponent,
     AuthLayoutComponent,
-    MessageAuthComponent
+    MessageAuthComponent,
+    
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class AuthModule { }

@@ -158,5 +158,16 @@ export class AuthService {
     );
   }
 
+  getUsers() {
+    return this.http.get<User[]>(`${this.urlbase}/users`)
+    .pipe(
+      catchError(err => {
+        return throwError(() => {
+          return err.error.message;
+        });
+      })
+    );
+  }
+
 
 }

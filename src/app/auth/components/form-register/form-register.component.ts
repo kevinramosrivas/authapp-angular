@@ -21,17 +21,20 @@ export class FormRegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router      = inject(Router);
+ 
   private body : UserRegisterInfo = {
     name: '',
-    email: '',
+    email: '' ,
     password: '',
     role: '',
     avatar: 'https://ui-avatars.com/api/?name=Jhon+Doe',
   };
 
+  constructor(private emailValidator: EmailValidator,) { }
+
   public registerForm = this.fb.group({
     name: ['Jhon Doe', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
+    email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')],[this.emailValidator.validate.bind(this.emailValidator)]],
     password: ['12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
   });
 
@@ -47,8 +50,8 @@ export class FormRegisterComponent {
     }
 
     this.body = {
-      name: this.registerForm.value.name!,
-      email: this.registerForm.get('email')?.value,
+      name: this.registerForm.get('name')?.value!,
+      email: this.registerForm.get('email')?.value!,
       password: this.registerForm.value.password!,
       role: this.authService.currentUser()?.role === 'admin' ? 'admin' : 'customer',
       avatar: 'https://ui-avatars.com/api/?name=' + (this.registerForm.value.name)?.replace(/\s+/g, '+'),

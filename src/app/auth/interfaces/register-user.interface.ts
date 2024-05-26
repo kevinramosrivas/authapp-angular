@@ -2,7 +2,7 @@ import { AbstractControl } from "@angular/forms";
 
 export interface UserRegisterInfo {
     name:     string;
-    email:    string|undefined |null;
+    email:    string ;
     role:     string;
     password: string;
     avatar:   string;
