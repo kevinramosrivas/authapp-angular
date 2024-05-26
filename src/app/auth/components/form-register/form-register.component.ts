@@ -25,6 +25,7 @@ export class FormRegisterComponent {
     name: '',
     email: '',
     password: '',
+    role: '',
     avatar: 'https://ui-avatars.com/api/?name=Jhon+Doe',
   };
 
@@ -44,12 +45,14 @@ export class FormRegisterComponent {
       this.registerForm.markAllAsTouched();
       return;
     }
+
     this.body = {
       name: this.registerForm.value.name!,
       email: this.registerForm.get('email')?.value,
       password: this.registerForm.value.password!,
-      avatar: 'https://ui-avatars.com/api/?name=' + (this.registerForm.value.name)?.replace(' ', '+'),
-    }
+      role: this.authService.currentUser()?.role === 'admin' ? 'admin' : 'customer',
+      avatar: 'https://ui-avatars.com/api/?name=' + (this.registerForm.value.name)?.replace(/\s+/g, '+'),
+    };
 
     this.authService.registerUser(this.body).subscribe(
     {

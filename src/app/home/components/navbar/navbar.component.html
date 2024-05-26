@@ -17,13 +17,17 @@
         </div>
         <div class="offcanvas-body">
           @if(!currentUser()){
-            <ul class="navbar-nav align-items-center justify-content-center ms-auto">
+            <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
                 <li class="nav-item">
                   <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" aria-current="page" [routerLink]="['/auth/login']">Iniciar Sesión</a>
                 </li>
+                <li class="nav-item">
+                  <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" [routerLink]="['/auth/register']">Registrate</a>
+                </li>
             </ul>
+
           }
-          @if(currentUser()){
+          @if(currentUser() && currentUser()?.role === 'admin'){
             <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
               <li class="nav-item">
                 <a class="btn btn-dark rounded-pill" aria-current="page"  role="button" [routerLink]="['/home/secret']">
@@ -31,8 +35,22 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" [routerLink]="['/auth/register']">Registrar nuevo administrador</a>
+                <div class="dropdown">
+                  <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img [src]="currentUser()?.avatar" alt="profile_image" class="rounded-circle" width="30rem" height="30rem">
+                    {{currentUser()?.name}}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li> <a  href="#" class="dropdown-item">Mi perfil</a></li>
+                    <li> <a [routerLink]="['/auth/register']" class="dropdown-item">Añadir administrador</a></li>
+                    <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
+                  </ul>
+                </div>
               </li>
+            </ul>
+          }
+          @if(currentUser() && currentUser()?.role === 'customer'){
+            <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
               <li class="nav-item">
                 <div class="dropdown">
                   <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,6 +63,17 @@
                   </ul>
                 </div>
               </li>
+              <li class="nav-item">
+                <button type="button" class="btn btn-primary position-relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                  </svg>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </button>
+            </li>
             </ul>
           }
         </div>

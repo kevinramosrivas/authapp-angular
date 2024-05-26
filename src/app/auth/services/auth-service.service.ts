@@ -42,12 +42,7 @@ export class AuthService {
                 next: (resp: LoginResponse) => {
                   this.token = resp.access_token;
                   this.refreshToken = resp.refresh_token;
-                  this.http.get<User>(`${this.urlbase}/auth/profile`,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${this.token}`
-                    }
-                  })
+                  this.getProfile(this.token)
                   .subscribe(
                     {
                       next: (resp: User) => {
@@ -83,7 +78,15 @@ export class AuthService {
       })
     );
   }
-
+  
+  public getProfile(bearerToken: string) {
+    return this.http.get<User>(`${this.urlbase}/auth/profile`,
+    {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`
+      }
+    });
+  }
 
 
 
