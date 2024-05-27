@@ -2,7 +2,7 @@
               
     <div class="card border-0 bg-transparent animate__animated animate__zoomIn">
       <figure class="card-img-top overflow-hidden bsb-overlay-hover text-center">
-          <image-component [src]="product!.images[0] | url" i_class="img-fluid bsb-scale bsb-hover-scale-up" i_width="300rem" i_height="300rem"></image-component>
+          <image-component [src]="product!.images[0] | url" i_class="img-fluid bsb-scale bsb-hover-scale-up rounded" i_width="300rem" i_height="300rem"></image-component>
       </figure>
       <div class="card-body m-0 p-0">
         <div class="entry-header mb-3">
@@ -36,7 +36,8 @@
                 <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
                 <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
               </svg>
-              <span class="ms-2 fs-7">{{product?.price | currency: 'PEN': 'symbol' }}</span>
+              <!-- si es una oferta mostramos el color por defecto pero si no debe tener la clase text-success -->
+              <span class="ms-2 fs-7" [ngClass]="{'text-success': offer}">{{product?.price | currency: 'PEN': 'symbol' }}</span>
             </a>
           </li>
         </ul>

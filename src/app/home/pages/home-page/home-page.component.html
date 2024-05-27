@@ -19,7 +19,31 @@
     <!-- Blog 5 - Bootstrap Brain Component -->
     <section class="bsb-blog-5 py-3 py-md-5 py-xl-8 bsb-section-py-xxl-1">
 
-      <div class="container overflow-hidden">
+      <div class="container overflow-hidden p-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="entry-header mb-3">
+              <h3 class="fw-bold">Productos en oferta</h3>
+            </div>
+           </div>
+        </div>
+        <div class="row">
+        @for(item of productsSorted; track item.id){
+          <div class="col-12 col-md-3 p-3">
+            <home-product-card [product]="item" [offer]="true"/>
+          </div>
+        }
+        </div>
+      </div>
+
+      <div class="container overflow-hidden p-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="entry-header mb-3">
+              <h3 class="fw-bold">Nuevos productos</h3>
+            </div>
+           </div>
+        </div>
         <div class="row">
         @for(item of products; track item.id){
           <div class="col-12 col-md-3 p-3">

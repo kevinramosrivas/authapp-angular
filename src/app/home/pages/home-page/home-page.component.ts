@@ -15,6 +15,7 @@ export class HomePageComponent implements OnInit{
   public products: Product[] = [];
   public categories: Categorie[] = [];
   public categorieInput = new FormControl('1');
+  public productsSorted: Product[] = [];
 
   ngOnInit(): void {
     this.getproductsListLimited();
@@ -34,7 +35,10 @@ export class HomePageComponent implements OnInit{
 
   public getproductsListLimited(){
     this.homeService.getProductsList().subscribe((response) => {
-      this.products = response.splice(0, 8);
+      //ordenar los productos por precio y mosotrar solo los 10 primeros mas baratos
+      this.productsSorted = response.sort((a, b) => a.price - b.price).slice(0, 8);
+      //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
+      this.products = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
     } );
   }
 

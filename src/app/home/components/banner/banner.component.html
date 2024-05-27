@@ -29,13 +29,14 @@
           </div>
         </div>
         <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @for(categorie of categories; track categorie){
-                    <div class="carousel-item" [ngClass]="{'active': $first}">
-                        <image-component  src="{{categorie.image| url}}" i_class="d-block w-100 object-fit-cover animate__animated animate__zoomInRight" i_height="400rem" data-bs-interval="5"/>
-                        <div class="carousel-caption d-md-block">
-                            <h5>Encuentra lo mejor para ti en la categoria {{categorie.name}}</h5>
+                    <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="4000">
+                        <image-component  src="{{categorie.image| url}}" i_class="d-block w-100 object-fit-cover rounded animate__animated animate__zoomInRight" i_height="400rem"  i_width="400rem"/>
+                        <div class="carousel-caption d-md-block bg-black p-4 rounded" style="--bs-bg-opacity: .5;">
+                            <h5>Encuentra lo mejor en la categoria</h5>
+                            <p>{{categorie.name}}</p>
                         </div>
                     </div>
                 }
