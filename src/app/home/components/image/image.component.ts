@@ -35,8 +35,8 @@ export class ImageComponent implements OnInit{
   }
   public onError(){
     this.src = this.defaultImage;
-    this.i_width = '300rem';
-    this.i_height = '300rem';
+    this.i_width = '200rem';
+    this.i_height = '200rem';
     this.loading.set(false);
   }
 }

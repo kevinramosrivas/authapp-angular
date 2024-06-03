@@ -5,7 +5,7 @@
                 <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="5000">
                     <div class="row">
                         @for(item of listProducts; track item){
-                          <div class="col-12 col-md-4 col-sm-12 col-lg-3 p-3">
+                          <div class="col-12 col-md-4 col-sm-6 col-lg-3 p-3">
                             <home-product-card [product]="item" [offer]="true"/>
                           </div>
                         }
