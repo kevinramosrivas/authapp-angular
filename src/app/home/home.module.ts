@@ -9,6 +9,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ImageComponent } from './components/image/image.component';
 import { BannerComponent } from './components/banner/banner.component';
+import { CarouselProductsComponent } from './components/carousel-products/carousel-products.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BannerComponent } from './components/banner/banner.component';
     ProductCardComponent,
     NavbarComponent,
     ImageComponent,
-    BannerComponent
+    BannerComponent,
+    CarouselProductsComponent
   ],
   imports: [
     CommonModule,

@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 })
 export class HomePageComponent implements OnInit{  
   public homeService = inject(HomeService);
-  public products: Product[] = [];
+  public productsRecent: Product[] = [];
   public categories: Categorie[] = [];
   public categorieInput = new FormControl('1');
   public productsSorted: Product[] = [];
@@ -20,16 +20,6 @@ export class HomePageComponent implements OnInit{
   ngOnInit(): void {
     this.getproductsListLimited();
     this.getCategories();
-    this.categorieInput.valueChanges.subscribe((value) => {
-      if(value === '1'){
-        this.getproductsListLimited();
-      }else{
-        this.homeService.getProductsByCategorie(value!).subscribe((response) => {
-          this.products = response;
-        });
-      }
-    }
-    );
   }
 
 
@@ -38,7 +28,7 @@ export class HomePageComponent implements OnInit{
       //ordenar los productos por precio y mosotrar solo los 10 primeros mas baratos
       this.productsSorted = response.sort((a, b) => a.price - b.price).slice(0, 8);
       //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
-      this.products = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
+      this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
     } );
   }
 

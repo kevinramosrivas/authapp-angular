@@ -12,7 +12,7 @@ import { Product } from '../../interfaces/products.interfaces';
   `,
 })
 export class ProductCardComponent {
-  @Input() product:Product | undefined;
+  @Input() product!:Product;
   //es una oferta
   @Input() offer:boolean = false;
 

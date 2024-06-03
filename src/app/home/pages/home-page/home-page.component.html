@@ -27,13 +27,7 @@
             </div>
            </div>
         </div>
-        <div class="row">
-        @for(item of productsSorted; track item.id){
-          <div class="col-12 col-md-3 p-3">
-            <home-product-card [product]="item" [offer]="true"/>
-          </div>
-        }
-        </div>
+        <home-carousel-products [products]="productsSorted"/>
       </div>
 
       <div class="container overflow-hidden p-3">
@@ -44,13 +38,7 @@
             </div>
            </div>
         </div>
-        <div class="row">
-        @for(item of products; track item.id){
-          <div class="col-12 col-md-3 p-3">
-            <home-product-card [product]="item"/>
-          </div>
-        }
-        </div>
+        <home-carousel-products [products]="productsRecent"/>
       </div>
     </section>
 
