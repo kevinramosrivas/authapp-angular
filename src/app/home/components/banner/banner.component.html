@@ -1,7 +1,7 @@
 <article class="animate__animated animate__bounceInDown">
     <div class="card border-light-subtle">
-      <div class="row g-0">
-        <div class="col-12 col-md-6 order-1 order-md-0 d-flex align-items-center">
+      <div class="row d-flex align-items-center p-2">
+        <div class="col-12 col-md-6 ">
           <div class="card-body p-md-4 p-xl-6 p-xxl-9">
             <div class="entry-header mb-3">
               <ul class="entry-meta list-unstyled d-flex mb-4">
@@ -28,13 +28,13 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <div class="col-12 col-md-6">
           <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @for(categorie of categories; track categorie){
                     <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="4000">
-                        <image-component  src="{{categorie.image| url}}" i_class="d-block w-100 object-fit-cover rounded animate__animated animate__zoomInRight" i_height="400rem"  i_width="400rem"/>
-                        <div class="carousel-caption d-md-block bg-black p-4 rounded" style="--bs-bg-opacity: .5;">
+                        <image-component  src="{{categorie.image| url}}" i_class="d-block w-100 object-fit-cover rounded animate__animated animate__zoomInRight" i_height="400rem"  />
+                        <div class="carousel-caption bg-black rounded" style="--bs-bg-opacity: .5;" >
                             <h5>Encuentra lo mejor en la categoria</h5>
                             <p>{{categorie.name}}</p>
                         </div>
