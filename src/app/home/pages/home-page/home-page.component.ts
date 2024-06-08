@@ -5,6 +5,7 @@ import { User } from '../../../auth/interfaces/register-user.interface';
 import { HomeService } from '../../services/home.service';
 import { Categorie, Product } from '../../interfaces/products.interfaces';
 import { FormControl } from '@angular/forms';
+import { ShopCarService } from '../../services/shop-car.service';
 
 @Component({
   templateUrl: './home-page.component.html',
@@ -36,8 +37,7 @@ export class HomePageComponent implements OnInit{
     this.homeService.getCategoryList().subscribe((response) => {
       this.categories = response;
     });
-  }
-
+  } 
 
 
 

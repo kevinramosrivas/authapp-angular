@@ -14,7 +14,7 @@ export class CarouselProductsComponent{
  
   products = input<Product[]>([]);
   public arrayProducts = computed<Product[][]>(
-    () => [this.products().slice(0, 4),this.products().slice(5,8)]
+    () => [this.products().slice(0, 4),this.products().slice(4,8)]
   );
 
   

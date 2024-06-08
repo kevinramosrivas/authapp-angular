@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ImageComponent } from './components/image/image.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { CarouselProductsComponent } from './components/carousel-products/carousel-products.component';
+import { ShopCarComponent } from './components/shop-car/shop-car.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CarouselProductsComponent } from './components/carousel-products/carous
     NavbarComponent,
     ImageComponent,
     BannerComponent,
-    CarouselProductsComponent
+    CarouselProductsComponent,
+    ShopCarComponent
   ],
   imports: [
     CommonModule,
