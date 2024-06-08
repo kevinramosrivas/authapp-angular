@@ -8,7 +8,7 @@ import { Product } from '../../interfaces/products.interfaces';
   templateUrl: './shop-car.component.html',
   styles: `
   .dropdown-menu {
-    max-height: 40rem;
+    max-height: 75vh;
   }
   `,
 })
