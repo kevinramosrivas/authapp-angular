@@ -1,24 +1,31 @@
 <div class="btn-group">
-    <button type="button" class="btn btn-primary position-relative dropdown-toggle" data-bs-toggle="dropdown"  aria-expanded="false" data-bs-auto-close="false" >
+    <button type="button" class="btn btn-primary rounded-pill position-relative dropdown-toggle" data-bs-toggle="dropdown"  aria-expanded="false" data-bs-auto-close="outside" >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
       </svg>
       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
         {{products().length}}
-        <span class="visually-hidden">unread messages</span>
+        <span class="visually-hidden">productos en el carrito</span>
       </span>
     </button>
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end overflow-auto">
-        <li class="dropdown-item">
+        <li>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <p class="text-center fw-bold">
-                            Total: {{total() | currency: 'PEN': 'symbol' }}
+                            Carrito de compras
                         </p>
-                        <button class="btn btn-primary w-100">
-                            Comprar
-                        </button>
+                        <p class="text-center">
+                            Total: {{total() | currency: 'PEN': 'symbol'}}
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        @if(products().length > 0){
+                            <button class="btn btn-primary w-100">
+                                Ir al carrito
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
@@ -36,7 +43,7 @@
             </li>
         }
         @for(item of products(); track item){
-            <li>
+            <li class="animate__animated animate__fadeIn">
                 <div class="container-fluid">
                     <div class="row text-center">
                         <div class="col-12">

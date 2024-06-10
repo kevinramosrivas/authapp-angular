@@ -1,7 +1,7 @@
   <!-- Header -->
   <header id="header" class="sticky-top bsb-tpl-header-sticky bsb-tpl-header-sticky-animationX">
     <!-- Navbar Component -->
-    <home-navbar/>
+    <home-navbar [categories]="categories"/>
 
   </header>
 
@@ -39,6 +39,13 @@
            </div>
         </div>
         <home-carousel-products [products]="productsRecent"/>
+        <div class="row pt-4">
+          <div class="col-12 d-flex justify-content-center align-items-center">
+            <button class="btn btn-primary">
+              Ver todos los productos
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
