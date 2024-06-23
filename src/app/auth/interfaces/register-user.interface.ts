@@ -46,6 +46,16 @@ export interface User {
     name:     string;
     role:     string;
     avatar:   string;
+    creationAt: Date;
+    updatedAt : Date;
+}
+export interface UserUpdate {
+    id:       number;
+    email?:    string;
+    name?:     string;
+    role?:     string;
+    avatar?:   string;
+    password?: string;
 }
 
 export interface LoginResponse {

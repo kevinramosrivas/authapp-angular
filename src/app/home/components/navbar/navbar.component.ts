@@ -10,8 +10,9 @@ import { Categorie } from '../../interfaces/products.interfaces';
     :host {
       display: block;
     }
-    .dropdown-menu-categories {
-      max-height: 75vh;
+    .dropdown-menu {
+      max-height: 35vh;
+      border-color: #f8f9fa;
     }
   `,
 })

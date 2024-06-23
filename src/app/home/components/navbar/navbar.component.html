@@ -63,13 +63,13 @@
               </ul>
             }
             @if(currentUser()?.role === 'customer'){
-              <ul class="navbar-nav ms-auto gap-1">
+              <ul class="navbar-nav ms-auto gap-2">
                 <li class="nav-item order-3 order-md-1">
                   <div class="dropdown">
                     <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categorias
                     </button>
-                    <ul class="dropdown-menu overflow-auto dropdown-menu-categories animate__animated animate__fadeIn">
+                    <ul class="dropdown-menu overflow-auto">
                       @for(categorie of categories; track categorie){
                         <li class="dropdown-item">
                             <a class="dropdown-item" href="#">{{categorie.name}}</a>
@@ -93,7 +93,7 @@
                       <span class="ps-1">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li> <a  href="#" class="dropdown-item">Mi perfil</a></li>
+                      <li> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
                       <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
                   </div>

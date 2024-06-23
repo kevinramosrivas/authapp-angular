@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo, isEmailAvailableResponse } from '../interfaces/register-user.interface';
+import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo, UserUpdate, isEmailAvailableResponse } from '../interfaces/register-user.interface';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -42,6 +42,8 @@ export class AuthService {
                 next: (resp: LoginResponse) => {
                   this.token = resp.access_token;
                   this.refreshToken = resp.refresh_token;
+                  //delete tokens from local storage
+                  this.logout();
                   this.getProfile(this.token)
                   .subscribe(
                     {
@@ -63,11 +65,12 @@ export class AuthService {
         }
       );
     } else {
-      this._authStatus.set(AuthStatus.notAuthenticated);
+      this.setInvalidAuthentication();
     }
   }
 
   public refreshingToken() {
+    console.log('refreshing token');
     return this.http.post<LoginResponse>(`${this.urlbase}/auth/refresh-token`, {refreshToken: this.refreshToken})
     .pipe(
       catchError(() => {
@@ -96,6 +99,13 @@ export class AuthService {
     localStorage.setItem('refreshToken', refreshToken);
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
+  }
+
+  private setInvalidAuthentication() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
   }
 
 
@@ -168,6 +178,23 @@ export class AuthService {
       })
     );
   }
+
+  updateUser(user: UserUpdate) {
+    return this.http.put<User>(`${this.urlbase}/users/${user.id}`, user)
+    .pipe(
+      catchError(err => {
+        return throwError(() => {
+          return err.error.message;
+        });
+      })
+    );
+
+
+  }
+
+
+
+
 
 
 }

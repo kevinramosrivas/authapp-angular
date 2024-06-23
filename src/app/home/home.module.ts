@@ -11,17 +11,21 @@ import { ImageComponent } from './components/image/image.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { CarouselProductsComponent } from './components/carousel-products/carousel-products.component';
 import { ShopCarComponent } from './components/shop-car/shop-car.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 @NgModule({
   declarations: [
+    HomeLayoutComponent,
     HomePageComponent,
     ProductCardComponent,
     NavbarComponent,
     ImageComponent,
     BannerComponent,
     CarouselProductsComponent,
-    ShopCarComponent
+    ShopCarComponent,
+    ProfilePageComponent
   ],
   imports: [
     CommonModule,
