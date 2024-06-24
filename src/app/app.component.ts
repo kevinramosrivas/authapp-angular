@@ -11,6 +11,7 @@ export class AppComponent {
   private authService = inject(AuthService);
 
   constructor() {
+    this.authService.checkAuthentication();
   }
 
 

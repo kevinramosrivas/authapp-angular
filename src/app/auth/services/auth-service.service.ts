@@ -180,7 +180,7 @@ export class AuthService {
   }
 
   updateUser(user: UserUpdate) {
-    return this.http.put<User>(`${this.urlbase}/users/${user.id}`, user)
+    return this.http.put(`${this.urlbase}/users/${user.id}`, user)
     .pipe(
       catchError(err => {
         return throwError(() => {
@@ -191,6 +191,7 @@ export class AuthService {
 
 
   }
+  
 
 
 

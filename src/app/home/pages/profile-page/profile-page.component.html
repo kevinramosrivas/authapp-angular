@@ -15,37 +15,37 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-          <img [src]="currentUser()?.avatar" alt="avatar"
-            class="rounded-circle img-fluid" style="width: 150px;">
+        
+          <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="200rem" i_height="200rem"></image-component>
           <h5 class="my-3">{{currentUser()?.name}}</h5>
           <p class="text-muted mb-1">{{currentUser()?.email}}</p>
           <p class="text-muted mb-4">{{currentUser()?.role}}</p>
           <div class="d-flex justify-content-center mb-2">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalProfilePhoto">
+            <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalProfilePhoto" (click)="onOpenModalProfile()" >
               Cambiar datos
             </button>
             <!-- Modal -->
-            <div class="modal fade" id="modalProfilePhoto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalProfilePhoto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambiar mis datos</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #btncloseprofileModal ></button>
                   </div>
                   <div class="modal-body">
-                    <form id="formProfilePhoto" [formGroup]="profileForm">
+                    <form id="formProfilePhoto" [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
                       <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
-                        <input type="text" class="form-control"name="name" formControlName="name" value="{{currentUser()?.name}}">
+                        <input type="text" class="form-control"name="name" formControlName="name">
                       </div>
                       <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" name="email" formControlName="email" value="{{currentUser()?.email}}">
+                        <input type="email" class="form-control" name="email" formControlName="email">
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label">Foto de perfil</label>
-                        <input type="text" class="form-control" name="avatar" formControlName="avatar" value="{{currentUser()?.avatar}}">
+                        <input type="text" class="form-control" name="avatar" formControlName="avatar">
                       </div>
                     </form>
                   </div>
