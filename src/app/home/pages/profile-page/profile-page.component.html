@@ -14,12 +14,12 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="card mb-4">
-        <div class="card-body text-center">
+        <div class="card-body">
         
-          <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="200rem" i_height="200rem"></image-component>
-          <h5 class="my-3">{{currentUser()?.name}}</h5>
-          <p class="text-muted mb-1">{{currentUser()?.email}}</p>
-          <p class="text-muted mb-4">{{currentUser()?.role}}</p>
+          <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="200rem" i_height="200rem" class="text-center"></image-component>
+          <h5 class="my-3  text-center">{{currentUser()?.name}}</h5>
+          <p class="text-muted mb-1  text-center">{{currentUser()?.email}}</p>
+          <p class="text-muted mb-4  text-center">{{currentUser()?.role}}</p>
           <div class="d-flex justify-content-center mb-2">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalProfilePhoto" (click)="onOpenModalProfile()" >
@@ -66,21 +66,21 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambiar mi contraseña</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #btnclosepasswordModal></button>
                   </div>
                   <div class="modal-body">
-                    <form id="formProfilePassword" [formGroup]="passwordForm">
+                    <form id="formProfilePassword" [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword()">
                       <div class="mb-3">
                         <label for="password" class="form-label">Contraseña actual</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password"  formControlName="password">
                       </div>
                       <div class="mb-3">
                         <label for="newPassword" class="form-label">Nueva contraseña</label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword">
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" formControlName="newPassword">
                       </div>
                       <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
                       </div>
                     </form>
                   </div>

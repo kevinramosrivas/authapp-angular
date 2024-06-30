@@ -8,6 +8,13 @@ import { Component, Input, OnInit, signal } from '@angular/core';
     :host {
       display: block;
     }
+    img {
+      animation: fadeIn 1s; 
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   `,
 })
 export class ImageComponent implements OnInit{
@@ -20,6 +27,7 @@ export class ImageComponent implements OnInit{
   public loading = signal(true);
   public defaultImage = 'assets/not-found.svg';
 
+
   ngOnInit(): void {
     //si no se define un ancho o alto, se asigna un valor por defecto
     if(this.i_width == ''){
@@ -27,6 +35,9 @@ export class ImageComponent implements OnInit{
     }
     if(this.i_height == ''){
       this.i_height = 'auto';
+    }
+    if(this.src == ''){
+      this.onError();
     }
   } 
 

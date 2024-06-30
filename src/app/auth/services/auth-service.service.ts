@@ -149,6 +149,17 @@ export class AuthService {
 
   }
 
+  checkActualPassword(user: UserLogin) {
+    return this.http.post(`${this.urlbase}/auth/login`, user)
+    .pipe(
+      catchError(err => {
+        return throwError(() => {
+          return err.error.message;
+        });
+      })
+    );
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
@@ -189,8 +200,9 @@ export class AuthService {
       })
     );
 
-
   }
+
+
   
 
 

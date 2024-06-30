@@ -3,6 +3,7 @@ import { AuthService } from '../../../auth/services/auth-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator } from '../../../auth/services/email-validator.service';
 import { UserUpdate } from '../../../auth/interfaces/register-user.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -21,6 +22,7 @@ export class ProfilePageComponent {
   private fb = inject(FormBuilder);
   private elementRef = inject(ElementRef);
   @ViewChild('btncloseprofileModal') closeModal: ElementRef = this.elementRef.nativeElement; 
+  @ViewChild('btnclosepasswordModal') passwordModal: ElementRef = this.elementRef.nativeElement; 
   
   constructor(private emailValidator: EmailValidator,) {};
   
@@ -37,7 +39,16 @@ export class ProfilePageComponent {
   public passwordForm = this.fb.group({
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
     newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-  });
+    confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+  }
+  ,{
+    validators: (formGroup) => {
+      const password = formGroup.get('newPassword')?.value;
+      const confirmPassword = formGroup.get('confirmPassword')?.value;
+      return password === confirmPassword ? null : { notSame: true };
+    }
+  }
+  );
 
 
   onOpenModalProfile(){
@@ -63,11 +74,66 @@ export class ProfilePageComponent {
           this.authService.checkAuthentication();
           //cerrar modal
           this.closeModal.nativeElement.click();
+
+          Swal.fire({
+            title: "Perfil actualizado",
+            text: "Los datos de tu perfil han sido actualizados correctamente",
+            icon: "success",
+          });
         },
         error: (err) => {
-          console.log('Error updating user');
+          Swal.fire({
+            title: "Error",
+            text: "Ha ocurrido un error al actualizar tu perfil",
+            icon: "error",
+          });
         }
       });
+  }
+  onUpdatePassword() {
+    //comprobar si la contraseña actual es correcta
+    this.authService.checkActualPassword({
+      email: this.currentUser()?.email!,
+      password: this.passwordForm.get('password')?.value!,
+    }).subscribe({
+      next: (resp) => {
+        this.updatePassword();
+      },
+      error: (err) => {
+        this.passwordModal.nativeElement.click();
+        Swal.fire({
+          title: "Error",
+          text: "La contraseña actual no es correcta",
+          icon: "error",
+        });
+      }
+    });
+
+  }
+
+  updatePassword() {
+    let user = {
+      id: this.currentUser()?.id,
+      password: this.passwordForm.get('newPassword')?.value,
+    }
+    this.authService.updateUser(user as UserUpdate).subscribe({
+      next: (resp) => {
+        this.passwordModal.nativeElement.click();
+        Swal.fire({
+          title: "Contraseña actualizada",
+          text: "Tu contraseña ha sido actualizada correctamente",
+          icon: "success",
+        });
+      },
+      error: (err) => {
+        this.passwordModal.nativeElement.click();
+        Swal.fire({
+          title: "Error",
+          text: "Ha ocurrido un error al actualizar tu contraseña",
+          icon: "error",
+        });
+      }
+    });
   }
 
 
