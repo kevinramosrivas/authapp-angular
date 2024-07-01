@@ -1,9 +1,11 @@
 import { AfterContentInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth-service.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from '../../../auth/services/email-validator.service';
 import { UserUpdate } from '../../../auth/interfaces/register-user.interface';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ImageValidator } from '../../../auth/services/image-validator.service';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -21,10 +23,11 @@ export class ProfilePageComponent {
   public currentUser = this.authService.currentUser;
   private fb = inject(FormBuilder);
   private elementRef = inject(ElementRef);
+  private router      = inject(Router);
   @ViewChild('btncloseprofileModal') closeModal: ElementRef = this.elementRef.nativeElement; 
   @ViewChild('btnclosepasswordModal') passwordModal: ElementRef = this.elementRef.nativeElement; 
   
-  constructor(private emailValidator: EmailValidator,) {};
+  constructor(private emailValidator: EmailValidator,private imageValidator: ImageValidator) {};
   
 
 
@@ -32,8 +35,8 @@ export class ProfilePageComponent {
 
   public profileForm = this.fb.group({
     name: [this.currentUser()?.name ,[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    email: [this.currentUser()?.email ,[Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')],[this.emailValidator.validate.bind(this.emailValidator)]],
-    avatar: [this.currentUser()?.avatar , [Validators.required]],
+    //email: [this.currentUser()?.email ,[Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')],[this.emailValidator.validate.bind(this.emailValidator)]],
+    avatar: [this.currentUser()?.avatar , [Validators.required, Validators.pattern('https?://.+')]],
   });
 
   public passwordForm = this.fb.group({
@@ -54,7 +57,6 @@ export class ProfilePageComponent {
   onOpenModalProfile(){
     this.profileForm.reset({
       name: this.currentUser()?.name,
-      email: this.currentUser()?.email,
       avatar: this.currentUser()?.avatar,
     });
   }
@@ -80,6 +82,8 @@ export class ProfilePageComponent {
             text: "Los datos de tu perfil han sido actualizados correctamente",
             icon: "success",
           });
+          //resetear formulario
+          this.profileForm.reset();
         },
         error: (err) => {
           Swal.fire({
@@ -100,7 +104,7 @@ export class ProfilePageComponent {
         this.updatePassword();
       },
       error: (err) => {
-        this.passwordModal.nativeElement.click();
+        this.router.navigate(['home/profile']);
         Swal.fire({
           title: "Error",
           text: "La contraseña actual no es correcta",
@@ -124,9 +128,11 @@ export class ProfilePageComponent {
           text: "Tu contraseña ha sido actualizada correctamente",
           icon: "success",
         });
+        //resetear formulario
+        this.passwordForm.reset();
       },
       error: (err) => {
-        this.passwordModal.nativeElement.click();
+        this.router.navigate(['home/profile']);
         Swal.fire({
           title: "Error",
           text: "Ha ocurrido un error al actualizar tu contraseña",
@@ -134,6 +140,16 @@ export class ProfilePageComponent {
         });
       }
     });
+  }
+
+
+
+  public isValidField(field: string, form:FormGroup): boolean|undefined {
+    return !((form.get(field)?.touched || form.get(field)?.dirty) && !form.get(field)?.valid);
+  }
+
+  public passwordMatch(): boolean {
+    return this.passwordForm.get('newPassword')?.value === this.passwordForm.get('confirmPassword')?.value;
   }
 
 

@@ -38,20 +38,26 @@
                       <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
                         <input type="text" class="form-control"name="name" formControlName="name">
-                      </div>
-                      <div class="mb-3">
-                        <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" name="email" formControlName="email">
+                        @if(!isValidField('name',profileForm)){
+                          <div class="alert alert-danger mt-1" role="alert">
+                              El nombre es obligatorio
+                          </div>
+                        }
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label">Foto de perfil</label>
                         <input type="text" class="form-control" name="avatar" formControlName="avatar">
+                        @if(!isValidField('avatar',profileForm)){
+                          <div class="alert alert-danger mt-1" role="alert">
+                              La foto de perfil es obligatoria y debe ser una URL válida
+                          </div>
+                        }
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="formProfilePhoto">Guardar</button>
+                    <button type="submit" class="btn btn-primary" form="formProfilePhoto" [disabled]="!profileForm.valid">Guardar</button>
                   </div>
                 </div>
               </div>
@@ -73,6 +79,11 @@
                       <div class="mb-3">
                         <label for="password" class="form-label">Contraseña actual</label>
                         <input type="password" class="form-control" id="password" name="password"  formControlName="password">
+                          @if(!isValidField('password',passwordForm)){
+                            <div class="alert alert-danger mt-1" role="alert">
+                                La contraseña es obligatoria y debe tener al menos 8 caracteres
+                            </div>
+                          }
                       </div>
                       <div class="mb-3">
                         <label for="newPassword" class="form-label">Nueva contraseña</label>
@@ -81,12 +92,17 @@
                       <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
+                        @if(!passwordMatch()){
+                          <div class="alert alert-danger mt-1" role="alert">
+                              Las contraseñas no coinciden
+                          </div>
+                        }
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="formProfilePassword">Guardar</button>
+                    <button type="submit" class="btn btn-primary" form="formProfilePassword" [disabled]="!passwordForm.valid">Guardar</button>
                   </div>
                 </div>
               </div>
