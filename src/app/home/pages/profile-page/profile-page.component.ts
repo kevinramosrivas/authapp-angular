@@ -86,6 +86,7 @@ export class ProfilePageComponent {
           this.profileForm.reset();
         },
         error: (err) => {
+          this.router.navigate(['home/profile']);
           Swal.fire({
             title: "Error",
             text: "Ha ocurrido un error al actualizar tu perfil",

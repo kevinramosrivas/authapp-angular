@@ -50,11 +50,11 @@
                 <li class="nav-item">
                   <div class="dropdown">
                     <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="20rem" i_height="20rem"></image-component>
-                      {{currentUser()?.name}}
+                      <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="25rem" i_height="25rem" class="d-inline"></image-component>
+                      <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li> <a  href="#" class="dropdown-item">Mi perfil</a></li>
+                      <li> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
                       <li> <a [routerLink]="['/auth/register']" class="dropdown-item">Añadir administrador</a></li>
                       <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
