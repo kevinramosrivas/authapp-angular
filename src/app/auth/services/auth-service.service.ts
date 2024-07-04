@@ -202,6 +202,10 @@ export class AuthService {
 
   }
 
+  isLogged() {
+    return this.authStatus() === AuthStatus.authenticated;
+  }
+
 
   
 
