@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth-service.service';
 import { Categorie } from '../../interfaces/products.interfaces';
 
@@ -22,8 +22,14 @@ export class NavbarComponent {
   public categories: Categorie[] = [];
   private authService =  inject(AuthService);
   public currentUser = this.authService.currentUser;
+  private elementRef = inject(ElementRef);
+  @ViewChild('closeButtonNavbar') closeButtonNavbar: ElementRef = this.elementRef.nativeElement;
   public logout(){
     this.authService.logout();
+  }
+
+  public closeNavbar(){
+    this.closeButtonNavbar.nativeElement.click();
   }
 
 }

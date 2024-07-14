@@ -41,7 +41,6 @@ export class FormLoginComponent {
     this.authService.loginUser(this.body).subscribe({
       next: () => {
         this.router.navigate(['/home']);
-
       },
       error: (err) => {
         this.router.navigate(['auth/login']);

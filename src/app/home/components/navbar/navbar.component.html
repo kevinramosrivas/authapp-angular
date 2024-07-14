@@ -25,15 +25,15 @@
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" #closeButtonNavbar></button>
         </div>
         <div class="offcanvas-body">
           @if(!currentUser()){
             <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
-                <li class="nav-item">
+                <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" aria-current="page" [routerLink]="['/auth/login']">Iniciar Sesión</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn bsb-btn-2xl btn-primary rounded-pill" role="button" [routerLink]="['/auth/register']">Registrate</a>
                 </li>
             </ul>
@@ -42,7 +42,7 @@
           @else{
             @if(currentUser()?.role === 'admin'){
               <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
-                <li class="nav-item">
+                <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn btn-dark rounded-pill" aria-current="page"  role="button" [routerLink]="['/home/secret']">
                     Administrar Productos
                   </a>
@@ -54,9 +54,9 @@
                       <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
-                      <li> <a [routerLink]="['/auth/register']" class="dropdown-item">Añadir administrador</a></li>
-                      <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
+                      <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
+                      <li (click)="closeNavbar()"> <a [routerLink]="['/auth/register']" class="dropdown-item">Añadir administrador</a></li>
+                      <li (click)="closeNavbar()"> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
                   </div>
                 </li>
@@ -71,7 +71,7 @@
                     </button>
                     <ul class="dropdown-menu overflow-auto">
                       @for(categorie of categories; track categorie){
-                        <li class="dropdown-item">
+                        <li class="dropdown-item" (click)="closeNavbar()">
                             <a class="dropdown-item" href="#">{{categorie.name}}</a>
                         </li>
                       }
@@ -93,8 +93,8 @@
                         <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
-                      <li> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
+                      <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
+                      <li (click)="closeNavbar()"> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
                   </div>
                 </li>
