@@ -2,7 +2,7 @@
               
     <div class="card border-0 bg-transparent animate__animated animate__zoomIn">
       <figure class="card-img-top text-center">
-          <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" i_width="200rem" i_height="200rem"></image-component>
+          <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" i_width="200rem" i_height="200rem" i_width_mobile="100rem" i_height_mobile="100rem"></image-component>
       </figure>
       <div class="card-body m-0 p-0">
         <div class="entry-header mb-3">
@@ -17,31 +17,16 @@
         </div>
       </div>
       <div class="card-footer border-0 bg-transparent p-0 m-0">
-        <ul class="entry-meta list-unstyled d-flex align-items-center m-0">
-          <li>
-            <a class="fs-7 link-secondary text-decoration-none d-flex align-items-center" href="#!">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
-                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
-              </svg>
-                   <!-- si es una oferta mostramos el color por defecto pero si no debe tener la clase text-success -->
-                  <span class="ms-2 fs-7 text-decoration-line-through">{{product.price + 0.3*(product.price) | currency: 'PEN': 'symbol' }}</span>
-            </a>
-          </li>
-          <li>
-            <span class="px-3"></span>
-          </li>
-          <li>
-            <a class="link-secondary text-decoration-none d-flex align-items-center" href="#!">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
-                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
-              </svg>
-              <!-- si es una oferta mostramos el color por defecto pero si no debe tener la clase text-success -->
-              <span class="ms-2 fs-7" [ngClass]="{'text-success': offer}">{{product.price | currency: 'PEN': 'symbol' }}</span>
-            </a>
-          </li>
-        </ul>
+        <div class="row">
+          <div class="col-12 col-md-6">
+             <!-- si es una oferta mostramos el color por defecto pero si no debe tener la clase text-success -->
+             <span class="product-price-old text-decoration-line-through text-secondary">{{product.price + 0.21*(product.price) | currency: 'PEN': 'symbol': '' }}</span>
+          </div>
+          <div class="col-12 col-md-6">
+            <!-- si es una oferta mostramos el color por defecto pero si no debe tener la clase text-success -->
+            <span class="product-price-new" [ngClass]="{'text-success': offer}">{{product.price | currency: 'PEN': 'symbol': '' }}</span>
+          </div>
+        </div>
         <button class="btn btn-primary mt-3 d-flex align-items-center" (click)="addProductToShopCar(product)">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>

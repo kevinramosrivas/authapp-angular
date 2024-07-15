@@ -1,6 +1,6 @@
 <img alt="Image" [src]="src" 
-    [attr.width]="i_width" 
-    [attr.height]="i_height" 
+    [attr.width]= "width"
+    [attr.height]= "height"
     (load)="onLoad()"
     [classList]="i_class"
     [ngClass]="{'d-none': loading()}"

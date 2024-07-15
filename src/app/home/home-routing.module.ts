@@ -4,6 +4,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { loginGuard } from '../shared/guards/login.guard';
+import { StorePageComponent } from './pages/store-page/store-page.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     children: [
       { path: '', component: HomePageComponent },
-      {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]}
+      {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
+      {path: 'store', component: StorePageComponent,canActivate: [loginGuard]}
     ]
   }
 ];

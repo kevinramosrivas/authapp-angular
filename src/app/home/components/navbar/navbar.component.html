@@ -5,7 +5,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
           <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/>
         </svg>
-        <span class="fw-bold fs-4 p-2 d-none d-lg-block">Angular-Platzi Store</span>
+        <span class="fw-bold p-2 store-tittle">Angular Store</span>
       </a>
 
       @if(currentUser()?.role === 'customer'){
@@ -79,7 +79,7 @@
                   </div>
                 </li>
                 <li class="nav-item order-2 order-md-2">
-                  <button class="btn btn-dark rounded-pill" aria-current="page"  role="button" >
+                  <button class="btn btn-dark rounded-pill" aria-current="page"  role="button" [routerLink]="['/home/store']">
                     Tienda Online
                   </button>
                 </li>
@@ -89,7 +89,7 @@
                 <li class="nav-item order-1 order-md-3">
                   <div class="dropdown">
                     <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="25rem" i_height="25rem" class="d-inline"></image-component>
+                        <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="25rem" i_height="25rem"  i_width_mobile="25rem" i_height_mobile="25rem" class="d-inline"></image-component>
                         <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">

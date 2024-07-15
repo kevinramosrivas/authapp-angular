@@ -13,6 +13,7 @@ import { CarouselProductsComponent } from './components/carousel-products/carous
 import { ShopCarComponent } from './components/shop-car/shop-car.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AdvantagesCardsComponent } from './components/advantages-cards/advantages-cards.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     BannerComponent,
     CarouselProductsComponent,
     ShopCarComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    AdvantagesCardsComponent
   ],
   imports: [
     CommonModule,

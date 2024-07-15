@@ -10,6 +10,12 @@ import { ShopCarService } from '../../services/shop-car.service';
     :host {
       display: block;
     }
+    .product-price-old{
+      font-size: 1rem;
+    }
+    .product-price-new{
+      font-size: 1rem;
+    }
   `,
 })
 export class ProductCardComponent {

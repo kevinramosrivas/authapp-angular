@@ -10,9 +10,16 @@ import { Categorie } from '../../interfaces/products.interfaces';
     :host {
       display: block;
     }
+    .store-tittle{
+      font-size: 1.5rem;
+    }
     .dropdown-menu {
       max-height: 35vh;
       border-color: #f8f9fa;
+    }
+    image-component{
+      width: 5px;
+      height: 5px;
     }
   `,
 })
