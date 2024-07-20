@@ -47,7 +47,7 @@
                 <div class="container-fluid">
                     <div class="row text-center">
                         <div class="col-12">
-                            <image-component [src]="item.product.images[0] | url" i_class="object-fit-cover rounded" i_width="50rem" i_height="50rem"></image-component>
+                            <image-component [src]="item.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '50rem'}"  [i_height]="{sizeWeb: '50rem'}"></image-component>
                         </div>
                     </div>
                     <div class="row text-center pt-1">

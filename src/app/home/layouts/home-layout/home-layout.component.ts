@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { HomeService } from '../../services/home.service';
-import { Categorie } from '../../interfaces/products.interfaces';
+import { Categorie } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'app-home-layout',

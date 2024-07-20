@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Categorie, Product } from '../../interfaces/products.interfaces';
+import { Categorie, Product } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'home-banner',

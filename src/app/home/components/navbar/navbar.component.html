@@ -50,7 +50,6 @@
                 <li class="nav-item">
                   <div class="dropdown">
                     <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="25rem" i_height="25rem" class="d-inline"></image-component>
                       <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
@@ -89,8 +88,7 @@
                 <li class="nav-item order-1 order-md-3">
                   <div class="dropdown">
                     <button class="btn btn-dark rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="25rem" i_height="25rem"  i_width_mobile="25rem" i_height_mobile="25rem" class="d-inline"></image-component>
-                        <span class="d-inline ps-2">{{currentUser()?.name}}</span>
+                          <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
                       <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>

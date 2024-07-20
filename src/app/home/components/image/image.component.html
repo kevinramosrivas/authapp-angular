@@ -1,11 +1,23 @@
-<img alt="Image" [src]="src" 
-    [attr.width]= "width"
-    [attr.height]= "height"
+<div class="d-flex justify-content-center">
+    <img alt="Image" [src]="src" 
+    [attr.width]= "i_width.sizeWeb"
+    [attr.height]= "i_height.sizeWeb"
     (load)="onLoad()"
+    class = "d-none d-md-block d-lg-block d-sm-block"
     [classList]="i_class"
-    [ngClass]="{'d-none': loading()}"
+    [ngClass]="{'d-none': loading() || needDnone()}"
     (error)="onError()"
 >
+<img alt="Image" [src]="src" 
+    [attr.width]= "i_width.sizeMobile"
+    [attr.height]= "i_height.sizeMobile"
+    (load)="onLoad()"
+    class = "d-block d-sm-none"
+    [classList]="i_class"
+    [ngClass]="{'d-none': loading() || needDnoneMobile()}"
+    (error)="onError()"
+>
+</div>
 <!-- mostrar otra imagen si la imagen no carga -->
 @if(loading()){
     <img [classList]="i_class" src="assets/loader.svg" alt="loader">

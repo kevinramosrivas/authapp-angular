@@ -1,4 +1,4 @@
-import { Product } from "./products.interfaces";
+import { Product } from "./products.interface";
 
 export interface ShopCarItem {
     product: Product;

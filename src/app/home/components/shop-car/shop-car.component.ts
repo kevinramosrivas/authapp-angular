@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ShopCarService } from '../../services/shop-car.service';
-import { Product } from '../../interfaces/products.interfaces';
+import { Product } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'app-shop-car',

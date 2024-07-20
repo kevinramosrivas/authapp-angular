@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map, shareReplay, switchMap, tap } from 'rxjs';
-import { Categorie, Product } from '../interfaces/products.interfaces';
+import { Categorie, Product } from '../interfaces/products.interface';
 
 @Injectable({
   providedIn: 'root'

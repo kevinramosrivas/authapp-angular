@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { Product } from '../../interfaces/products.interfaces';
+import { Product } from '../../interfaces/products.interface';
 import { ShopCarService } from '../../services/shop-car.service';
 
 @Component({

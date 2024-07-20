@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth-service.service';
-import { Categorie } from '../../interfaces/products.interfaces';
+import { Categorie } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'home-navbar',

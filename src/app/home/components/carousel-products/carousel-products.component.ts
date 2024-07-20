@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, input, computed } from '@angular/core';
-import { Product } from '../../interfaces/products.interfaces';
+import { Product } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'home-carousel-products',

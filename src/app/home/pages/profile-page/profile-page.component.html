@@ -16,7 +16,7 @@
       <div class="card mb-4">
         <div class="card-body">
         
-          <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" i_width="200rem" i_height="200rem" class="text-center"></image-component>
+          <image-component [src]="currentUser()!.avatar | url" i_class="object-fit-cover rounded-circle" [i_width]="{sizeWeb: '200rem'}"  [i_height]="{sizeWeb: '200rem'}" class="text-center"></image-component>
           <h5 class="my-3  text-center">{{currentUser()?.name}}</h5>
           <p class="text-muted mb-1  text-center">{{currentUser()?.email}}</p>
           <p class="text-muted mb-4  text-center">{{currentUser()?.role}}</p>
