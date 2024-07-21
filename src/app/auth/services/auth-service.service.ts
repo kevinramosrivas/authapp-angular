@@ -2,16 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo, UserUpdate, isEmailAvailableResponse } from '../interfaces/register-user.interface';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private loadingBar = inject(LoadingBarService);
   private http = inject(HttpClient);
   private urlbase = 'https://api.escuelajs.co/api/v1';
   private _currentUser = signal<User|null>(null);
-  private _authStatus = signal<AuthStatus>(AuthStatus.checking);
+  private _authStatus = signal<AuthStatus>(AuthStatus.notAuthenticated);
   private token:string = '';
   private refreshToken:string = '';
 
@@ -19,7 +21,8 @@ export class AuthService {
   public authStatus = computed(() => this._authStatus());
 
 
-  constructor() { 
+  constructor() {
+    //esperarar a que se ejecute checkAuthentication si o si
     this.checkAuthentication();
   }
 
@@ -34,8 +37,10 @@ export class AuthService {
         {
           next: (resp: User) => {
             this.setAuthentication(resp, this.token, this.refreshToken);
+            console.log('Se obtuvo el user con el token original');
           },
           error: () => {
+            console.log('Error al obtener el user con el token original');
             //intentar refrescar el token
             this.refreshingToken().subscribe(
               {
@@ -44,20 +49,24 @@ export class AuthService {
                   this.refreshToken = resp.refresh_token;
                   //delete tokens from local storage
                   this.logout();
+                  console.log('Se refrescaron los tokens');
                   this.getProfile(this.token)
                   .subscribe(
                     {
                       next: (resp: User) => {
                         this.setAuthentication(resp, this.token, this.refreshToken);
+                        console.log('Se obtuvo el user con el token refrescado');
                       },
                       error: () => {
-                        this._authStatus.set(AuthStatus.notAuthenticated);
+                        this.setInvalidAuthentication();
+                        console.log('Error al obtener el user con el token refrescado');
                       }
                     }
                   );
                 },
                 error: () => {
                   this.logout();
+                  console.log('Error al refrescar los tokens');
                 }
               }
             );
@@ -65,8 +74,10 @@ export class AuthService {
         }
       );
     } else {
+      console.log('No hay tokens');
       this.setInvalidAuthentication();
     }
+
   }
 
   public refreshingToken() {
@@ -203,7 +214,15 @@ export class AuthService {
   }
 
   isLogged() {
-    return this.authStatus() === AuthStatus.authenticated;
+    return this.http.get<User>(`${this.urlbase}/auth/profile`).pipe(
+      map(() => true),
+      catchError(() => {
+        return throwError(() => {
+          return false;
+        });
+      }),
+    );
+    
   }
 
 

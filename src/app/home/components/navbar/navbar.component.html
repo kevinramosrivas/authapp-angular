@@ -53,9 +53,8 @@
                       <span class="d-inline ps-2">{{currentUser()?.name}}</span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
-                      <li (click)="closeNavbar()"> <a [routerLink]="['/auth/register']" class="dropdown-item">Añadir administrador</a></li>
-                      <li (click)="closeNavbar()"> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
+                      <li (click)="closeNavbar()" class="dropdown-item"> <a [routerLink]="['/auth/register']">Añadir administrador</a></li>
+                      <li (click)="closeNavbar()" class="dropdown-item"> <a (click)="logout()">Cerrar Sesión</a></li>
                     </ul>
                   </div>
                 </li>

@@ -10,6 +10,10 @@ export class AppComponent {
   title = 'authapp';
   private authService = inject(AuthService);
 
+  constructor(){
+    this.authService.checkAuthentication();
+  }
+
 
 
 

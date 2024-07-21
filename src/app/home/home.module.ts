@@ -14,6 +14,8 @@ import { ShopCarComponent } from './components/shop-car/shop-car.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { AdvantagesCardsComponent } from './components/advantages-cards/advantages-cards.component';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { AdvantagesCardsComponent } from './components/advantages-cards/advantag
     CommonModule,
     HomeRoutingModule,
     UrlPipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingBarModule,
+    LoadingBarRouterModule
   ]
 })
 export class HomeModule { }
