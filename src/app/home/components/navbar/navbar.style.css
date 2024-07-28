@@ -1,0 +1,17 @@
+
+.store-tittle{
+    font-size: 1.5rem;
+    color: var(--primary-color-8);
+}
+.dropdown-menu {
+    max-height: 35vh;
+    border-color: #f8f9fa;
+}
+image-component{
+    width: 5px;
+    height: 5px;
+}
+.navbar{
+    background-color: var(--primary-color-1);
+    color: var(--primary-color-8);
+}

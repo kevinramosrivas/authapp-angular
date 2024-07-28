@@ -7,21 +7,22 @@
     [classList]="i_class"
     [ngClass]="{'d-none': loading() || needDnone()}"
     (error)="onError()"
->
-<img alt="Image" [src]="src" 
-    [attr.width]= "i_width.sizeMobile"
-    [attr.height]= "i_height.sizeMobile"
-    (load)="onLoad()"
-    class = "d-block d-sm-none"
-    [classList]="i_class"
-    [ngClass]="{'d-none': loading() || needDnoneMobile()}"
-    (error)="onError()"
->
-</div>
-<!-- mostrar otra imagen si la imagen no carga -->
+    >
+    <img alt="Image" [src]="src" 
+        [attr.width]= "i_width.sizeMobile"
+        [attr.height]= "i_height.sizeMobile"
+        (load)="onLoad()"
+        class = "d-block d-sm-none"
+        [classList]="i_class"
+        [ngClass]="{'d-none': loading() || needDnoneMobile()}"
+        (error)="onError()"
+    >
+    <!-- mostrar otra imagen si la imagen no carga -->
 @if(loading()){
     <img [classList]="i_class" src="assets/loader.svg" alt="loader">
 }
+</div>
+
 
 
 

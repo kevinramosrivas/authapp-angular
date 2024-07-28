@@ -14,7 +14,14 @@ import { ShopCarService } from '../../services/shop-car.service';
       font-size: 1rem;
     }
     .product-price-new{
-      font-size: 1rem;
+      font-size: 1.3rem;
+    }
+    .card{
+      background-color: #fefefd;
+      border : 1px solid #FEFEFD;
+    }
+    .card-title{
+      font-size: 1.1rem;
     }
   `,
 })

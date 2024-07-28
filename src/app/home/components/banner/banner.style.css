@@ -1,0 +1,12 @@
+.card{
+    color: var(--primary-color-8);
+}
+.alert{
+    background-color: var(--primary-color-2);
+    color: var(--primary-color-8);
+}
+
+
+:host {
+    display: block;
+}

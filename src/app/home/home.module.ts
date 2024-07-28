@@ -16,6 +16,9 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { AdvantagesCardsComponent } from './components/advantages-cards/advantages-cards.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { StorePageComponent } from './pages/store-page/store-page.component';
+import { AppModule } from '../app.module';
+import { ButtonComponent } from './components/button/button.component';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
     CarouselProductsComponent,
     ShopCarComponent,
     ProfilePageComponent,
-    AdvantagesCardsComponent
+    AdvantagesCardsComponent,
+    StorePageComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
     UrlPipe,
     ReactiveFormsModule,
     LoadingBarModule,
-    LoadingBarRouterModule
+    LoadingBarRouterModule,
   ]
 })
 export class HomeModule { }

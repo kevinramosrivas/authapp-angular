@@ -6,22 +6,7 @@ import { Categorie } from '../../interfaces/products.interface';
 @Component({
   selector: 'home-navbar',
   templateUrl: './navbar.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-    .store-tittle{
-      font-size: 1.5rem;
-    }
-    .dropdown-menu {
-      max-height: 35vh;
-      border-color: #f8f9fa;
-    }
-    image-component{
-      width: 5px;
-      height: 5px;
-    }
-  `,
+  styleUrl: './navbar.style.css'
 })
 export class NavbarComponent { 
 

@@ -8,6 +8,10 @@ import { Component } from '@angular/core';
     :host {
       display: block;
     }
+    .card{
+      border: none;
+      color : var(--primary-color-9);
+    }
   `,
 })
 export class AdvantagesCardsComponent { }

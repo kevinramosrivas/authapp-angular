@@ -5,11 +5,7 @@ import { Categorie, Product } from '../../interfaces/products.interface';
 @Component({
   selector: 'home-banner',
   templateUrl: './banner.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './banner.style.css'
 })
 export class BannerComponent { 
   @Input()

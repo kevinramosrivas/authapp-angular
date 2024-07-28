@@ -6,11 +6,7 @@ import { Categorie } from '../../interfaces/products.interface';
 @Component({
   selector: 'app-home-layout',
   templateUrl: './home-layout.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './home-layout.style.css'
 })
 export class HomeLayoutComponent { 
   public homeService = inject(HomeService);

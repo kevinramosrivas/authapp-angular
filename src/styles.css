@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+
+:root {
+
+    --general-1: #FAFCFE;
+    --general-2: #D9DCE2;
+    --general-3: #8F98A8;
+    --general-4: #203152;
+
+
+    --primary-color-1: #ffffff;
+    --primary-color-2: #F0F6FE;
+    --primary-color-3: #7FB9FF;
+    --primary-color-4: #3F96FF;
+    --primary-color-5: #0073FF;
+    --primary-color-6: #0056BF;
+    --primary-color-7: #00397F;
+    --primary-color-8: #001C3F;
+    --primary-color-9: #001127;
+    
+    --secondary1-color-1: #BDCEE2;
+    --secondary1-color-2: #7B9DC6;
+    --secondary1-color-3: #396CAA;
+
+    --secondary2-color-1: #BFC8D4;
+    --secondary2-color-2: #7F92AA;
+    --secondary2-color-3: #405C80;
+
+    --secondary3-color-1: #B5D0F1;
+    --secondary3-color-2: #6CA1E3;
+    --secondary3-color-3: #2373D5;
+    background-color: var(--primary-color-1);
+}
+
