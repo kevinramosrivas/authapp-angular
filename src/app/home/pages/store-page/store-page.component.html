@@ -67,7 +67,7 @@
             <div class="card-body">
               <ul class="list-group list-group-flush">
                 @for(categorie of categories; track categorie){
-                  <li class="list-group-item list-group-item-action">
+                  <li class="list-group-item list-group-item-action categories-item" (click)="filterByCategory(categorie.id)" [ngStyle]="{'active': categorie.id === selectedCategory}">
                     {{categorie.name}}
                   </li>
                 }
@@ -89,7 +89,7 @@
 
               <div class="container overflow-hidden p-2">
                   <div class="row">
-                    @for(item of productsRecent; track item){
+                    @for(item of products; track item){
                       <div class="col-6 col-md-6 col-sm-6 col-lg-4">
                         <home-product-card [product]="item" [offer]="true"/>
                       </div>

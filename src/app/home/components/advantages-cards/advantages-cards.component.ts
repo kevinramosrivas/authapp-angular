@@ -10,7 +10,12 @@ import { Component } from '@angular/core';
     }
     .card{
       border: none;
-      color : var(--primary-color-9);
+      color : var(--primary-color-8);
+    }
+    .title-advantage-card{
+      font-size: 1.5rem;
+      font-weight: bold;
+      color : var(--primary-color-8);
     }
   `,
 })

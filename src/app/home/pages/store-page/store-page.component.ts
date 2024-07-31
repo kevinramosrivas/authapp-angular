@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { HomeService } from '../../services/home.service';
 import { Categorie, Product } from '../../interfaces/products.interface';
 import { FormControl } from '@angular/forms';
+import { switchMap } from 'rxjs';
 
 @Component({
   templateUrl: './store-page.component.html',
@@ -13,31 +14,43 @@ import { FormControl } from '@angular/forms';
     .dropdown-menu{
       height: 20rem;
     }
+    .categories-item{
+      cursor: pointer;
+    }
   `,
 })
 export class StorePageComponent { 
   public homeService = inject(HomeService);
-  public productsRecent: Product[] = [];
   public categories: Categorie[] = [];
   public categorieInput = new FormControl('1');
-  public productsSorted: Product[] = [];
+  public products: Product[] = [];
+  public selectedCategory: number = 1;
 
   ngOnInit(): void {
-    this.getproductsListLimited();
-    this.getCategories();
+    this.getCategoriesAndProducts();
   }
 
 
-  public getproductsListLimited(){
-    this.homeService.getProductsList().subscribe((response) => {
-      //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
-      this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
-    } );
-  }
-
-  public getCategories(){
-    this.homeService.getCategoryList().subscribe((response) => {
-      this.categories = response;
+  public getCategoriesAndProducts(){
+    this.homeService.getCategoryList().pipe(
+      switchMap((response) => {
+        this.categories = response;
+        this.selectedCategory = this.categories[0].id;
+        return this.homeService.getProductsByCategorie((this.categories[0].id).toString());
+      })
+    ).subscribe((response) => {
+      this.products = response;
     });
   } 
+
+
+  public filterByCategory(idCategory: number){
+    this.selectedCategory = idCategory;
+    console.log(idCategory);
+    this.homeService.getProductsByCategorie(idCategory.toString()).subscribe((response) => {
+      this.products = response;
+    });
+  }
 }
+
+

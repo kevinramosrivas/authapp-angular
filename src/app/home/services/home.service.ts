@@ -13,6 +13,7 @@ export class HomeService {
   private http = inject(HttpClient);
   private _products$ = new BehaviorSubject<Product[]>([]);
   private _categories$ = new BehaviorSubject<Categorie[]>([]);
+  private _productsByCategorie$ = new BehaviorSubject<Product[]>([]);
 
 
   public _getProductsList(){
@@ -36,6 +37,13 @@ export class HomeService {
   public getCategoryList(){
     return this._categories$.pipe(
       switchMap(() => this._getCategoryList()),
+      shareReplay()
+    )
+  }
+
+  public getProductsByCategorie(id: string){
+    return this._productsByCategorie$.pipe(
+      switchMap(() => this._getProductsByCategorie(id)),
       shareReplay()
     )
   }
