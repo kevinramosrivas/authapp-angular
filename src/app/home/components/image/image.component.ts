@@ -7,6 +7,23 @@ import { ImageSize } from '../../interfaces/image-size.interface';
     :host {
       display: block;
     }
+    .img-web{
+      @media (min-width: 769px){
+        display: block;
+      }
+      @media (max-width: 768px){
+        display: none;
+      }
+    }
+    .img-mobile{
+      @media (max-width: 768px){
+        display: block;
+      }
+      @media (min-width: 769px){
+        display: none;
+      }
+
+    }
   `,
 })
 export class ImageComponent implements OnInit{
@@ -17,8 +34,6 @@ export class ImageComponent implements OnInit{
   @Input() i_height: ImageSize = {sizeWeb: 'auto', sizeMobile: 'auto'};
   @Input() i_class: string = '';
   public loading = signal(true);
-  public needDnone = signal(false);
-  public needDnoneMobile = signal(true);
   public defaultImage = 'assets/not-found.svg';
 
   ngOnInit(): void {
@@ -35,14 +50,9 @@ export class ImageComponent implements OnInit{
 
   public onLoad(){
     this.loading.set(false);
-    this.needDnone.set(true);
-    this.needDnoneMobile.set(false);
   }
   public onError(){
     this.src = this.defaultImage;
     this.loading.set(false);
-    //añadir d-none a la imagen
-    this.needDnone.set(false);
-    this.needDnoneMobile.set(false);
   }
 }

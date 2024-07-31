@@ -10,6 +10,9 @@ import { FormControl } from '@angular/forms';
     :host {
       display: block;
     }
+    .dropdown-menu{
+      height: 20rem;
+    }
   `,
 })
 export class StorePageComponent { 
@@ -27,10 +30,8 @@ export class StorePageComponent {
 
   public getproductsListLimited(){
     this.homeService.getProductsList().subscribe((response) => {
-      //ordenar los productos por precio y mosotrar solo los 10 primeros mas baratos
-      this.productsSorted = response.sort((a, b) => a.price - b.price).slice(0, 8);
       //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
-      this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
+      this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
     } );
   }
 

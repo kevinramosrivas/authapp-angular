@@ -51,49 +51,49 @@
               Filtrar
             </button>
           </div>
-          <div class="col-6 col-md-12">
-            <div class="dropdown">
-              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
+          <div class="col-6 col-md-6">
+            <select class="form-select" aria-label="Default select example">
+              <option value="">Ordenar por</option>
+              <option value="">Precio</option>
+              <option value="">Nombre</option>
+              <option value="">Categoria</option>
+            </select>
           </div>
     </div>
     <div class="row">
-        <div class="col min-vh-100">
+        <div class="col-md-3 d-none d-md-block">
+          <div class="card">
+            <p class="card-header text-bg-primary">Categorias</p>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                @for(categorie of categories; track categorie){
+                  <li class="list-group-item list-group-item-action">
+                    {{categorie.name}}
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <p class="card-header text-bg-primary">Precio</p>
+            <div class="card-body">
+              <label for="customRange2" class="form-label">Minimo</label>
+              <input type="range" class="form-range" min="0" max="5" id="customRange2">
+              <label for="customRange2" class="form-label">Maximo</label>
+              <input type="range" class="form-range" min="0" max="5" id="customRange2">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 min-vh-100">
           <section class="bsb-blog-5">
 
-              <div class="container overflow-hidden p-3">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="entry-header mb-3">
-                      <h3 class="fw-bold">Productos en oferta</h3>
-                    </div>
-                  </div>
-                </div>
-                <home-carousel-products [products]="productsSorted"/>
-              </div>
-        
-              <div class="container overflow-hidden p-3">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="entry-header mb-3">
-                      <h3 class="fw-bold">Nuevos productos</h3>
-                    </div>
-                  </div>
-                </div>
-                <home-carousel-products [products]="productsRecent"/>
-                <div class="row pt-4">
-                  <div class="col-12 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">
-                      Ver todos los productos
-                    </button>
-                  </div>
+              <div class="container overflow-hidden p-2">
+                  <div class="row">
+                    @for(item of productsRecent; track item){
+                      <div class="col-6 col-md-6 col-sm-6 col-lg-4">
+                        <home-product-card [product]="item" [offer]="true"/>
+                      </div>
+                    }
                 </div>
               </div>
             </section>
