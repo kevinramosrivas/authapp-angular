@@ -31,6 +31,12 @@ export class StorePageComponent {
   }
 
 
+  onSelectedCategory(idCategory: number){
+    this.selectedCategory = idCategory;
+    this.filterByCategory(idCategory);
+  }
+
+
   public getCategoriesAndProducts(){
     this.homeService.getCategoryList().pipe(
       switchMap((response) => {

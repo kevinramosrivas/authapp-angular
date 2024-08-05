@@ -62,18 +62,8 @@
     </div>
     <div class="row">
         <div class="col-md-3 d-none d-md-block">
-          <div class="card">
-            <p class="card-header text-bg-primary">Categorias</p>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                @for(categorie of categories; track categorie){
-                  <li class="list-group-item list-group-item-action categories-item" (click)="filterByCategory(categorie.id)" [ngStyle]="{'active': categorie.id === selectedCategory}">
-                    {{categorie.name}}
-                  </li>
-                }
-              </ul>
-            </div>
-          </div>
+          <app-categories-filter-card [categories]="categories" (filterByCategory)="onSelectedCategory($event)"></app-categories-filter-card>
+
           <div class="card mt-3">
             <p class="card-header text-bg-primary">Precio</p>
             <div class="card-body">

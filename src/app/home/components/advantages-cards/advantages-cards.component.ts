@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
       color : var(--primary-color-8);
     }
     .title-advantage-card{
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color : var(--primary-color-8);
     }

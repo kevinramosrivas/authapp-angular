@@ -19,6 +19,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { StorePageComponent } from './pages/store-page/store-page.component';
 import { AppModule } from '../app.module';
 import { ButtonComponent } from './components/button/button.component';
+import { CategoriesFilterCardComponent } from './components/categories-filter-card/categories-filter-card.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ButtonComponent } from './components/button/button.component';
     ProfilePageComponent,
     AdvantagesCardsComponent,
     StorePageComponent,
-    ButtonComponent
+    ButtonComponent,
+    CategoriesFilterCardComponent
   ],
   imports: [
     CommonModule,

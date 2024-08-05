@@ -1,0 +1,28 @@
+<div class="card">
+    <p class="card-header text-bg-primary">Categorias</p>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        @for(categorie of categories; track categorie){
+          <li class="list-group-item list-group-item-action categories-item" (click)="onSelectCategory(categorie.id)" [ngClass]="{'active': selectedCategory === categorie.id}">
+            {{categorie.name}}
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <p class="card-header text-bg-primary">Categorias</p>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item placeholder-glow">
+          <span class="placeholder w-100"></span>
+        </li>
+        <li class="list-group-item placeholder-glow">
+          <span class="placeholder w-100"></span>
+        </li>
+        <li class="list-group-item placeholder-glow">
+          <span class="placeholder w-100"></span>
+        </li>
+      </ul>
+    </div>
+</div>
