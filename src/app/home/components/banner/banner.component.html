@@ -1,4 +1,4 @@
-<article class="animate__animated animate__bounceInDown">
+<article>
     <div class="card border border-0">
       <div class="row d-flex align-items-center p-2">
         <div class="col-12 col-md-5 d-none d-sm-block d-md-block">
@@ -17,27 +17,32 @@
           </div>
         </div>
         <div class="col-12 col-md-7">
-          <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @for(categorie of categories; track categorie){
-                    <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="4000">
-                        <image-component  src="{{categorie.image| url}}" i_class="w-100 object-fit-cover rounded animate__animated animate__zoomInRight" [i_height]="{sizeWeb: '500rem'}"  />
-                        <div class="carousel-caption bg-black rounded" style="--bs-bg-opacity: .5;" >
-                            <h5>Encuentra lo mejor en la categoria</h5>
-                            <p>{{categorie.name}}</p>
-                        </div>
-                    </div>
-                }
+            <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
+              @if(categories.length > 0){
+                <div class="carousel-inner">
+                  @for(categorie of categories; track categorie){
+                      <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="4000">
+                          <image-component  src="{{categorie.image| url}}" i_class="w-100 object-fit-cover rounded animate__animated animate__bounceInRight" [i_height]="{sizeWeb: '500rem'}"  />
+                          <div class="carousel-caption bg-black rounded" style="--bs-bg-opacity: .5;" >
+                              <h5>Encuentra lo mejor en la categoria</h5>
+                              <p>{{categorie.name}}</p>
+                          </div>
+                      </div>
+                  }
+                </div>
+              }
+              @else{
+                <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="120rem">
+              }
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,18 @@
+       
+<ul class="nav flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+    <li class="dropdown">
+        <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="ms-1">Categorias</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown">
+            @for(categorie of categories; track categorie){
+                <li class="dropdown-item" (click)="onSelectCategory(categorie.id)" [ngClass]="{'active': selectedCategory === categorie.id}">
+                    <a class="nav-link">
+                        <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+</ul>
+        

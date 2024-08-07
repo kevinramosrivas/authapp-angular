@@ -1,6 +1,6 @@
 <article>
               
-    <div class="card animate__animated animate__zoomIn p-2">
+    <div class="card animate__animated animate__animated animate__zoomIn p-2">
       <figure class="card-img-top">
           <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '220rem', sizeMobile:'150rem'}"  [i_height]="{sizeWeb: '220rem' , sizeMobile:'150rem'}"></image-component>
       </figure>
@@ -11,9 +11,9 @@
               {{product.category.name? product.category.name : 'Varios'}}
             </li>
           </ul>
-          <p class="fw-bold card-title">
+          <h5 class="fw-bold card-title">
             {{product.title}}
-          </p>
+          </h5>
         </div>
       </div>
       <div class="card-footer border-0 bg-transparent d-flex flex-column justify-content-center">

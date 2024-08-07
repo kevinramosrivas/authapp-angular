@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Categorie } from '../../interfaces/products.interface';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-categories-filter-card',
@@ -9,16 +10,36 @@ import { Categorie } from '../../interfaces/products.interface';
     :host {
       display: block;
     }
+    .categories-items{
+      height: 30rem;
+      overflow-y: auto;
+    }
   `],
 })
 export class CategoriesFilterCardComponent {
   @Input() public categories: Categorie[] = [];
-  @Output() public filterByCategory: EventEmitter<number> = new EventEmitter();
   
-  public selectedCategory: number = 1;
+  @Input() public selectedCategory: number = 1;
+  private fb = inject(FormBuilder);
+
+  @Output() public priceFilter = new EventEmitter();
+
+  public priceFilterForm = this.fb.group({
+    minPrice: ['1'],
+    maxPrice: ['9999'],
+  });
+  constructor() { 
+    this.priceFilterForm.valueChanges.subscribe((value) => {
+      console.log(value);
+      this.priceFilter.emit(value);
+    } );
+  }
 
   public onSelectCategory(idCategory: number){
     this.selectedCategory = idCategory;
-    this.filterByCategory.emit(idCategory);
+  }
+
+  public onPriceFilter(){
+    this.priceFilter.emit(this.priceFilterForm.value);
   }
 }

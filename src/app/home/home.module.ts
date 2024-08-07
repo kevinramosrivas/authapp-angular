@@ -20,6 +20,8 @@ import { StorePageComponent } from './pages/store-page/store-page.component';
 import { AppModule } from '../app.module';
 import { ButtonComponent } from './components/button/button.component';
 import { CategoriesFilterCardComponent } from './components/categories-filter-card/categories-filter-card.component';
+import { SkeletonProductCardComponent } from './components/skeleton-product-card/skeleton-product-card.component';
+import { CategoriesFilterMobileComponent } from './components/categories-filter-mobile/categories-filter-mobile.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { CategoriesFilterCardComponent } from './components/categories-filter-ca
     AdvantagesCardsComponent,
     StorePageComponent,
     ButtonComponent,
-    CategoriesFilterCardComponent
+    CategoriesFilterCardComponent,
+    SkeletonProductCardComponent,
+    CategoriesFilterMobileComponent
   ],
   imports: [
     CommonModule,

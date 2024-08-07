@@ -37,10 +37,8 @@ export class AuthService {
         {
           next: (resp: User) => {
             this.setAuthentication(resp, this.token, this.refreshToken);
-            console.log('Se obtuvo el user con el token original');
           },
           error: () => {
-            console.log('Error al obtener el user con el token original');
             //intentar refrescar el token
             this.refreshingToken().subscribe(
               {
@@ -49,24 +47,20 @@ export class AuthService {
                   this.refreshToken = resp.refresh_token;
                   //delete tokens from local storage
                   this.logout();
-                  console.log('Se refrescaron los tokens');
                   this.getProfile(this.token)
                   .subscribe(
                     {
                       next: (resp: User) => {
                         this.setAuthentication(resp, this.token, this.refreshToken);
-                        console.log('Se obtuvo el user con el token refrescado');
                       },
                       error: () => {
                         this.setInvalidAuthentication();
-                        console.log('Error al obtener el user con el token refrescado');
                       }
                     }
                   );
                 },
                 error: () => {
                   this.logout();
-                  console.log('Error al refrescar los tokens');
                 }
               }
             );
