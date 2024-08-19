@@ -1,6 +1,6 @@
 
 import { Component, OnInit, inject } from '@angular/core';
-import { HomeService } from '../../services/home.service';
+import { HomeService } from '../../services/product.service';
 import { Categorie, Product } from '../../interfaces/products.interface';
 import { FormControl } from '@angular/forms';
 

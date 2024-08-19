@@ -16,15 +16,23 @@ export class HomeService {
   private _productsByCategorie$ = new BehaviorSubject<Product[]>([]);
 
 
-  public _getProductsList(){
+  private _getProductsList(){
     return this.http.get<Product[]>(`${this.baseUrl}/products`);
   }
 
-  public _getCategoryList(){
+  private _getCategoryList(){
     return this.http.get<Categorie[]>(`${this.baseUrl}/categories`);
   }
-  public _getProductsByCategorie(id: string){
+  private _getProductsByCategorie(id: string){
     return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`);
+  }
+
+  private _getProductsByRangePrice(minPrice: number, maxPrice: number){
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?price_min=${minPrice}&price_max=${maxPrice}`);
+  }
+
+  private _getProductsByCategoryAndRangePrice(id: number, minPrice: number, maxPrice: number){
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}`);
   }
 
   public getProductsList(){
@@ -44,6 +52,20 @@ export class HomeService {
   public getProductsByCategorie(id: string){
     return this._productsByCategorie$.pipe(
       switchMap(() => this._getProductsByCategorie(id)),
+      shareReplay()
+    )
+  }
+
+  public getProductsByRangePrice(minPrice: number, maxPrice: number){
+    return this._products$.pipe(
+      switchMap(() => this._getProductsByRangePrice(minPrice, maxPrice)),
+      shareReplay()
+    )
+  }
+
+  public getProductsByCategoryAndPrice(id: number, minPrice: number, maxPrice: number){
+    return this._products$.pipe(
+      switchMap(() => this._getProductsByCategoryAndRangePrice(id, minPrice, maxPrice)),
       shareReplay()
     )
   }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { HomeService } from '../../services/home.service';
+import { HomeService } from '../../services/product.service';
 import { Categorie } from '../../interfaces/products.interface';
 
 @Component({

@@ -34,3 +34,8 @@ export interface Categorie {
     creationAt: Date;
     updatedAt:  Date;
 }
+
+export interface RangePrice {
+    minPrice: number;
+    maxPrice: number;
+}

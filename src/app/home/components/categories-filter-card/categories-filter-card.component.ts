@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Categorie } from '../../interfaces/products.interface';
-import { FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Categorie, RangePrice } from '../../interfaces/products.interface';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-categories-filter-card',
@@ -16,24 +15,27 @@ import { FormBuilder } from '@angular/forms';
     }
   `],
 })
-export class CategoriesFilterCardComponent {
+export class CategoriesFilterCardComponent implements OnInit {
   @Input() public categories: Categorie[] = [];
   
   @Input() public selectedCategory: number = 1;
   private fb = inject(FormBuilder);
 
+  @Input() public rangePrice: RangePrice = {minPrice: 0, maxPrice: 0};
+
   @Output() public priceFilter = new EventEmitter();
 
-  public priceFilterForm = this.fb.group({
-    minPrice: ['1'],
-    maxPrice: ['9999'],
-  });
-  constructor() { 
-    this.priceFilterForm.valueChanges.subscribe((value) => {
-      console.log(value);
-      this.priceFilter.emit(value);
-    } );
+  ngOnInit(): void {
+    if(this.rangePrice.minPrice !== 0 && this.rangePrice.maxPrice !== 0){
+      this.priceFilterForm.patchValue(this.rangePrice);
+    }
   }
+  
+
+  public priceFilterForm = this.fb.group({
+    minPrice: [1],
+    maxPrice: [1000],
+  });
 
   public onSelectCategory(idCategory: number){
     this.selectedCategory = idCategory;

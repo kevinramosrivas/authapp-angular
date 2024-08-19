@@ -1,5 +1,5 @@
 
-<div class="container pt-5">
+<div class="container">
   <div class="row">
     <div class="col">
       <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
@@ -136,19 +136,10 @@
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <p class="mb-0">ID cuenta</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">{{currentUser()?.id}}</p>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
               <p class="mb-0">Fecha de creación</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{currentUser()?.creationAt}}</p>
+              <p class="text-muted mb-0">{{currentUser()?.creationAt | date: 'medium'}}</p>
             </div>
           </div>
           <hr>
@@ -157,7 +148,7 @@
               <p class="mb-0">Fecha de actualización</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{currentUser()?.updatedAt}}</p>
+              <p class="text-muted mb-0">{{currentUser()?.updatedAt  | date: 'medium'}}</p>
             </div>
           </div>
         </div>

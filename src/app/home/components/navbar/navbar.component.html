@@ -8,7 +8,7 @@
         <span class="fw-bold p-2 store-tittle">IzI Store</span>
       </a>
 
-      @if(currentUser()?.role === 'customer'){
+      @if(currentUser()?.role !== 'admin'){
         <div class="d-lg-none d-block ms-auto">
           <app-shop-car/>
         </div>
@@ -29,19 +29,47 @@
         </div>
         <div class="offcanvas-body">
           @if(!currentUser()){
-            <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
+            <ul class="navbar-nav ms-auto gap-3">
+                <li class="nav-item">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon1">
+                    <button type="button" class="btn btn-primary"><span class="bi bi-search"></span></button>
+                  </div>
+                </li>
                 <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn bsb-btn-2xl btn-primary rounded-4" role="button" aria-current="page" [routerLink]="['/auth/login']">Iniciar Sesión</a>
                 </li>
                 <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn bsb-btn-2xl btn-primary rounded-4" role="button" [routerLink]="['/auth/register']">Registrate</a>
                 </li>
+                <li class="nav-item">
+                  <div class="dropdown">
+                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Categorias
+                    </button>
+                    <ul class="dropdown-menu overflow-auto border border-0">
+                      @for(categorie of categories; track categorie){
+                        <li class="dropdown-item" (click)="closeNavbar()">
+                            <a class="dropdown-item" 
+                            [routerLink]="['/home/store']"
+                            [queryParams]="{category: categorie.id}"
+                            >
+                              {{categorie.name}} 
+                            </a>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                </li>
+                <li class="nav-item d-lg-block d-none">
+                  <app-shop-car/>
+                </li>
             </ul>
 
           }
           @else{
             @if(currentUser()?.role === 'admin'){
-              <ul class="navbar-nav align-items-center justify-content-center ms-auto gap-2">
+              <ul class="navbar-nav ms-auto gap-3">
                 <li class="nav-item" (click)="closeNavbar()">
                   <a class="btn btn-primary rounded-4" aria-current="page"  role="button" [routerLink]="['/home/secret']">
                     Administrar Productos
@@ -61,8 +89,14 @@
               </ul>
             }
             @if(currentUser()?.role === 'customer'){
-              <ul class="navbar-nav ms-auto gap-3">
-                <li class="nav-item order-3 order-md-1">
+              <ul class="navbar-nav ms-auto gap-3 order-md-1">
+                <li class="nav-item" (click)="closeNavbar()">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon1">
+                    <button type="button" class="btn btn-primary"><span class="bi bi-search"></span></button>
+                  </div>
+                </li>
+                <li class="nav-item order-3 order-md-2">
                   <div class="dropdown">
                     <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categorias
@@ -80,11 +114,6 @@
                       }
                     </ul>
                   </div>
-                </li>
-                <li class="nav-item order-2 order-md-2">
-                  <button class="btn btn-primary rounded-4" aria-current="page"  role="button" (click)="closeNavbar()" [routerLink]="['/home/store']">
-                    Tienda Online
-                  </button>
                 </li>
                 <li class="nav-item d-lg-block d-none order-4">
                   <app-shop-car/>

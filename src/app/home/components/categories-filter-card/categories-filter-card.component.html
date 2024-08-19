@@ -50,11 +50,14 @@
   <div class="card mt-3">
     <p class="card-header text-bg-primary">Precio</p>
     <div class="card-body">
-      <form [formGroup]="priceFilterForm">
-        <label for="customRange2" class="form-label">Minimo - {{priceFilterForm.get('minPrice')?.value}}</label>
-        <input type="range" class="form-range" min="0" max="9999" id="customRange2" formControlName="minPrice">
-        <label for="customRange2" class="form-label">Maximo  - {{priceFilterForm.get('maxPrice')?.value}}</label>
-        <input type="range" class="form-range" min="0" max="9999" id="customRange2" formControlName="maxPrice">
+      <form [formGroup]="priceFilterForm" (ngSubmit)="onPriceFilter()" class="d-flex flex-column">
+        <span class="text-muted">Rango de precios</span>
+        <div class="input-group">
+          <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="minPrice">
+          <span class="input-group-text">-</span>
+          <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="maxPrice">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-funnel-fill"></i> Filtrar</button>
       </form>
     </div>
   </div>

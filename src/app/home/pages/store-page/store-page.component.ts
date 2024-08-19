@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { HomeService } from '../../services/home.service';
-import { Categorie, Product } from '../../interfaces/products.interface';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { HomeService } from '../../services/product.service';
+import { Categorie, Product, RangePrice } from '../../interfaces/products.interface';
 import { FormControl } from '@angular/forms';
-import { switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { debounceTime, Observable, Subscribable, Subscription, switchMap } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   templateUrl: './store-page.component.html',
@@ -20,27 +20,39 @@ import { ActivatedRoute } from '@angular/router';
     }
   `,
 })
-export class StorePageComponent { 
+export class StorePageComponent implements OnDestroy { 
   public homeService = inject(HomeService);
   public categories: Categorie[] = [];
   public categorieInput = new FormControl('1');
   public products: Product[] = [];
+  public rangePrice: RangePrice = {minPrice: 0, maxPrice: 0};
   public selectedCategory: number = 1;
+  private observableURL : Subscription;
   //obtener parametros de la url
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   constructor() {
-    this.route.queryParams.subscribe((params) => {
-      if(params["category"]){
+    this.observableURL = this.route.queryParams.subscribe((params) => {
+      if(params["category"] && !params["minPrice"] && !params["maxPrice"]){
         this.selectedCategory = parseInt(params["category"]);
         this.filterByCategory(this.selectedCategory);
       }
-      else{
+      if(params["minPrice"] && params["maxPrice"]&& params["category"] ){
+        this.selectedCategory = parseInt(params["category"]);
+        this.rangePrice = {minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"])};
+        this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
+      }
+      if(!params["category"] && !params["minPrice"] && !params["maxPrice"]){
         this.selectedCategory = 1;
         this.filterByCategory(this.selectedCategory);
       }
     });
    }
+  ngOnDestroy(): void {
+    this.categorieInput.reset();
+    this.observableURL.unsubscribe();
+  }
 
 
   ngOnInit(): void {
@@ -53,7 +65,7 @@ export class StorePageComponent {
     this.filterByCategory(idCategory);
   }
 
-  public filterByCategory(idCategory: number){
+  private filterByCategory(idCategory: number){
     this.selectedCategory = idCategory;
     this.homeService.getProductsByCategorie(idCategory.toString()).subscribe((response) => {
       this.products = response;
@@ -64,10 +76,21 @@ export class StorePageComponent {
       this.categories = response;
     });
   }
-  public onPriceFilter(value: any){
-    //filtrar por precio la lista de productos
-    this.products = this.products.filter((product) => {
-      return product.price >= value.minPrice && product.price <= value.maxPrice;
+
+  private filterByPrice(minPrice: number, maxPrice: number){
+    this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe((response) => {
+      this.products = response;
+    });
+  }
+
+  public onPriceFilter(range:RangePrice){
+    this.router.navigate([], {
+      queryParams: {
+        category: this.selectedCategory,
+        minPrice: range.minPrice,
+        maxPrice: range.maxPrice
+      },
+      queryParamsHandling: '',
     });
   }
 }

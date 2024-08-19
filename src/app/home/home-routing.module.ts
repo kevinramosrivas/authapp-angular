@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomePageComponent },
       {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
-      {path: 'store', component: StorePageComponent,canActivate: [loginGuard]}
+      {path: 'store', component: StorePageComponent}
     ]
   }
 ];

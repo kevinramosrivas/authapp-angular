@@ -6,7 +6,10 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdown">
             @for(categorie of categories; track categorie){
-                <li class="dropdown-item" (click)="onSelectCategory(categorie.id)" [ngClass]="{'active': selectedCategory === categorie.id}">
+                <li class="dropdown-item"
+                [routerLink]="['/home/store']"
+                [queryParams]="{category: categorie.id}"
+                [ngClass]="{'active': selectedCategory === categorie.id}">
                     <a class="nav-link">
                         <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
                     </a>
