@@ -31,6 +31,7 @@ export class StorePageComponent implements OnDestroy {
   //obtener parametros de la url
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  public loading: boolean = false;
 
   constructor() {
     this.observableURL = this.route.queryParams.subscribe((params) => {
@@ -66,9 +67,11 @@ export class StorePageComponent implements OnDestroy {
   }
 
   private filterByCategory(idCategory: number){
+    this.loading = true;
     this.selectedCategory = idCategory;
     this.homeService.getProductsByCategorie(idCategory.toString()).subscribe((response) => {
       this.products = response;
+      this.loading = false;
     });
   }
   public getCategories(){
@@ -78,8 +81,10 @@ export class StorePageComponent implements OnDestroy {
   }
 
   private filterByPrice(minPrice: number, maxPrice: number){
+    this.loading = true;
     this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe((response) => {
       this.products = response;
+      this.loading = false;
     });
   }
 

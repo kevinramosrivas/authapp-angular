@@ -40,10 +40,26 @@
 
               <div class="container overflow-hidden p-2">
                   <div class="row">
-                    @for(item of products; track item){
-                      <div class="col-6 col-md-6 col-sm-6 col-lg-4">
-                        <home-product-card [product]="item" [offer]="true"/>
+                    @if(products.length == 0 && !loading){
+                      <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                          No se encontraron productos
+                        </div>
                       </div>
+                    }
+                    @if(loading){
+                      @for(i of  [].constructor(12); track i){
+                        <div class="col-6 col-md-6 col-sm-6 col-lg-4">
+                          <skeleton-product-card />
+                        </div>
+                      }
+                    }
+                    @else{
+                      @for(item of products; track item){
+                        <div class="col-6 col-md-6 col-sm-6 col-lg-4">
+                          <home-product-card [product]="item" [offer]="true" />
+                        </div>
+                      }
                     }
                   </div>
               </div>

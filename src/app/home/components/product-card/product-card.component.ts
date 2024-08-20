@@ -19,6 +19,7 @@ import { ShopCarService } from '../../services/shop-car.service';
     .card{
       background-color: #fefefd;
       border : 1px solid #FEFEFD;
+      min-height: 512px;
     }
     .card-title{
       font-size: 1.1rem;
