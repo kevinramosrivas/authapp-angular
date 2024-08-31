@@ -12,8 +12,8 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     children: [
       { path: '', component: HomePageComponent },
+      {path: 'store', component: StorePageComponent},
       {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
-      {path: 'store', component: StorePageComponent}
     ]
   }
 ];

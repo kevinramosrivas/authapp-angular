@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Categorie, RangePrice } from '../../interfaces/products.interface';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -15,7 +15,7 @@ import { FormBuilder, Validators } from '@angular/forms';
     }
   `],
 })
-export class CategoriesFilterCardComponent implements OnInit {
+export class CategoriesFilterCardComponent implements OnChanges {
   @Input() public categories: Categorie[] = [];
   
   @Input() public selectedCategory: number = 1;
@@ -25,7 +25,8 @@ export class CategoriesFilterCardComponent implements OnInit {
 
   @Output() public priceFilter = new EventEmitter();
 
-  ngOnInit(): void {
+  //onchange
+  ngOnChanges(): void {
     if(this.rangePrice.minPrice !== 0 && this.rangePrice.maxPrice !== 0){
       this.priceFilterForm.patchValue(this.rangePrice);
     }

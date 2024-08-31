@@ -15,13 +15,17 @@
               Filtrar
             </button>
           </div>
-          <div class="col-6 col-md-6">
-            <select class="form-select" aria-label="Default select example">
-              <option value="">Ordenar por</option>
-              <option value="">Precio</option>
-              <option value="">Nombre</option>
-              <option value="">Categoria</option>
-            </select>
+          <div class="col-6 col-md-5">
+              <select class="form-select" aria-label="Default select example" [formControl]="orderBy">
+                <option selected value="">Ordenar por</option>
+                <option value="precioAsc">Precio - Menor a Mayor</option>
+                <option value="precioDes">Precio - Mayor a Menor</option>
+                <option value="nombreAsc">Nombre - A-Z</option>
+                <option value="nombreDesc">Nombre - Z-A</option>
+                <option value="fechaAsc">Fecha - Más Antiguo primero</option>
+                <option value="fechDesc">Fecha - Más Reciente primero</option>
+
+              </select>
           </div>
     </div>
     <div class="row">

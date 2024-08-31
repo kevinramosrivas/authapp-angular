@@ -23,7 +23,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class StorePageComponent implements OnDestroy { 
   public homeService = inject(HomeService);
   public categories: Categorie[] = [];
-  public categorieInput = new FormControl('1');
+  public orderBy = new FormControl('');
   public products: Product[] = [];
   public rangePrice: RangePrice = {minPrice: 0, maxPrice: 0};
   public selectedCategory: number = 1;
@@ -34,24 +34,10 @@ export class StorePageComponent implements OnDestroy {
   public loading: boolean = false;
 
   constructor() {
-    this.observableURL = this.route.queryParams.subscribe((params) => {
-      if(params["category"] && !params["minPrice"] && !params["maxPrice"]){
-        this.selectedCategory = parseInt(params["category"]);
-        this.filterByCategory(this.selectedCategory);
-      }
-      if(params["minPrice"] && params["maxPrice"]&& params["category"] ){
-        this.selectedCategory = parseInt(params["category"]);
-        this.rangePrice = {minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"])};
-        this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
-      }
-      if(!params["category"] && !params["minPrice"] && !params["maxPrice"]){
-        this.selectedCategory = 1;
-        this.filterByCategory(this.selectedCategory);
-      }
-    });
+    this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
+    this.orderBy.valueChanges.subscribe((value) => this.orderByFilter(value!));
    }
   ngOnDestroy(): void {
-    this.categorieInput.reset();
     this.observableURL.unsubscribe();
   }
 
@@ -64,6 +50,7 @@ export class StorePageComponent implements OnDestroy {
   onSelectedCategory(idCategory: number){
     this.selectedCategory = idCategory;
     this.filterByCategory(idCategory);
+    console.log(idCategory);
   }
 
   private filterByCategory(idCategory: number){
@@ -97,6 +84,51 @@ export class StorePageComponent implements OnDestroy {
       },
       queryParamsHandling: '',
     });
+  }
+
+
+  private orderByFilter(orderBy: string){
+    if(orderBy == '') return;
+    switch (orderBy) {
+      case 'precioAsc':
+        this.products = this.products.sort((a, b) => a.price - b.price);
+        break;
+      case 'precioDes':
+        this.products = this.products.sort((a, b) => b.price - a.price);
+        break;
+      case 'nombreAsc':
+        this.products = this.products.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'nombreDesc':
+        this.products = this.products.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'fechaAsc':
+        this.products = this.products.sort((a,b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        break;
+      case 'fechaDesc':
+        this.products = this.products.sort((a,b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+        break;
+      default:
+        break;
+    }
+  }
+
+  public verifiQueryParams(params:Params){
+    if(params["category"] && !params["minPrice"] && !params["maxPrice"]){
+      this.rangePrice = {minPrice: 1, maxPrice: 1000};
+      this.orderBy.setValue('');
+      this.selectedCategory = parseInt(params["category"]);
+      this.filterByCategory(this.selectedCategory);
+    }
+    if(params["minPrice"] && params["maxPrice"]&& params["category"] ){
+      this.selectedCategory = parseInt(params["category"]);
+      this.rangePrice = {minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"])};
+      this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
+    }
+    if(!params["category"] && !params["minPrice"] && !params["maxPrice"]){
+      this.selectedCategory = 1;
+      this.filterByCategory(this.selectedCategory);
+    }
   }
 }
 

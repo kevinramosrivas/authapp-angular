@@ -3,14 +3,15 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { AuthStatus, ErrorRegister, LoginResponse, RegisterResponse, User, UserLogin, UserRegisterInfo, UserUpdate, isEmailAvailableResponse } from '../interfaces/register-user.interface';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private loadingBar = inject(LoadingBarService);
   private http = inject(HttpClient);
+  private router = inject(Router)
   private urlbase = 'https://api.escuelajs.co/api/v1';
   private _currentUser = signal<User|null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.notAuthenticated);
