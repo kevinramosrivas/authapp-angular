@@ -1,21 +1,30 @@
-       
-<ul class="nav flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-    <li class="dropdown">
-        <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="ms-1">Categorias</span>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdown">
-            @for(categorie of categories; track categorie){
-                <li class="dropdown-item"
-                [routerLink]="['/home/store']"
-                [queryParams]="{category: categorie.id}"
-                [ngClass]="{'active': selectedCategory === categorie.id}">
-                    <a class="nav-link">
-                        <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
-                    </a>
-                </li>
-            }
+<div class="offcanvas offcanvas-start w-50" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Menu</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" #closeButtonFilterMobile></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="dropdown">
+                <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="ms-1">Categorias</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdown">
+                    @for(categorie of categories; track categorie){
+                        <li class="dropdown-item"
+                        [routerLink]="['/home/store']"
+                        [queryParams]="{category: categorie.id}"
+                        [ngClass]="{'active': selectedCategory === categorie.id}"
+                        (click)="closeOffcanvasFilterMobile()"
+                        >
+                            <a class="nav-link">
+                                <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
         </ul>
-    </li>
-</ul>
+    </div>
+</div>
         
