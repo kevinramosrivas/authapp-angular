@@ -75,6 +75,8 @@ export class StorePageComponent implements OnDestroy {
     });
   }
 
+
+
   public onPriceFilter(range:RangePrice){
     this.router.navigate([], {
       queryParams: {
@@ -114,20 +116,27 @@ export class StorePageComponent implements OnDestroy {
   }
 
   public verifiQueryParams(params:Params){
-    if(params["category"] && !params["minPrice"] && !params["maxPrice"]){
-      this.rangePrice = {minPrice: 1, maxPrice: 1000};
-      this.orderBy.setValue('');
-      this.selectedCategory = parseInt(params["category"]);
-      this.filterByCategory(this.selectedCategory);
-    }
-    if(params["minPrice"] && params["maxPrice"]&& params["category"] ){
-      this.selectedCategory = parseInt(params["category"]);
-      this.rangePrice = {minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"])};
-      this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
-    }
-    if(!params["category"] && !params["minPrice"] && !params["maxPrice"]){
+    if (params["category"]) {
+      if (!params["minPrice"] && !params["maxPrice"]) {
+        this.rangePrice = { minPrice: 1, maxPrice: 1000 };
+        this.orderBy.setValue('');
+        this.selectedCategory = parseInt(params["category"]);
+        this.filterByCategory(this.selectedCategory);
+      } else if (params["minPrice"] && params["maxPrice"]) {
+        this.selectedCategory = parseInt(params["category"]);
+        this.rangePrice = { minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"]) };
+        this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
+      }
+    } else if (!params["category"] && !params["minPrice"] && !params["maxPrice"] && !params["product"]) {
       this.selectedCategory = 1;
       this.filterByCategory(this.selectedCategory);
+    } else if (params["product"] && (!params["category"] && !params["minPrice"] && !params["maxPrice"])) {
+      this.loading = true;
+      this.homeService.getProductsByName(params["product"]).subscribe((response) => {
+        this.selectedCategory = 0;
+        this.products = response;
+        this.loading = false;
+      });
     }
   }
 }

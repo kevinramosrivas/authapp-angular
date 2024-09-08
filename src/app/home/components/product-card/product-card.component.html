@@ -28,7 +28,7 @@
             <span class="product-price-old text-decoration-line-through text-secondary">{{'S/'+ (product.price + 0.21*(product.price))}}</span>
          </div>
         </div>
-        <app-button  iconLeft="bi bi-cart-plus" (click)="addProductToShopCar(product)" text="Agregar" class="mt-3 text-center"/>
+        <button-card  [iconLeft]="isAddedToShopCarIcon" (click)="addProductToShopCar(product)" [text]="isAddedToShopCar" class="mt-3 text-center"/>
       </div>
     </div>
 

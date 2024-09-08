@@ -16,7 +16,6 @@
                 <option value="nombreDesc">Nombre - Z-A</option>
                 <option value="fechaAsc">Fecha - Más Antiguo primero</option>
                 <option value="fechDesc">Fecha - Más Reciente primero</option>
-
               </select>
           </div>
     </div>
@@ -38,9 +37,7 @@
                   <div class="row">
                     @if(products.length == 0 && !loading){
                       <div class="col-12">
-                        <div class="alert alert-warning" role="alert">
-                          No se encontraron productos
-                        </div>
+                        <p>Lo sentimos, no pudimos encontrar lo que estabas buscando 😢</p>
                       </div>
                     }
                     @if(loading){

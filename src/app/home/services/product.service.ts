@@ -35,6 +35,12 @@ export class HomeService {
     return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}`);
   }
 
+  private _getProductsByName(name: string){
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?title=${name}`);
+  }
+
+
+
   public getProductsList(){
     return this._products$.pipe(
       switchMap(() => this._getProductsList()),
@@ -69,6 +75,15 @@ export class HomeService {
       shareReplay()
     )
   }
+
+  public getProductsByName(name: string){
+    return this._products$.pipe(
+      switchMap(() => this._getProductsByName(name)),
+      shareReplay()
+    )
+  }
+
+  
 
 
 }
