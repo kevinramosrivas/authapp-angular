@@ -22,12 +22,14 @@ import { ButtonComponent } from './components/button/button.component';
 import { CategoriesFilterCardComponent } from './components/categories-filter-card/categories-filter-card.component';
 import { SkeletonProductCardComponent } from './components/skeleton-product-card/skeleton-product-card.component';
 import { CategoriesFilterMobileComponent } from './components/categories-filter-mobile/categories-filter-mobile.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
 
 
 @NgModule({
   declarations: [
     HomeLayoutComponent,
     HomePageComponent,
+    ProductPageComponent,
     ProductCardComponent,
     NavbarComponent,
     ImageComponent,

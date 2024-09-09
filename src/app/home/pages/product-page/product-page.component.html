@@ -1,0 +1,35 @@
+<main class="container">
+    <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/home']">Inicio</a></li>
+              <li class="breadcrumb-item"  [routerLink]="['/home/profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Categoria</li>
+              <li class="breadcrumb-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Producto</li>
+            </ol>
+          </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '500rem'}"  [i_height]="{sizeWeb: '500rem'}"></image-component>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center p-2">
+                @for(image of product!.images; track image){
+                    <div class="px-2">
+                        <image-component [src]="image | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '100rem'}"  [i_height]="{sizeWeb: '100rem'}" ></image-component>
+                    </div>
+                }
+            </div>
+            
+        </div>
+        <div class="col-4">
+            <h2 class="text-center">{{product?.title}}</h2>
+            <p class="text-muted mb-1  text-center">{{product?.description}}</p>
+            <p class="text-muted mb-4  text-center">{{product?.price}}</p>
+        </div>
+    </div>
+</main>
