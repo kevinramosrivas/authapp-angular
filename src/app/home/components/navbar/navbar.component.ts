@@ -19,6 +19,7 @@ export class NavbarComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   public currentUser = this.authService.currentUser;
+
   @ViewChild('closeButtonNavbar') closeButtonNavbar: ElementRef = this.elementRef.nativeElement;
 
   public searchProductForm = this.fb.group({
@@ -39,6 +40,9 @@ export class NavbarComponent {
       this.closeNavbar();
       this.searchProductForm.reset();
     }
+  }
+  public imprimir(){
+    console.log('imprimir');
   }
 
 }
