@@ -18,6 +18,8 @@ export class ShopCarComponent {
   public products = this.shopCarService.getItems();
 
   public total = this.shopCarService.total$;
+  
+  public itemsCount = this.shopCarService.numItems$; 
 
   public addProductToShopCar(product: Product) {
     this.shopCarService.addProduct({ product, quantity: 1 });

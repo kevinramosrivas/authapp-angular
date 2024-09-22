@@ -10,6 +10,8 @@ export class ShopCarService {
 
   public total = signal<number>(0);
 
+  public numItems = signal<number>(0);
+
   public itemsCount = computed<number>(
     () => this.shopCarItems().reduce((acc, item) => acc + item.quantity, 0)
   );
@@ -18,6 +20,7 @@ export class ShopCarService {
   public addProduct(product: ShopCarItem){
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
+      this.numItems.update((numItems) => numItems + product.quantity);
       if(item){
         item.quantity += product.quantity;
       }else{
@@ -33,6 +36,7 @@ export class ShopCarService {
   public removeProduct(product: ShopCarItem){
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
+      this.numItems.update((numItems) => numItems - product.quantity);
       if(item){
         item.quantity -= product.quantity;
         if(item.quantity <= 0){
@@ -56,6 +60,9 @@ export class ShopCarService {
 
   get total$() {
     return this.total;
+  }
+  get numItems$() {
+    return this.numItems;
   }
 
 
