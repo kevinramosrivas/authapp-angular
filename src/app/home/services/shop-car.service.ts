@@ -1,10 +1,12 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, OnInit, computed, signal } from '@angular/core';
 import { ShopCarItem } from '../interfaces/shopcar-items.interface';
+import { Product } from '../interfaces/products.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShopCarService {
+export class ShopCarService{
+
 
   public shopCarItems = signal<ShopCarItem[]>([]);
 
@@ -12,31 +14,31 @@ export class ShopCarService {
 
   public numItems = signal<number>(0);
 
-  public itemsCount = computed<number>(
-    () => this.shopCarItems().reduce((acc, item) => acc + item.quantity, 0)
-  );
 
+  constructor(){
+    this.loadShopCar();
+  }
 
   public addProduct(product: ShopCarItem){
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
-      this.numItems.update((numItems) => numItems + product.quantity);
       if(item){
         item.quantity += product.quantity;
       }else{
         items.push(product);
       }
-      //calcular el total
-      this.total.update(() => items.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
       return items;
     }
     );
+    //calcular el total y el numero de items
+    this.updateNumItems(product, 'add');
+    this.updateTotal();
+    this.saveShopCar();
   };
 
   public removeProduct(product: ShopCarItem){
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
-      this.numItems.update((numItems) => numItems - product.quantity);
       if(item){
         item.quantity -= product.quantity;
         if(item.quantity <= 0){
@@ -44,10 +46,12 @@ export class ShopCarService {
           items = items.filter((item) => item.product.id !== product.product.id);
         }
       }
-      //calcular el total
-      this.total.update(() => items.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
       return items;
     });
+    //calcular el total y el numero de items
+    this.updateNumItems(product, 'remove');
+    this.updateTotal();
+    this.saveShopCar();
   };
 
   public clear(){
@@ -57,6 +61,38 @@ export class ShopCarService {
   public getItems(){
     return this.shopCarItems;
   }
+  public loadShopCar(){
+    const shopCar = localStorage.getItem('shopCarIziStore');
+    if(shopCar){
+      this.shopCarItems.set(JSON.parse(shopCar));
+      //recalcular el total y el numero de items
+      this.shopCarItems().forEach((product) => {
+        this.updateNumItems(product, 'add');
+      });
+      this.updateTotal();
+    }
+
+  };
+
+  public updateNumItems(product: ShopCarItem, action: 'add' | 'remove'){
+    if(action == 'add'){
+      this.numItems.update((numItems) => numItems + product.quantity);
+    }
+    else if(action == 'remove'){
+      this.numItems.update((numItems) => numItems - product.quantity);
+    }
+  };
+
+  public updateTotal(){
+    const items = this.shopCarItems();
+    this.total.update(() => items.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
+  };
+
+  public saveShopCar(){
+    //limpiar el local storage
+    localStorage.removeItem('shopCarIziStore');
+    localStorage.setItem('shopCarIziStore', JSON.stringify(this.shopCarItems()));
+  };
 
   get total$() {
     return this.total;
