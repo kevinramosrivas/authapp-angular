@@ -17,5 +17,9 @@ export class CarouselProductsComponent{
     () => [this.products().slice(0, 4),this.products().slice(4,8)]
   );
 
+  public isLoaded = computed<boolean>(
+    () => this.products().length > 0
+  );
+
   
  }

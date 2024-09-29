@@ -41,8 +41,8 @@ export class NavbarComponent {
       this.searchProductForm.reset();
     }
   }
-  public imprimir(){
-    console.log('imprimir');
-  }
+
+
+  
 
 }
