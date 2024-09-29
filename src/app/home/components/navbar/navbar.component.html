@@ -7,16 +7,11 @@
         </svg>
         <span class="fw-bold p-2 store-tittle">IzI Store</span>
       </a>
-
       @if(currentUser()?.role !== 'admin'){
         <div class="d-lg-none d-block ms-auto">
           <app-shop-car/>
         </div>
       }
-
-
-
-
       <button class="navbar-toggler ms-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
@@ -38,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                   <div class="dropdown">
-                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categorias
                     </button>
                     <ul class="dropdown-menu overflow-auto border border-0">
@@ -57,8 +52,8 @@
                 </li>
                 <li class="nav-item">
                   <div class="dropdown">
-                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-person"></i>
+                    <button class="btn btn-outline-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-person"></i> Mi cuenta
                     </button>
                     <ul class="dropdown-menu border border-0">
                         <li class="dropdown-item" (click)="closeNavbar()">
@@ -88,7 +83,7 @@
                 </li>
                 <li class="nav-item order-3 order-md-2">
                   <div class="dropdown">
-                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categorias
                     </button>
                     <ul class="dropdown-menu overflow-auto border border-0">
@@ -110,10 +105,11 @@
                 </li>
                 <li class="nav-item order-1 order-md-3">
                   <div class="dropdown">
-                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-person"></i>
+                    <button class="btn btn-outline-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-person"></i> {{currentUser()?.name}}
                     </button>
                     <ul class="dropdown-menu border border-0">
+                      <li><h6 class="dropdown-header">Hola, {{currentUser()?.name}}</h6></li>
                       <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
                       <li (click)="closeNavbar()"> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
