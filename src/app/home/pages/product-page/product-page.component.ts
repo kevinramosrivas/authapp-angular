@@ -20,6 +20,7 @@ export class ProductPageComponent implements OnDestroy {
   public isAddedToShopCar: 'Agregar al carrito' | 'Agregado' = 'Agregar al carrito';
   public isAddedToShopCarIcon: 'bi-cart-plus' | 'bi-check2' = 'bi-cart-plus';
   public MainImageProduct: string = '';
+  public isLoading: boolean = true;
 
 
   constructor(){
@@ -40,6 +41,9 @@ export class ProductPageComponent implements OnDestroy {
             this.productService.getProductsByCategorie(product.category.id.toString()).subscribe(
               (response) =>{
                 this.productsSameCategory = this. filterSameProduct(response, product);
+                setTimeout(() => {
+                  this.isLoading = false
+                } , 500)
               }
             )
           },

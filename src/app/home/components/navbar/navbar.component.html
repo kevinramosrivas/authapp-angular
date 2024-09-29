@@ -78,26 +78,6 @@
 
           }
           @else{
-            @if(currentUser()?.role === 'admin'){
-              <ul class="navbar-nav ms-auto gap-3">
-                <li class="nav-item" (click)="closeNavbar()">
-                  <a class="btn btn-primary rounded-4" aria-current="page"  role="button" [routerLink]="['/home/secret']">
-                    Administrar Productos
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <div class="dropdown">
-                    <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span class="d-inline ps-2">{{currentUser()?.name}}</span>
-                    </button>
-                    <ul class="dropdown-menu border border-0">
-                      <li (click)="closeNavbar()" class="dropdown-item"> <a [routerLink]="['/auth/register']">Añadir administrador</a></li>
-                      <li (click)="closeNavbar()" class="dropdown-item"> <a (click)="logout()">Cerrar Sesión</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            }
             @if(currentUser()?.role === 'customer'){
               <ul class="navbar-nav ms-auto gap-3 order-md-1">
                 <li class="nav-item" (click)="closeNavbar()">
@@ -131,7 +111,7 @@
                 <li class="nav-item order-1 order-md-3">
                   <div class="dropdown">
                     <button class="btn btn-primary rounded-4 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <span class="d-inline ps-2">{{currentUser()?.name}}</span>
+                      <i class="bi bi-person"></i>
                     </button>
                     <ul class="dropdown-menu border border-0">
                       <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>

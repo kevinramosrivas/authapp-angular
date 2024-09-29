@@ -50,7 +50,6 @@ export class StorePageComponent implements OnDestroy {
   onSelectedCategory(idCategory: number){
     this.selectedCategory = idCategory;
     this.filterByCategory(idCategory);
-    console.log(idCategory);
   }
 
   private filterByCategory(idCategory: number){
@@ -58,7 +57,9 @@ export class StorePageComponent implements OnDestroy {
     this.selectedCategory = idCategory;
     this.homeService.getProductsByCategorie(idCategory.toString()).subscribe((response) => {
       this.products = response;
-      this.loading = false;
+      setTimeout(() => {
+        this.loading = false;
+      }, 200);
     });
   }
   public getCategories(){
@@ -71,7 +72,20 @@ export class StorePageComponent implements OnDestroy {
     this.loading = true;
     this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe((response) => {
       this.products = response;
-      this.loading = false;
+      setTimeout(() => {
+        this.loading = false;
+      }, 200);
+    });
+  }
+
+  private filterByProuctName(productName: string){
+    this.loading = true;
+    this.homeService.getProductsByName(productName).subscribe((response) => {
+      this.selectedCategory = 0;
+      this.products = response;
+      setTimeout(() => {
+        this.loading = false;
+      }, 200);
     });
   }
 
@@ -131,12 +145,7 @@ export class StorePageComponent implements OnDestroy {
       this.selectedCategory = 1;
       this.filterByCategory(this.selectedCategory);
     } else if (params["product"] && (!params["category"] && !params["minPrice"] && !params["maxPrice"])) {
-      this.loading = true;
-      this.homeService.getProductsByName(params["product"]).subscribe((response) => {
-        this.selectedCategory = 0;
-        this.products = response;
-        this.loading = false;
-      });
+      this.filterByProuctName(params["product"]);
     }
   }
 }
