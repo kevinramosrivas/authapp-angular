@@ -52,7 +52,7 @@
                     </div>
                     <div class="row text-center pt-1">
                         <div class="col-12">
-                            <p class="text-wrap">{{item.product.title}}</p>
+                            <a class="text-wrap" [routerLink]="['/home/product']" [queryParams]="{id: item.product.id}">{{item.product.title}}</a>
                         </div>
                     </div>
                     <div class="row text-center">
