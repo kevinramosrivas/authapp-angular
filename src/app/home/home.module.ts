@@ -23,6 +23,7 @@ import { CategoriesFilterCardComponent } from './components/categories-filter-ca
 import { SkeletonProductCardComponent } from './components/skeleton-product-card/skeleton-product-card.component';
 import { CategoriesFilterMobileComponent } from './components/categories-filter-mobile/categories-filter-mobile.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
     HomePageComponent,
     ProductPageComponent,
     ProductCardComponent,
+    ShopcarPageComponent,
     NavbarComponent,
     ImageComponent,
     BannerComponent,

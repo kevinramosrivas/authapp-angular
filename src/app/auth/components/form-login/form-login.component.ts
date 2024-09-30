@@ -26,8 +26,8 @@ export class FormLoginComponent {
   public loginError = false;
 
   public loginForm = this.fb.group({
-    email: ['admin@mail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
-    password: ['admin123', [Validators.required, Validators.minLength(6)]]
+    email: ['jhon_doe@gmail.com', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
+    password: ['12345678', [Validators.required, Validators.minLength(6)]]
   });
 
   public isValidField(field: string): boolean|undefined {

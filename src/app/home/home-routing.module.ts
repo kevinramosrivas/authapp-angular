@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { loginGuard } from '../shared/guards/login.guard';
 import { StorePageComponent } from './pages/store-page/store-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: '', component: HomePageComponent },
       {path: 'store', component: StorePageComponent},
       {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
-      {path: 'product', component: ProductPageComponent}
+      {path: 'product', component: ProductPageComponent},
+      {path: 'myshopcar', component: ShopcarPageComponent}
     ]
   }
 ];
