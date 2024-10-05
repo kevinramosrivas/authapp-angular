@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, switchMap, tap, catchError } from 'rxjs';
+import { BehaviorSubject, switchMap, tap, catchError, of, throwError } from 'rxjs';
 import { Categorie, Product } from '../interfaces/products.interface';
+import { errorIziStore } from '../interfaces/error.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,111 +10,87 @@ import { Categorie, Product } from '../interfaces/products.interface';
 export class HomeService {
 
   private baseUrl = 'https://api.escuelajs.co/api/v1';
-
   private http = inject(HttpClient);
-  private _products$ = new BehaviorSubject<Product[]>([]);
-  private _product$ = new BehaviorSubject<Product>({} as Product);
-  private _categories$ = new BehaviorSubject<Categorie[]>([]);
-  private _productsByCategorie$ = new BehaviorSubject<Product[]>([]);
+
+
+  private handleError(error: HttpErrorResponse){
+    return throwError(() => {
+      let message = 'Un error ha ocurrido, por favor intenta de nuevo';
+      let timestamp = new Date().getTime().toString();
+
+      return {message, timestamp} as errorIziStore
+    })
+  }
 
 
   private _getProductsList(){
-    return this.http.get<Product[]>(`${this.baseUrl}/products`);
+    return this.http.get<Product[]>(`${this.baseUrl}/products`).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private _getCategoryList(){
-    return this.http.get<Categorie[]>(`${this.baseUrl}/categories`);
+    return this.http.get<Categorie[]>(`${this.baseUrl}/categories`).pipe(
+      catchError(this.handleError)
+    )
   }
   private _getProductsByCategorie(id: string){
-    return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`);
+    return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private _getProductsByRangePrice(minPrice: number, maxPrice: number){
-    return this.http.get<Product[]>(`${this.baseUrl}/products/?price_min=${minPrice}&price_max=${maxPrice}`);
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?price_min=${minPrice}&price_max=${maxPrice}`).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private _getProductsByCategoryAndRangePrice(id: number, minPrice: number, maxPrice: number){
-    return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}`);
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}`).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private _getProductsByName(name: string){
-    return this.http.get<Product[]>(`${this.baseUrl}/products/?title=${name}`);
+    return this.http.get<Product[]>(`${this.baseUrl}/products/?title=${name}`).pipe(
+      catchError(this.handleError)
+    )
   }
   private _getProductById(id:string){
-    return this.http.get<Product>(`${this.baseUrl}/products/${id}`);
+    return this.http.get<Product>(`${this.baseUrl}/products/${id}`).pipe(
+      catchError(this.handleError)
+    )
   }
 
 
 
   public getProductsList(){
-    return this._products$.pipe(
-      switchMap(() => this._getProductsList()),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-    )
+    return this._getProductsList()
   }
 
   public getCategoryList(){
-    return this._categories$.pipe(
-      switchMap(() => this._getCategoryList()),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-    )
+    return  this._getCategoryList()
   }
 
   public getProductsByCategorie(id: string){
-    return this._productsByCategorie$.pipe(
-      switchMap(() => this._getProductsByCategorie(id)),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-    )
+    return this._getProductsByCategorie(id)
+
   }
 
   public getProductsByRangePrice(minPrice: number, maxPrice: number){
-    return this._products$.pipe(
-      switchMap(() => this._getProductsByRangePrice(minPrice, maxPrice)),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-    )
+    return this._getProductsByRangePrice(minPrice, maxPrice)
   }
 
   public getProductsByCategoryAndPrice(id: number, minPrice: number, maxPrice: number){
-    return this._products$.pipe(
-      switchMap(() => this._getProductsByCategoryAndRangePrice(id, minPrice, maxPrice)),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-    )
+    return  this._getProductsByCategoryAndRangePrice(id, minPrice, maxPrice)
   }
 
   public getProductsByName(name: string){
-    return this._products$.pipe(
-      switchMap(() => this._getProductsByName(name)),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-
-    )
+    return this._getProductsByName(name)
   }
   public getProductById(id:string){
-    return this._product$.pipe(
-      switchMap(() => this._getProductById(id)),
-      catchError((error) => {
-        console.log(error);
-        return [];
-      })
-
-    )
+    return this._getProductById(id)
   }
 
   

@@ -1,7 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ShopCarService } from '../../services/shop-car.service';
 import { Product } from '../../interfaces/products.interface';
+import { HomeService } from '../../services/product.service';
+import { ShopCarService } from '../../services/shop-car.service';
+import { errorIziStore } from '../../interfaces/error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-shopcar-page',
@@ -18,10 +20,18 @@ import { Product } from '../../interfaces/products.interface';
 })
 export class ShopcarPageComponent {
   private shopCarService = inject(ShopCarService);
-
+  public homeService = inject(HomeService);
   public products = this.shopCarService.getItems();
 
   public total = this.shopCarService.total$;
+
+  public productsRecent: Product[] = [];
+
+  public hasHttpError = false;
+
+  constructor() {
+    this.getproductsListLimited();
+  }
 
 
   public addProductToShopCar(product: Product) {
@@ -30,6 +40,20 @@ export class ShopcarPageComponent {
 
   public removeProductFromShopCar(product: Product) {
     this.shopCarService.removeProduct({ product, quantity: 1 });
+  }
+
+  public getproductsListLimited(){
+    this.homeService.getProductsList().subscribe(
+      {
+        next: (response: Product[]) => {
+          this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
+        },
+        error: (error: errorIziStore) => {
+          this.hasHttpError = true;
+        }
+      }
+      //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
+     );
   }
 
 }
