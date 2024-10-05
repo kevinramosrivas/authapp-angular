@@ -27,7 +27,7 @@ export class ShopcarPageComponent {
 
   public productsRecent: Product[] = [];
 
-  public hasHttpError = false;
+  public hasHttpError: boolean = false;
 
   constructor() {
     this.getproductsListLimited();
@@ -47,13 +47,17 @@ export class ShopcarPageComponent {
       {
         next: (response: Product[]) => {
           this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
+          this.hasHttpError = false;
         },
         error: (error: errorIziStore) => {
           this.hasHttpError = true;
         }
       }
-      //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
      );
+  }
+
+  public loadProducts(){
+    this.getproductsListLimited();
   }
 
 }
