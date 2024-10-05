@@ -37,9 +37,11 @@
         <home-carousel-products [products]="productsRecent" [hasHttpError]="hasHttpError" (retryLoadProducts)=" getproductsListLimited()"/>
         <div class="row pt-4">
           <div class="col-12 d-flex justify-content-center align-items-center">
-            <button class="btn btn-primary" [routerLink]="['/home/store']">
-              Ver todos los productos
-            </button>
+            @if(!hasHttpError){
+              <button class="btn btn-primary" [routerLink]="['/home/store']">
+                Ver todos los productos
+              </button>
+            }
           </div>
         </div>
       </div>

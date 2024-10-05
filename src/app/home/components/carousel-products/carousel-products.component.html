@@ -1,36 +1,36 @@
 
 <div class="row">
-    <div class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @if(!hasHttpError()){
-                @if(arrayProducts() !== null && isLoaded()){
-                    @for(listProducts of arrayProducts(); track listProducts){
-                        @if(listProducts.length > 0 ){
-                            <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="5000">
-                                <div class="row">
-                                    @for(item of listProducts; track item){
-                                      <div class="col-6 col-md-4 col-sm-6 col-lg-3">
-                                            <home-product-card [product]="item" [offer]="true"/>
-                                      </div>
-                                    }
+    @if(!hasHttpError()){
+        <div class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                
+                    @if(arrayProducts() !== null && isLoaded()){
+                        @for(listProducts of arrayProducts(); track listProducts){
+                            @if(listProducts.length > 0 ){
+                                <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="5000">
+                                    <div class="row">
+                                        @for(item of listProducts; track item){
+                                        <div class="col-6 col-md-4 col-sm-6 col-lg-3">
+                                                <home-product-card [product]="item" [offer]="true"/>
+                                        </div>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     }
-                }
-                @if(!isLoaded()){
-                    <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="90rem">
-                }
-            }
-            @else{
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <h4 class="text-muted text-center mb-4">No se pudo cargar los productos</h4>
-                    <button class="btn btn-primary text-center" (click)="loadProducts()">Reintentar</button>
-                </div>
-            }
-            
+                    @if(!isLoaded()){
+                        <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="90rem">
+                    }            
+            </div>
         </div>
-    </div>
+    }
+    @else{
+        <div class="d-flex flex-column justify-content-center align-items-center p-4">
+            <h4 class="text-muted text-center mb-4">No se pudo cargar los productos</h4>
+            <button class="btn btn-primary text-center" (click)="loadProducts()">Reintentar</button>
+        </div>
+    }
 </div>
 
 
