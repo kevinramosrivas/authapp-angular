@@ -17,6 +17,7 @@ export class HomePageComponent implements OnInit{
   public categorieInput = new FormControl('1');
   public productsSorted: Product[] = [];
   public hasHttpError: boolean = false;
+  public isLoading: boolean = true;
 
 
   ngOnInit(): void {
@@ -35,9 +36,11 @@ export class HomePageComponent implements OnInit{
           //ordenar los productos por fecha de creacion y mosotrar solo los 10 primeros mas recientes
           this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
           this.hasHttpError = false;
+          this.isLoading = false;
         },
         error: (error: errorIziStore) => {
           this.hasHttpError = true;
+          this.isLoading = false;
         }
       });
   }

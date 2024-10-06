@@ -23,7 +23,7 @@
             </div>
            </div>
         </div>
-        <home-carousel-products [products]="productsSorted" [hasHttpError]="hasHttpError" (retryLoadProducts)="getproductsListLimited()" />
+        <home-carousel-products [products]="productsSorted" [hasHttpError]="hasHttpError" (retryLoadProducts)="getproductsListLimited()" [isLoading]="isLoading" />
       </div>
 
       <div class="container overflow-hidden p-3">
@@ -34,7 +34,7 @@
             </div>
            </div>
         </div>
-        <home-carousel-products [products]="productsRecent" [hasHttpError]="hasHttpError" (retryLoadProducts)=" getproductsListLimited()"/>
+        <home-carousel-products [products]="productsRecent" [hasHttpError]="hasHttpError" (retryLoadProducts)=" getproductsListLimited()" [isLoading]="isLoading"/>
         <div class="row pt-4">
           <div class="col-12 d-flex justify-content-center align-items-center">
             @if(!hasHttpError){

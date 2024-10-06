@@ -29,6 +29,8 @@ export class ShopcarPageComponent {
 
   public hasHttpError: boolean = false;
 
+  public suggestedProductsLoading: boolean = true;
+
   constructor() {
     this.getproductsListLimited();
   }
@@ -48,9 +50,11 @@ export class ShopcarPageComponent {
         next: (response: Product[]) => {
           this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
           this.hasHttpError = false;
+          this.suggestedProductsLoading = false;
         },
         error: (error: errorIziStore) => {
           this.hasHttpError = true;
+          this.suggestedProductsLoading = false;
         }
       }
      );

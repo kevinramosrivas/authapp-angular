@@ -4,7 +4,7 @@
         <div class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 
-                    @if(arrayProducts() !== null && isLoaded()){
+                    @if(arrayProducts().length !==  null && !isLoading() && products().length > 0){
                         @for(listProducts of arrayProducts(); track listProducts){
                             @if(listProducts.length > 0 ){
                                 <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="5000">
@@ -19,9 +19,14 @@
                             }
                         }
                     }
-                    @if(!isLoaded()){
+                    @else if(isLoading()){
                         <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="90rem">
-                    }            
+                    }
+                    @else if(products().length == 0 && !isLoading()){
+                        <div class="col-12">
+                            <p class="text-center">Ups no pudimos encontrar lo que buscabas 😢</p>
+                        </div>
+                    }
             </div>
         </div>
     }
