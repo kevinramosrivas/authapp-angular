@@ -1,31 +1,50 @@
 <div class="d-flex justify-content-center">
-    <img alt="Image" [src]="src"
-    class="img-web" 
-    [attr.width]= "i_width.sizeWeb"
-    [attr.height]= "i_height.sizeWeb"
-    (load)="onLoad()"
-    [classList]="i_class"
-    [ngClass]="{'d-none': loading()}"
-    (error)="onError()"
-    >
-    <img alt="Image" [src]="src"
-        class="img-mobile"  
-        [attr.width]= "i_width.sizeMobile"
-        [attr.height]= "i_height.sizeMobile"
+    @if(!hasHttpError()){
+        <img alt="Image" [src]="src"
+        class="img-web" 
+        [attr.width]= "i_width.sizeWeb"
+        [attr.height]= "i_height.sizeWeb"
         (load)="onLoad()"
         [classList]="i_class"
         [ngClass]="{'d-none': loading()}"
         (error)="onError()"
-    >
-    <!-- mostrar otra imagen si la imagen no carga -->
-@if(loading()){
-    <img
-        [classList]="i_class" [attr.width]= "i_width.sizeMobile"
-        [attr.height]= "i_height.sizeMobile" 
-        src="assets/loader.svg" 
-        alt="loader"
-    >
-}
+        >
+        <img alt="Image" [src]="src"
+            class="img-mobile"  
+            [attr.width]= "i_width.sizeMobile"
+            [attr.height]= "i_height.sizeMobile"
+            (load)="onLoad()"
+            [classList]="i_class"
+            [ngClass]="{'d-none': loading()}"
+            (error)="onError()"
+        >
+        <!-- mostrar otra imagen si la imagen no carga -->
+        @if(loading()){
+            <img
+                [classList]="i_class" [attr.width]= "i_width.sizeMobile"
+                [attr.height]= "i_height.sizeMobile" 
+                src="assets/loader.svg" 
+                alt="loader"
+                
+            >
+        }
+    }
+    @else {
+        <div 
+        class="img-web" 
+        [attr.width]= "i_width.sizeWeb"
+        [attr.height]= "i_height.sizeWeb"        >
+            <button class="btn btn-primary" (click)="retryLoadImage()"><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
+        <div 
+            class="img-mobile"  
+            [attr.width]= "i_width.sizeMobile"
+            [attr.height]= "i_height.sizeMobile"
+        >
+            <button class="btn btn-primary" (click)="retryLoadImage()"><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
+    }
+
 </div>
 
 

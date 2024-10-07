@@ -33,8 +33,10 @@ export class ImageComponent implements OnInit{
   @Input() i_width: ImageSize = {sizeWeb: 'auto', sizeMobile: 'auto'};
   @Input() i_height: ImageSize = {sizeWeb: 'auto', sizeMobile: 'auto'};
   @Input() i_class: string = '';
+  public backupImage: string = '';
   public loading = signal(true);
   public defaultImage = 'assets/not-found.svg';
+  public hasHttpError = signal(false);
 
   ngOnInit(): void {
     if(this.src == ''){
@@ -46,13 +48,26 @@ export class ImageComponent implements OnInit{
     if(this.i_height.sizeMobile == undefined){
       this.i_height.sizeMobile = this.i_height.sizeWeb;
     }
+    this.backupImage = this.src;
   } 
 
   public onLoad(){
     this.loading.set(false);
   }
   public onError(){
-    this.src = this.defaultImage;
-    this.loading.set(false);
+    if(this.src == this.defaultImage){
+      this.hasHttpError.set(true);
+      this.loading.set(false);
+    }
+    else{
+      this.src = this.defaultImage;
+      this.loading.set(false);
+    }
+  }
+
+  public retryLoadImage(){
+    this.src = this.backupImage;
+    this.hasHttpError.set(false);
+    this.loading.set(true);
   }
 }

@@ -22,7 +22,7 @@
                 <div class="carousel-inner">
                   @for(categorie of categories; track categorie){
                       <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="4000" [routerLink]="['/home/store']" [queryParams]="{category:categorie.id}">
-                          <image-component  src="{{categorie.image| url}}" i_class="w-100 object-fit-cover rounded animate__animated animate__bounceInRight" [i_height]="{sizeWeb: '500rem'}"  />
+                          <image-component  src="{{categorie.image | url}}" i_class="w-100 object-fit-cover rounded animate__animated animate__bounceInRight" [i_height]="{sizeWeb: '500rem'}"  />
                           <div class="carousel-caption bg-black rounded" style="--bs-bg-opacity: .5;" >
                               <h5>Encuentra lo mejor en la categoria</h5>
                               <p>{{categorie.name}}</p>

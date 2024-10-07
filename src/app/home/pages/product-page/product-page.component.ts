@@ -21,6 +21,9 @@ export class ProductPageComponent implements OnDestroy {
   public isAddedToShopCarIcon: 'bi-cart-plus' | 'bi-check2' = 'bi-cart-plus';
   public MainImageProduct: string = '';
   public isLoading: boolean = true;
+  public isLoadingProductsSameCategory: boolean = true;
+  public hasHttpError: boolean = false;
+  public hasHttpErrorSameCategory: boolean = false;
 
 
   constructor(){
@@ -38,16 +41,17 @@ export class ProductPageComponent implements OnDestroy {
           next: (product) => {
             this.product = product
             this.MainImageProduct = product.images[0];
-            this.productService.getProductsByCategorie(product.category.id.toString()).subscribe(
-              (response) =>{
-                this.productsSameCategory = this. filterSameProduct(response, product);
-                setTimeout(() => {
-                  this.isLoading = false
-                } , 500)
-              }
-            )
+            this.getProductsSameCategory();
+            setTimeout(() => {
+              this.isLoading = false;
+            },200);
           },
-          error: (error) => this.product = null
+          error: (error) => {
+            this.hasHttpError = true;
+            setTimeout(() => {
+              this.isLoading = false;
+            },200);
+          }
         }
       )
     }
@@ -73,6 +77,22 @@ export class ProductPageComponent implements OnDestroy {
       this.MainImageProduct = img;
 
     }
+
+  }
+
+  public getProductsSameCategory(){
+    this.productService.getProductsByCategorie(this.product!.category.id.toString()).subscribe(
+      {
+        next: (products) => {
+          this.productsSameCategory = this.filterSameProduct(products, this.product as Product);
+          this.isLoadingProductsSameCategory = false;
+        },
+        error: (error) => {
+          this.hasHttpErrorSameCategory = true;
+          this.isLoadingProductsSameCategory = false;
+        }
+      }
+    )
 
   }
   //funcion que elimine el producto actual de la lista de productos similares
