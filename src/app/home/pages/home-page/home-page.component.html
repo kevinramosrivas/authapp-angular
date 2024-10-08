@@ -2,7 +2,7 @@
   <section class="py-3 py-md-2 py-xl-8">
   <!-- Banner  Component -->
     <div class="container-fluid">
-      <home-banner [categories]="categories"/>
+      <home-banner [categories]="categories" [hasCategoriesHttpError]="hasCategoriesHttpError" [isLoadingCategories]="isLoadingCategories" (retryLoadCategories)="getCategories()"/>
     </div>
 
         <app-advantages-cards class="pt-4"></app-advantages-cards>

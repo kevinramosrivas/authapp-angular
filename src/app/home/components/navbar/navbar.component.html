@@ -88,11 +88,10 @@
                     </button>
                     <ul class="dropdown-menu overflow-auto border border-0">
                       @for(categorie of categories; track categorie){
-                        <li class="dropdown-item" (click)="closeNavbar()">
-                            <a class="dropdown-item" 
-                            [routerLink]="['/home/store']"
-                            [queryParams]="{category: categorie.id}"
-                            >
+                        <li class="dropdown-item" (click)="closeNavbar()"
+                        [routerLink]="['/home/store']"
+                        [queryParams]="{category: categorie.id}">
+                            <a class="dropdown-item">
                               {{categorie.name}} 
                             </a>
                         </li>

@@ -18,6 +18,8 @@ export class HomePageComponent implements OnInit{
   public productsSorted: Product[] = [];
   public hasHttpError: boolean = false;
   public isLoading: boolean = true;
+  public isLoadingCategories: boolean = true;
+  public hasCategoriesHttpError: boolean = false;
 
 
   ngOnInit(): void {
@@ -27,6 +29,7 @@ export class HomePageComponent implements OnInit{
 
 
   public getproductsListLimited(){
+    this.isLoading = true;
     this.homeService.getProductsList().subscribe(
 
       {
@@ -46,9 +49,20 @@ export class HomePageComponent implements OnInit{
   }
 
   public getCategories(){
-    this.homeService.getCategoryList().subscribe((response) => {
-      this.categories = response;
-    });
+    this.isLoadingCategories = true;
+    this.homeService.getCategoryList().subscribe(
+      {
+        next: (response) => {
+          this.categories = response;
+          this.hasCategoriesHttpError = false;
+          this.isLoadingCategories = false;
+        },
+        error: (error: errorIziStore) => {
+          this.hasCategoriesHttpError = true;
+          this.isLoadingCategories = false;
+        }
+      }
+    );
   }
   
   

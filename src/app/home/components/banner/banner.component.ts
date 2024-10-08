@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Categorie, Product } from '../../interfaces/products.interface';
 
 @Component({
@@ -10,4 +10,19 @@ import { Categorie, Product } from '../../interfaces/products.interface';
 export class BannerComponent { 
   @Input()
   public categories: Categorie[] = [];
+
+  @Input()
+  public isLoadingCategories: boolean = true;
+
+  @Input()
+  public hasCategoriesHttpError: boolean = false;
+
+
+  @Output()
+  public retryLoadCategories: EventEmitter<void> = new EventEmitter<void>();
+
+
+  public retryLoadCategoriesEvent(){
+    this.retryLoadCategories.emit();
+  }
 }
