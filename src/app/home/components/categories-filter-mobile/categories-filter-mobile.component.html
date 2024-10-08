@@ -6,23 +6,42 @@
     <div class="offcanvas-body px-0">
         <ul class="nav flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="dropdown">
-                <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="ms-1">Categorias</span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdown">
-                    @for(categorie of categories; track categorie){
-                        <li class="dropdown-item"
-                        [routerLink]="['/home/store']"
-                        [queryParams]="{category: categorie.id}"
-                        [ngClass]="{'active': selectedCategory === categorie.id}"
-                        (click)="closeOffcanvasFilterMobile()"
-                        >
-                            <a class="nav-link">
-                                <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
-                            </a>
+                @if(!hasHttpCategoriesError){
+                    <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="ms-1">Categorias</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown">
+                        @for(categorie of categories; track categorie){
+                            <li class="dropdown-item"
+                            [routerLink]="['/home/store']"
+                            [queryParams]="{category: categorie.id}"
+                            [ngClass]="{'active': selectedCategory === categorie.id}"
+                            (click)="closeOffcanvasFilterMobile()"
+                            >
+                                <a class="nav-link">
+                                    <span class="ms-1"[ngClass]="{'text-light': selectedCategory === categorie.id}">{{categorie.name}}</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @else {
+                    <a class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="ms-1">Categorias</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown">
+                        <li class="dropdown-item">
+                            <p class="text-wrap">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                Ocurrió un error al cargar las categorías
+                            </p>
+                            <button class="btn btn-primary py-2" (click)="retryLoadCategoriesEvent()">
+                                Reintentar
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
                         </li>
-                    }
-                </ul>
+                    </ul>
+                }
             </li>
         </ul>
     </div>

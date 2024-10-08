@@ -1,64 +1,99 @@
-@if(categories.length === 0){
-  <div class="card">
-    <p class="card-header text-bg-primary">Categorias</p>
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-        <li class="list-group-item placeholder-glow">
-          <span class="placeholder w-100"></span>
-        </li>
-      </ul>
-    </div>
-  </div>
-}
-@else{
-  <div class="card">
-    <p class="card-header text-bg-primary">Categorias</p>
-    <div class="card-body categories-items">
-      <ul class="list-group list-group-flush">
-        @for(categorie of categories; track categorie){
-          <li class="list-group-item list-group-item-action categories-item" (click)="onSelectCategory(categorie.id)" [ngClass]="{'active': selectedCategory === categorie.id}"
-           [routerLink]="['/home/store']"
-           [queryParams]="{category: categorie.id}"
-          >
-            <span >{{categorie.name}}</span>
+@if(!hasHttpCategoriesError){
+  @if(loading){
+    <div class="card">
+      <p class="card-header text-bg-primary">Categorias</p>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
           </li>
-        }
-      </ul>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+          <li class="list-group-item placeholder-glow">
+            <span class="placeholder w-100"></span>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="card mt-3">
-    <p class="card-header text-bg-primary">Precio</p>
+    <div class="card mt-3">
+      <p class="card-header text-bg-primary">Precio</p>
+      <div class="card-body">
+          <span class="placeholder w-100 my-2"></span>
+  
+          <div class="d-flex justify-content-between">
+            <span class="placeholder w-50 mx-1 p-3"></span>
+            <span class="placeholder w-50 mx-1 p-3"></span>
+          </div>
+      </div>
+    </div>
+  }
+  @else{
+    <div class="card">
+      <p class="card-header text-bg-primary">Categorias</p>
+      <div class="card-body categories-items">
+        <ul class="list-group list-group-flush">
+          @for(categorie of categories; track categorie){
+            <li class="list-group-item list-group-item-action categories-item" (click)="onSelectCategory(categorie.id)" [ngClass]="{'active': selectedCategory === categorie.id}"
+             [routerLink]="['/home/store']"
+             [queryParams]="{category: categorie.id}"
+            >
+              <span >{{categorie.name}}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <p class="card-header text-bg-primary">Precio</p>
+      <div class="card-body">
+        <form [formGroup]="priceFilterForm" (ngSubmit)="onPriceFilter()" class="d-flex flex-column">
+          <span class="text-muted">Rango de precios</span>
+          <div class="input-group">
+            <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="minPrice">
+            <span class="input-group-text">-</span>
+            <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="maxPrice">
+          </div>
+          <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-funnel-fill"></i> Filtrar</button>
+        </form>
+      </div>
+    </div>
+  }
+}
+@else {
+  <div class="card">
+    <p class="card-header text-bg-primary">Categorias</p>
     <div class="card-body">
-      <form [formGroup]="priceFilterForm" (ngSubmit)="onPriceFilter()" class="d-flex flex-column">
-        <span class="text-muted">Rango de precios</span>
-        <div class="input-group">
-          <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="minPrice">
-          <span class="input-group-text">-</span>
-          <input type="number" class="form-control" min="1" max="9999" id="customRange2" formControlName="maxPrice">
-        </div>
-        <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-funnel-fill"></i> Filtrar</button>
-      </form>
+      <p class="text-wrap">
+        <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+        Ocurrió un error al cargar las categorías
+      </p>
+      <button class="btn btn-primary py-2" (click)="retryLoadCategoriesEvent()">
+        Reintentar
+        <i class="bi bi-arrow-clockwise"></i>
+      </button>
     </div>
   </div>
 }
+

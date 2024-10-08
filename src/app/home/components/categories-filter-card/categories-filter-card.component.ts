@@ -24,6 +24,9 @@ export class CategoriesFilterCardComponent implements OnChanges {
   @Input() public rangePrice: RangePrice = {minPrice: 0, maxPrice: 0};
 
   @Output() public priceFilter = new EventEmitter();
+  @Input() public loading: boolean = false;
+  @Input() public hasHttpCategoriesError: boolean = false;
+  @Output() public retryLoadCategories = new EventEmitter<void>();
 
   //onchange
   ngOnChanges(): void {
@@ -44,5 +47,9 @@ export class CategoriesFilterCardComponent implements OnChanges {
 
   public onPriceFilter(){
     this.priceFilter.emit(this.priceFilterForm.value);
+  }
+
+  public retryLoadCategoriesEvent(){
+    this.retryLoadCategories.emit();
   }
 }

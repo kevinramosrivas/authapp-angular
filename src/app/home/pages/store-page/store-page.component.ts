@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { HomeService } from '../../services/product.service';
-import { Categorie, Product, RangePrice } from '../../interfaces/products.interface';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, Observable, Subscribable, Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Categorie, Product, RangePrice } from '../../interfaces/products.interface';
+import { HomeService } from '../../services/product.service';
 
 @Component({
   templateUrl: './store-page.component.html',
@@ -32,6 +31,9 @@ export class StorePageComponent implements OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   public loading: boolean = false;
+  public loadingCategories: boolean = false;
+  public hasHttpProductsError: boolean = false;
+  public hasHttpCategoriesError: boolean = false;
 
   constructor() {
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
@@ -45,6 +47,28 @@ export class StorePageComponent implements OnDestroy {
   ngOnInit(): void {
     this.getCategories();
   }
+  
+
+  public getCategories(){
+    this.loadingCategories = true;
+    this.homeService.getCategoryList().subscribe(
+      {
+        next: (response) => {
+          this.categories = response;
+          setTimeout(() => {
+            this.loadingCategories = false;
+          }, 200);
+          this.hasHttpCategoriesError = false;
+        },
+        error: (error) => {
+          setTimeout(() => {
+            this.loadingCategories = false;
+          }, 200);
+          this.hasHttpCategoriesError = true;
+        }
+      }
+    );
+  }
 
 
   onSelectedCategory(idCategory: number){
@@ -52,41 +76,61 @@ export class StorePageComponent implements OnDestroy {
     this.filterByCategory(idCategory);
   }
 
+
   private filterByCategory(idCategory: number){
     this.loading = true;
     this.selectedCategory = idCategory;
-    this.homeService.getProductsByCategorie(idCategory.toString()).subscribe((response) => {
-      this.products = response;
-      setTimeout(() => {
-        this.loading = false;
-      }, 200);
-    });
-  }
-  public getCategories(){
-    this.homeService.getCategoryList().subscribe((response) => {
-      this.categories = response;
-    });
+    this.homeService.getProductsByCategorie(idCategory.toString()).subscribe(
+      {
+        next: (response) => {
+          this.products = response;
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
+          this.hasHttpProductsError = false;
+        },
+        error: (error) => {
+          this.hasHttpProductsError = true;
+        }
+      }
+    );
   }
 
   private filterByPrice(minPrice: number, maxPrice: number){
     this.loading = true;
-    this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe((response) => {
-      this.products = response;
-      setTimeout(() => {
-        this.loading = false;
-      }, 200);
-    });
+    this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe(
+      {
+        next: (response) => {
+          this.products = response;
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
+          this.hasHttpProductsError = false;
+        },
+        error: (error) => {
+          this.hasHttpProductsError = true;
+          this.loading = false;
+        }
+      }
+    );
   }
 
   private filterByProuctName(productName: string){
     this.loading = true;
-    this.homeService.getProductsByName(productName).subscribe((response) => {
-      this.selectedCategory = 0;
-      this.products = response;
-      setTimeout(() => {
-        this.loading = false;
-      }, 200);
-    });
+    this.homeService.getProductsByName(productName).subscribe(
+      {
+        next: (response) => {
+          this.products = response;
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
+          this.hasHttpProductsError = false;
+        },
+        error: (error) => {
+          this.hasHttpProductsError = true;
+        }
+      }
+    );
   }
 
 
@@ -148,6 +192,16 @@ export class StorePageComponent implements OnDestroy {
       this.filterByProuctName(params["product"]);
     }
   }
+
+  public retryLoadProducts(){
+    this.loading = true;
+    this.loadingCategories = true;
+    this.hasHttpProductsError = false;
+    this.hasHttpCategoriesError = false;
+    this.getCategories();
+    this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
+  }
+
 }
 
 

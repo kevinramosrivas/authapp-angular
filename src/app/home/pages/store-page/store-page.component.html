@@ -1,4 +1,4 @@
-<categories-filter-mobile [categories]="categories" [selectedCategory]="selectedCategory" ></categories-filter-mobile>
+<categories-filter-mobile [categories]="categories" [selectedCategory]="selectedCategory"  [loading]="loadingCategories" [hasHttpCategoriesError]="hasHttpCategoriesError" (retryLoadCategories)="retryLoadProducts()" />
 <div class="container">
     <div class="row p-2 d-flex justify-content-center align-items-center">
           <div class="col-6 d-md-none">
@@ -26,33 +26,52 @@
           [selectedCategory]="selectedCategory"
           (priceFilter)="onPriceFilter($event)" 
           [rangePrice]="rangePrice"
-
-        >
-        </app-categories-filter-card>
+          [loading]="loadingCategories" 
+          [hasHttpCategoriesError]="hasHttpCategoriesError" 
+          (retryLoadCategories)="retryLoadProducts()"
+        />
         </div>
         <div class="col-12 col-md-9 min-vh-100">
           <section class="bsb-blog-5">
 
               <div class="container overflow-hidden p-2">
                   <div class="row">
-                    @if(products.length == 0 && !loading){
-                      <div class="col-12">
-                        <p>Lo sentimos, no pudimos encontrar lo que estabas buscando 😢</p>
+                    @if(!hasHttpProductsError){
+                      @if(!loading){
+                        @if(products.length == 0){
+                          <div class="col-12">
+                            <p>Lo sentimos, no pudimos encontrar lo que estabas buscando 😢</p>
+                          </div>
+                        }
+                        @else{
+                          @for(item of products; track item){
+                            <div class="col-6 col-md-6 col-sm-6 col-lg-4">
+                              <home-product-card [product]="item" [offer]="true" />
+                            </div>
+                          }
+                        }
+                      }
+                      @else{
+                        @for(i of  [].constructor(12); track i){
+                          <div class="col-6 col-md-6 col-sm-6 col-lg-4">
+                            <skeleton-product-card />
+                          </div>
+                        }
+                      }
+                    }
+                    @else {
+                        <div class="col-12 d-flex justify-content-center align-items-center flex-column" style="min-height: 65vh;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-window-x py-2" viewBox="0 0 16 16">
+                              <path d="M2.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1M4 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+                              <path d="M0 4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V7H1v5a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2zm1 2h13V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/>
+                              <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-4.854-1.354a.5.5 0 0 0 0 .708l.647.646-.647.646a.5.5 0 0 0 .708.708l.646-.647.646.647a.5.5 0 0 0 .708-.708l-.647-.646.647-.646a.5.5 0 0 0-.708-.708l-.646.647-.646-.647a.5.5 0 0 0-.708 0"/>
+                          </svg>
+                          <p class="py-2">No se pudieron cargar los productos</p>
+                          <button class="btn btn-primary py-2" (click)="retryLoadProducts()">
+                              Cargar de nuevo
+                              <i class="bi bi-arrow-clockwise"></i>
+                          </button>
                       </div>
-                    }
-                    @if(loading){
-                      @for(i of  [].constructor(12); track i){
-                        <div class="col-6 col-md-6 col-sm-6 col-lg-4">
-                          <skeleton-product-card />
-                        </div>
-                      }
-                    }
-                    @else{
-                      @for(item of products; track item){
-                        <div class="col-6 col-md-6 col-sm-6 col-lg-4">
-                          <home-product-card [product]="item" [offer]="true" />
-                        </div>
-                      }
                     }
                   </div>
               </div>
