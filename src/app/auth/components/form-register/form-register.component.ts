@@ -5,7 +5,8 @@ import { AuthService } from '../../services/auth-service.service';
 import { UserRegisterInfo } from '../../interfaces/register-user.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { EmailValidator } from '../../services/email-validator.service';
+import { EmailValidator } from '../../validators/email-validator.service';
+
 
 
 @Component({
@@ -30,7 +31,7 @@ export class FormRegisterComponent {
     avatar: 'https://ui-avatars.com/api/?name=Jhon+Doe',
   };
 
-  constructor(private emailValidator: EmailValidator,) { }
+  constructor(private emailValidator: EmailValidator) { }
 
   public registerForm = this.fb.group({
     name: ['Jhon Doe', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],

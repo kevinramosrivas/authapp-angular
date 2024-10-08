@@ -1,11 +1,11 @@
 import { AfterContentInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmailValidator } from '../../../auth/services/email-validator.service';
 import { UserUpdate } from '../../../auth/interfaces/register-user.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { ImageValidator } from '../../../auth/services/image-validator.service';
+import { EmailValidator } from '../../../auth/validators/email-validator.service';
+import { ImageValidator } from '../../../auth/validators/image-validator.service';
 
 @Component({
   templateUrl: './profile-page.component.html',

@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
 import { Observable, map } from 'rxjs';
-import { AuthService } from './auth-service.service';
+import { AuthService } from '../services/auth-service.service';
+
 
 @Injectable({ providedIn: 'root' })
 export class EmailValidator implements AsyncValidator {

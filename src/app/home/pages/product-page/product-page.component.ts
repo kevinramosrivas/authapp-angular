@@ -99,4 +99,11 @@ export class ProductPageComponent implements OnDestroy {
   public filterSameProduct(products: Product[], product: Product){
     return products.filter((p) => p.id !== product.id);
   }
+
+
+  public retryLoadProduct(){
+    this.isLoading = true;
+    this.hasHttpError = false;
+    this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
+  }
  }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, switchMap, tap, catchError, of, throwError } from 'rxjs';
+import { catchError,throwError } from 'rxjs';
 import { Categorie, Product } from '../interfaces/products.interface';
 import { errorIziStore } from '../interfaces/error.interface';
 
