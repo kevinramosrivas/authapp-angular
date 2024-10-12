@@ -6,6 +6,10 @@ import { Product } from '../../interfaces/products.interface';
   selector: 'app-shop-car',
   templateUrl: './shop-car.component.html',
   styles: `
+
+  #list-shop-car{
+    min-width: 15rem;
+  }
   .dropdown-menu {
     max-height: 75vh;
   }
@@ -55,11 +59,11 @@ export class ShopCarComponent{
   @ViewChild('shopCarBadge') shopCarBadge: ElementRef = this.elementRef.nativeElement;
 
   public addProductToShopCar(product: Product) {
-    this.shopCarService.addProduct({ product, quantity: 1 });
+    this.shopCarService.addProduct({ product, quantity: 1 , isAvailable: true });
   }
 
   public removeProductFromShopCar(product: Product) {
-    this.shopCarService.removeProduct({ product, quantity: 1 });
+    this.shopCarService.removeProduct({ product, quantity: 1 , isAvailable: true});
   }
 
   public closeShopCar($event: any) {

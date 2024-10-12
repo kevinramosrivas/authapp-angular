@@ -58,7 +58,7 @@ export class ProductPageComponent implements OnDestroy {
   }
 
   public addProductToShopCar(product: Product){
-    this.shopCarService.addProduct({product, quantity: 1});
+    this.shopCarService.addProduct({product, quantity: 1,isAvailable: true});
     //mostrar el mensaje de agregado por medio segundo y luego volver a mostrar el boton con el texto original
     this.isAddedToShopCar = 'Agregado';
     this.isAddedToShopCarIcon = 'bi-check2';

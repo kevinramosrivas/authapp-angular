@@ -37,11 +37,11 @@ export class ShopcarPageComponent {
 
 
   public addProductToShopCar(product: Product) {
-    this.shopCarService.addProduct({ product, quantity: 1 });
+    this.shopCarService.addProduct({ product, quantity: 1,isAvailable: true });
   }
 
   public removeProductFromShopCar(product: Product) {
-    this.shopCarService.removeProduct({ product, quantity: 1 });
+    this.shopCarService.removeProduct({ product, quantity: 1,isAvailable: true });
   }
 
   public getproductsListLimited(){

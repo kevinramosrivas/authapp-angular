@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError,throwError } from 'rxjs';
+import { catchError,map,tap,throwError } from 'rxjs';
 import { Categorie, Product } from '../interfaces/products.interface';
 import { errorIziStore } from '../interfaces/error.interface';
 
@@ -91,6 +91,16 @@ export class HomeService {
   }
   public getProductById(id:string){
     return this._getProductById(id)
+  }
+
+  public productIsAvailable(id:string){
+    return this._getProductById(id).pipe(
+      map(
+        (product) => {
+          return (product.id) ? true : false
+        }
+      )
+    )
   }
 
   

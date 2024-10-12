@@ -1,6 +1,8 @@
-import { Injectable, OnInit, computed, signal } from '@angular/core';
+import { inject, Injectable,  signal } from '@angular/core';
 import { ShopCarItem } from '../interfaces/shopcar-items.interface';
+import { HomeService } from './product.service';
 import { Product } from '../interfaces/products.interface';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,9 @@ export class ShopCarService{
 
   public shake = signal<boolean | null>(null);
 
-  
+  public productsService = inject(HomeService);
+
+  public isValidating = signal<boolean>(false);
 
 
   constructor(){
@@ -24,24 +28,43 @@ export class ShopCarService{
   }
 
   public addProduct(product: ShopCarItem){
-    this.shopCarItems.update((items) => {
-      const item = items.find((item) => item.product.id === product.product.id);
-      if(item){
-        item.quantity += product.quantity;
-      }else{
-        items.push(product);
+    this.isValidating.update(() => true);
+    this.shake()? this.shake.update(() => false): this.shake.update(() => true);
+    this.productsService.productIsAvailable(product.product.id.toString()).subscribe(
+      {
+        next: (isAvailable) => {
+          product.isAvailable = isAvailable;
+          this.shopCarItems.update((items) => {
+            const item = items.find((item) => item.product.id === product.product.id);
+            if(item){
+              item.quantity += product.quantity;
+            }else{
+              items.push(product);
+            }     
+            return items;
+          }
+          );
+          this.isValidating.update(() => false);
+          this.updateNumItems(product, 'add');
+          this.updateTotal();
+          this.saveShopCar();
+        },
+        error: (error) => {
+          Swal.fire({
+            title: 'Error',
+            text: 'No pudimos agregar el producto al carrito',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+          this.isValidating.update(() => false);
+        }
       }
-      this.shake()? this.shake.update(() => false): this.shake.update(() => true);
-      return items;
-    }
-    );
-    //calcular el total y el numero de items
-    this.updateNumItems(product, 'add');
-    this.updateTotal();
-    this.saveShopCar();
+    )
   };
 
   public removeProduct(product: ShopCarItem){
+    this.isValidating.update(() => true);
+    this.shake()? this.shake.update(() => false): this.shake.update(() => true);
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
       if(item){
@@ -51,13 +74,14 @@ export class ShopCarService{
           items = items.filter((item) => item.product.id !== product.product.id);
         }
       }
-      this.shake()? this.shake.update(() => false): this.shake.update(() => true);
+      
       return items;
     });
     //calcular el total y el numero de items
     this.updateNumItems(product, 'remove');
     this.updateTotal();
     this.saveShopCar();
+    this.isValidating.update(() => false);
   };
 
   public clear(){
@@ -106,6 +130,9 @@ export class ShopCarService{
   get numItems$() {
     return this.numItems;
   }
+
+  
+
 
 
 
