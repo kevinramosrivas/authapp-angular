@@ -70,4 +70,6 @@ export class ImageComponent implements OnInit{
     this.hasHttpError.set(false);
     this.loading.set(true);
   }
+
+  
 }

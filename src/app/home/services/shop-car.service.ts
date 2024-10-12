@@ -14,6 +14,10 @@ export class ShopCarService{
 
   public numItems = signal<number>(0);
 
+  public shake = signal<boolean | null>(null);
+
+  
+
 
   constructor(){
     this.loadShopCar();
@@ -27,6 +31,7 @@ export class ShopCarService{
       }else{
         items.push(product);
       }
+      this.shake()? this.shake.update(() => false): this.shake.update(() => true);
       return items;
     }
     );
@@ -46,6 +51,7 @@ export class ShopCarService{
           items = items.filter((item) => item.product.id !== product.product.id);
         }
       }
+      this.shake()? this.shake.update(() => false): this.shake.update(() => true);
       return items;
     });
     //calcular el total y el numero de items
