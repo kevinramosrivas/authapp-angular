@@ -23,6 +23,8 @@ export class ShopcarPageComponent {
   public homeService = inject(HomeService);
   public products = this.shopCarService.getItems();
 
+  public isValidating = this.shopCarService.isValidating;
+
   public total = this.shopCarService.total$;
 
   public productsRecent: Product[] = [];

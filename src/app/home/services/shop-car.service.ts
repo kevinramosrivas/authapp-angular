@@ -1,4 +1,4 @@
-import { inject, Injectable,  signal } from '@angular/core';
+import { ElementRef, inject, Injectable,  signal, ViewChild } from '@angular/core';
 import { ShopCarItem } from '../interfaces/shopcar-items.interface';
 import { HomeService } from './product.service';
 import { Product } from '../interfaces/products.interface';
@@ -21,6 +21,8 @@ export class ShopCarService{
   public productsService = inject(HomeService);
 
   public isValidating = signal<boolean>(false);
+
+
 
 
   constructor(){
@@ -130,6 +132,8 @@ export class ShopCarService{
   get numItems$() {
     return this.numItems;
   }
+
+
 
   
 
