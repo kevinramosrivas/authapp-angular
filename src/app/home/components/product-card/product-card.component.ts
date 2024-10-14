@@ -19,9 +19,25 @@ import { ShopCarService } from '../../services/shop-car.service';
     .card{
       background-color: #fefefd;
       border : 1px solid #FEFEFD;
+      min-height: 32rem;
     }
+
     .card-title{
       font-size: 1.1rem;
+    }
+
+    button-card{
+      visibility:hidden
+    }
+
+    .card:hover button-card{
+      visibility: visible;
+    }
+
+    @media (max-width: 768px){
+      .card{
+        min-height: 30rem;
+      }
     }
   `,
 })
@@ -34,8 +50,10 @@ export class ProductCardComponent {
   public isAddedToShopCarIcon: 'bi-cart-plus' | 'bi-check2' = 'bi-cart-plus';
 
   private shopCarService = inject(ShopCarService);
+  public isLoading = this.shopCarService.isValidating;
 
   public addProductToShopCar(product: Product){
+    if(this.isLoading()) return;
     this.shopCarService.addProduct({product, quantity: 1,isAvailable: true});
     //mostrar el mensaje de agregado por medio segundo y luego volver a mostrar el boton con el texto original
     this.isAddedToShopCar = 'Agregado';

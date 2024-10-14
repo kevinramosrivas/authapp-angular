@@ -1,5 +1,6 @@
 
-import { Component, Input, input } from '@angular/core';
+import { Component, inject, Input, input } from '@angular/core';
+import { ShopCarService } from '../../services/shop-car.service';
 
 @Component({
   selector: 'button-card',
@@ -21,6 +22,9 @@ export class ButtonComponent {
   iconRight: string = '';
   @Input()
   iconLeft: string = '';
+
+  private shopCarService = inject(ShopCarService);
+  public isLoading = this.shopCarService.isValidating;
 
   buttonClass = 'btn btn-primary rounded-4';
 
