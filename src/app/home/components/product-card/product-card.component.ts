@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, HostListener, Input, OnInit, inject } from '@angular/core';
 import { Product } from '../../interfaces/products.interface';
 import { ShopCarService } from '../../services/shop-car.service';
 
@@ -34,6 +34,18 @@ import { ShopCarService } from '../../services/shop-car.service';
       visibility: visible;
     }
 
+    image-carousel-component{
+      display:none;
+    }
+
+    .card:hover image-carousel-component{
+      display: block;
+    }
+
+    .card:hover image-component{
+      display:none;
+    }
+
     @media (max-width: 768px){
       .card{
         min-height: 30rem;
@@ -41,17 +53,21 @@ import { ShopCarService } from '../../services/shop-car.service';
     }
   `,
 })
-export class ProductCardComponent {
+export class ProductCardComponent{
   @Input() product!:Product;
   //es una oferta
   @Input() offer:boolean = false;
-
+  
+  
   public isAddedToShopCar: 'Agregar' | 'Agregado' = 'Agregar';
   public isAddedToShopCarIcon: 'bi-cart-plus' | 'bi-check2' = 'bi-cart-plus';
-
+  
   private shopCarService = inject(ShopCarService);
   public isLoading = this.shopCarService.isValidating;
-
+  
+  
+  public mainImage: string | null =  null;
+  
   public addProductToShopCar(product: Product){
     if(this.isLoading()) return;
     this.shopCarService.addProduct({product, quantity: 1,isAvailable: true});
@@ -66,3 +82,5 @@ export class ProductCardComponent {
   }
 
  }
+
+

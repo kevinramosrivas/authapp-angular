@@ -3,7 +3,12 @@
     <div class="card animate__animated animate__animated animate__zoomIn p-2 d-flex flex-column justify-content-between">
       <a [routerLink]="['/home/product']" [queryParams]="{id: product.id}" class="text-decoration-none">
         <figure class="card-img-top">
-          <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '220rem', sizeMobile:'150rem'}"  [i_height]="{sizeWeb: '220rem' , sizeMobile:'150rem'}"></image-component>
+          <image-component [src]="product!.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '220rem', sizeMobile:'150rem'}"  [i_height]="{sizeWeb: '220rem' , sizeMobile:'150rem'}">
+            
+          </image-component>
+          <image-carousel-component [ImageArray]="product!.images" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '220rem', sizeMobile:'150rem'}"  [i_height]="{sizeWeb: '220rem' , sizeMobile:'150rem'}">
+
+          </image-carousel-component>
       </figure>
       <div class="card-body d-flex flex-column justify-content-center">
         <div class="entry-header">
