@@ -73,16 +73,20 @@ export class ImageCarouselComponent implements OnInit{
     this.hasHttpError.set(false);
     this.loading.set(true);
   }
-  //cambiar el src de la imagen cada 1 segundo sin necesidad de hacer click
   public changeImage(){
     if(this.ImageArray.length > 1){
       let i = 0;
-      setInterval(() => {
+      let intervalo = setInterval(() => {
         this.src = this.ImageArray[i];
         i++;
         if(i >= this.ImageArray.length){
           i = 0;
         }
+        console.log(this.src);
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(intervalo);
       }, 1000);
     }
     else{

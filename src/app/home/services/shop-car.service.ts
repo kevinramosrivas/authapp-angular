@@ -66,7 +66,6 @@ export class ShopCarService{
 
   public removeProduct(product: ShopCarItem){
     this.isValidating.update(() => true);
-    this.shake()? this.shake.update(() => false): this.shake.update(() => true);
     this.shopCarItems.update((items) => {
       const item = items.find((item) => item.product.id === product.product.id);
       if(item){

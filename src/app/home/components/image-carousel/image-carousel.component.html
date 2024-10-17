@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
     @if(!hasHttpError()){
-        <img alt="Image" [src]="src"
+        <img alt="Image" [src]="src | url"
         class="img-web" 
         [attr.width]= "i_width.sizeWeb"
         [attr.height]= "i_height.sizeWeb"
@@ -9,7 +9,7 @@
         [ngClass]="{'d-none': loading()}"
         (error)="onError()"
         >
-        <img alt="Image" [src]="src"
+        <img alt="Image" [src]="src | url"
             class="img-mobile"  
             [attr.width]= "i_width.sizeMobile"
             [attr.height]= "i_height.sizeMobile"

@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-7 animate__animated animate__zoomInDown">
+        <div class="col-12 col-md-7">
           @if(!hasCategoriesHttpError){
             <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
               @if(!isLoadingCategories){
@@ -31,18 +31,29 @@
                       </div>
                   }
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
               }
               @else{
-                <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="120rem">
+                <figure class="card-img-top placeholder-glow text-center">
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                  <span class="placeholder w-100 p-4"></span>
+                </figure>
               }
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
           }
           @else {

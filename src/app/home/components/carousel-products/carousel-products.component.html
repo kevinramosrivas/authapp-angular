@@ -20,7 +20,13 @@
                         }
                     }
                     @else if(isLoading()){
-                        <img src="assets/loader.svg" alt="loader" class="d-block mx-auto my-4" width="90rem">
+                            <div class="row">
+                                @for(i of  [].constructor(4); track i){
+                                <div class="col-6 col-md-4 col-sm-6 col-lg-3">
+                                        <skeleton-product-card/>
+                                </div>
+                                }
+                            </div>
                     }
                     @else if(products().length == 0 && !isLoading()){
                         <div class="col-12 p-4">

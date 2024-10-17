@@ -27,6 +27,7 @@ export class ProductPageComponent implements OnDestroy {
 
 
   constructor(){
+    this.product = null;
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
   }
 
@@ -35,6 +36,8 @@ export class ProductPageComponent implements OnDestroy {
   }
 
   private verifiQueryParams(params: Params){
+    this.isLoading = true;
+    this.isLoadingProductsSameCategory = true;
     if(params['id']){
       this.productService.getProductById(params['id']).subscribe(
         {
