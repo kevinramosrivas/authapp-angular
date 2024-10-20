@@ -34,18 +34,6 @@ import { ShopCarService } from '../../services/shop-car.service';
       visibility: visible;
     }
 
-    image-carousel-component{
-      display:none;
-    }
-
-    .card:hover image-carousel-component{
-      display: block;
-    }
-
-    .card:hover image-component{
-      display:none;
-    }
-
     @media (max-width: 768px){
       .card{
         min-height: 30rem;

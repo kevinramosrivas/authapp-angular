@@ -6,7 +6,7 @@
         [attr.height]= "i_height.sizeWeb"
         (load)="onLoad()"
         [classList]="i_class"
-        [ngClass]="{'d-none': loading()}"
+        [ngClass]="{'d-none': loading(), 'img-filter-noavailable': !isAvailable}"
         (error)="onError()"
         >
         <img alt="Image" [src]="src"
@@ -15,7 +15,7 @@
             [attr.height]= "i_height.sizeMobile"
             (load)="onLoad()"
             [classList]="i_class"
-            [ngClass]="{'d-none': loading()}"
+            [ngClass]="{'d-none': loading(), 'img-filter-noavailable': !isAvailable}"
             (error)="onError()"
         >
         <!-- mostrar otra imagen si la imagen no carga -->

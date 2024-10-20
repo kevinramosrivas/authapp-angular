@@ -28,25 +28,38 @@
                             @else{
                                 @for(product of products(); track product){
                                     <div class="row py-3 px-2 align-items-center justify-content-center">
-                                        <div class="col-md-4 col-6">
-                                            <image-component [src]="product.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '120rem'}"  [i_height]="{sizeWeb: '120rem'}"></image-component>
-                                        </div>
                                         <div class="col-md-3 col-6">
+                                            <image-component [src]="product.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '120rem'}"  [i_height]="{sizeWeb: '120rem'}" [isAvailable]="product.isAvailable"></image-component>
+                                        </div>
+                                        <div class="col-md-4 col-6">
                                             <p class="text-wrap m-0">{{product.product.title}}</p>
                                         </div>
                                         <div class="col-md-2 col-6">
                                             <p class="fw-bold text-wrap m-0 ">{{product.product.price | currency: 'PEN': 'symbol'}}</p>
                                         </div>
                                         <div class="col-md-3 col-6">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <button class="btn btn-danger" (click)="removeProductFromShopCar(product.product)">
-                                                    <i class="bi bi-dash"></i>
-                                                </button>
-                                                <span class="badge rounded-pill bg-dark">{{product.quantity}}</span>
-                                                <button class="btn btn-primary" (click)="addProductToShopCar(product.product)">
-                                                    <i class="bi bi-plus"></i>
-                                                </button>
-                                            </div>
+                                            @if(product.isAvailable){
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <button class="btn btn-secondary" (click)="removeProductFromShopCar(product.product)">
+                                                        <i class="bi bi-dash"></i>
+                                                    </button>
+                                                    <span>{{product.quantity}}</span>
+                                                    <button class="btn btn-secondary" (click)="addProductToShopCar(product.product)">
+                                                        <i class="bi bi-plus"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger" (click)="removeAllProduct(product.product)">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                            }
+                                            @else{
+                                                <div class="d-flex justify-content-around align-items-center">
+                                                    <span class="text-danger text-center">No disponible</span>
+                                                    <button class="btn btn-danger" (click)="removeAllProduct(product.product)">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 }

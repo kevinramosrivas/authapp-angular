@@ -48,32 +48,45 @@
                     <div class="container-fluid">
                         <div class="row text-center">
                             <div class="col-12">
-                                <image-component [src]="item.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '50rem'}"  [i_height]="{sizeWeb: '50rem'}"></image-component>
+                                <image-component [src]="item.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '50rem'}"  [i_height]="{sizeWeb: '50rem'}" [isAvailable]="item.isAvailable"></image-component>
                             </div>
                         </div>
                         <div class="row text-center pt-1">
                             <div class="col-12">
-                                <a class="text-wrap" [routerLink]="['/home/product']" [queryParams]="{id: item.product.id}" (click)="closeShopCar($event)">{{item.product.title}}</a>
+                                @if(!item.isAvailable){
+                                    <span class="text-secondary">{{item.product.title}}</span>
+                                }
+                                @else{
+                                    <a class="text-wrap" [routerLink]="['/home/product']" [queryParams]="{id: item.product.id}" (click)="closeShopCar($event)">{{item.product.title}}</a>
+                                }
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="col-12 pt-1">
-                                <p class="text-wrap">{{item.product.price* item.quantity| currency: 'PEN': 'symbol' }}</p>
+                                @if(!item.isAvailable){
+                                    <span class="text-danger">No disponible</span>
+                                }
+                                @else{
+                                    <p class="text-wrap">{{item.product.price* item.quantity| currency: 'PEN': 'symbol' }}</p>
+                                }
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 d-flex justify-content-between align-items-center">
-                                <button class="btn btn-danger" (click)="removeProductFromShopCar(item.product)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-                                      </svg>
-                                </button>
-                                <span class="badge rounded-pill bg-dark">{{item.quantity}}</span>
-                                <button class="btn btn-primary" (click)="addProductToShopCar(item.product)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                    </svg>
-                                </button>
+                                @if(item.isAvailable){
+                                    <button class="btn btn-secondary" (click)="removeProductFromShopCar(item.product)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                                          </svg>
+                                    </button>
+                                    <span class="badge rounded-pill bg-dark">{{item.quantity}}</span>
+                                    <button class="btn btn-secondary" (click)="addProductToShopCar(item.product)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                                        </svg>
+                                    </button>
+
+                                }
                             </div>
                         </div>
     

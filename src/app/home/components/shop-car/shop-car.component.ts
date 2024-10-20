@@ -76,6 +76,10 @@ export class ShopCarComponent{
     this.buttonProductsList.nativeElement.classList.remove('show');
   }
 
+  public removeAllProduct(product: Product) {
+    this.shopCarService.removeAllProduct(product);
+  }
+
 
 
 }

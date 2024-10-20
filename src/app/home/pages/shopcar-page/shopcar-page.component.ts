@@ -65,5 +65,9 @@ export class ShopcarPageComponent {
   public loadProducts(){
     this.getproductsListLimited();
   }
+  
+  public removeAllProduct(product: Product) {
+    this.shopCarService.removeAllProduct(product);
+  }
 
 }

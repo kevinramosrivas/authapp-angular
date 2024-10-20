@@ -67,7 +67,7 @@ export class FormRegisterComponent {
           icon: 'success',
           confirmButtonText: 'Aceptar'
         }).then(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/login']);
         })
 
       },

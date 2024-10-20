@@ -27,6 +27,7 @@ export class ShopCarService{
 
   constructor(){
     this.loadShopCar();
+    this.reviewShopCarAtInit();
   }
 
   public addProduct(product: ShopCarItem){
@@ -130,6 +131,36 @@ export class ShopCarService{
   }
   get numItems$() {
     return this.numItems;
+  }
+
+  public removeAllProduct(product: Product) {
+    const item = this.shopCarItems().find((item) => item.product.id === product.id);
+    this.updateNumItems(item!, 'remove');
+    this.shopCarItems.update((items) => {
+      items = items.filter((item) => item.product.id !== product.id);
+      return items;
+    });
+    this.updateTotal();
+    this.saveShopCar();
+
+  }
+
+  public reviewShopCarAtInit() {
+    this.shopCarItems().forEach((product) => {
+      this.productsService.productIsAvailable(product.product.id.toString()).subscribe(
+        {
+          next: (isAvailable) => {
+            product.isAvailable = isAvailable;
+            this.saveShopCar();
+            console.log('isAvailable', isAvailable);
+          },
+          error: (error) => {
+            product.isAvailable = false;
+            console.log('isAvailable', product.isAvailable);
+          }
+        }
+      )
+    });
   }
 
 

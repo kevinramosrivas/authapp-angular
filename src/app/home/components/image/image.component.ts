@@ -24,6 +24,10 @@ import { ImageSize } from '../../interfaces/image-size.interface';
       }
 
     }
+
+    .img-filter-noavailable{
+      filter: grayscale(1);
+    }
   `,
 })
 export class ImageComponent implements OnInit{
@@ -33,6 +37,7 @@ export class ImageComponent implements OnInit{
   @Input() i_width: ImageSize = {sizeWeb: 'auto', sizeMobile: 'auto'};
   @Input() i_height: ImageSize = {sizeWeb: 'auto', sizeMobile: 'auto'};
   @Input() i_class: string = '';
+  @Input() isAvailable: boolean = true;
   public backupImage: string = '';
   public loading = signal(true);
   public defaultImage = 'assets/not-found.svg';
