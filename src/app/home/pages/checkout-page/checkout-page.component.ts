@@ -1,0 +1,69 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ShopCarService } from '../../services/shop-car.service';
+import { Product } from '../../interfaces/products.interface';
+import { HomeService } from '../../services/product.service';
+import { errorIziStore } from '../../interfaces/error.interface';
+
+@Component({
+  selector: 'app-checkout-page',
+  templateUrl: './checkout-page.component.html',
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+})
+export class CheckoutPageComponent { 
+
+  private shopCarService = inject(ShopCarService);
+  public homeService = inject(HomeService);
+  public products = this.shopCarService.getItems();
+
+  public isValidating = this.shopCarService.isValidating;
+
+  public total = this.shopCarService.total$;
+
+  public productsRecent: Product[] = [];
+
+  public hasHttpError: boolean = false;
+
+  public suggestedProductsLoading: boolean = true;
+
+  constructor() {
+    this.getproductsListLimited();
+  }
+
+
+  public addProductToShopCar(product: Product) {
+    this.shopCarService.addProduct({ product, quantity: 1,isAvailable: true });
+  }
+
+  public removeProductFromShopCar(product: Product) {
+    this.shopCarService.removeProduct({ product, quantity: 1,isAvailable: true });
+  }
+
+  public getproductsListLimited(){
+    this.homeService.getProductsList().subscribe(
+      {
+        next: (response: Product[]) => {
+          this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
+          this.hasHttpError = false;
+          this.suggestedProductsLoading = false;
+        },
+        error: (error: errorIziStore) => {
+          this.hasHttpError = true;
+          this.suggestedProductsLoading = false;
+        }
+      }
+     );
+  }
+
+  public loadProducts(){
+    this.getproductsListLimited();
+  }
+  
+  public removeAllProduct(product: Product) {
+    this.shopCarService.removeAllProduct(product);
+  }
+}

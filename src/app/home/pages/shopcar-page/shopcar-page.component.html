@@ -29,7 +29,9 @@
                                 @for(product of products(); track product){
                                     <div class="row py-3 px-2 align-items-center justify-content-center">
                                         <div class="col-md-3 col-6">
-                                            <image-component [src]="product.product.images[0] | url" i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '120rem'}"  [i_height]="{sizeWeb: '120rem'}" [isAvailable]="product.isAvailable"></image-component>
+                                            <image-component [src]="product.product.images[0] | url" 
+                                            i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '120rem'}"  
+                                            [i_height]="{sizeWeb: '120rem'}" [isAvailable]="product.isAvailable"/>
                                         </div>
                                         <div class="col-md-4 col-6">
                                             <p class="text-wrap m-0">{{product.product.title}}</p>
@@ -91,8 +93,7 @@
                     <p class="card-text"><span class="badge rounded bg-success">Envio gratis <i class="bi bi-truck"></i></span> </p>
                     <h5 class="card-subtitle mb-2 text-body-secondary">Subtotal {{total() | currency: 'PEN': 'symbol'}}</h5>
                     @if(products().length != 0){
-                        <a class="btn btn-primary w-100" [routerLink]="['/home/checkout']">Proceder al pago</a>
-                        <a class="btn btn-secondary w-100 mt-2" [routerLink]="['/home/store']">Seguir comprando</a>
+                        <a class="btn btn-primary w-100 mt-2" [routerLink]="['/home/checkout']">Continuar compra</a>
                     }
                 </div>
             </div>

@@ -24,6 +24,7 @@ import { SkeletonProductCardComponent } from './components/skeleton-product-card
 import { CategoriesFilterMobileComponent } from './components/categories-filter-mobile/categories-filter-mobile.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.componen
     ProductPageComponent,
     ProductCardComponent,
     ShopcarPageComponent,
+    CheckoutPageComponent,
     NavbarComponent,
     ImageComponent,
     BannerComponent,
