@@ -3,3 +3,9 @@
     background-color: var(--primary-color-1);
     color: var(--primary-color-8);
 }
+
+.home-layout{
+    display: grid;
+    min-height: 100dvh;
+    grid-template-rows: auto 1fr auto;
+}

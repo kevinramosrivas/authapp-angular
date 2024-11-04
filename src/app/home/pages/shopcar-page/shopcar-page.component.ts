@@ -27,6 +27,8 @@ export class ShopcarPageComponent {
 
   public total = this.shopCarService.total$;
 
+  public itemsCount = this.shopCarService.numItems$;
+
   public productsRecent: Product[] = [];
 
   public hasHttpError: boolean = false;

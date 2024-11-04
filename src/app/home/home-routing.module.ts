@@ -19,7 +19,7 @@ const routes: Routes = [
       {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
       {path: 'product', component: ProductPageComponent},
       {path: 'myshopcar', component: ShopcarPageComponent},
-      {path: 'checkout', component: CheckoutPageComponent}
+      {path: 'checkout', component: CheckoutPageComponent,canActivate: [loginGuard]}
     ]
   }
 ];

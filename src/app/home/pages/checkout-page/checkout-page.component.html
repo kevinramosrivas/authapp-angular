@@ -5,12 +5,13 @@
         <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/home']">Inicio</a></li>
-            <li class="breadcrumb-item"  [routerLink]="['/home/myshopcar']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Pago</li>
+            <li class="breadcrumb-item"  [routerLink]="['/home/myshopcar']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/home/myshopcar']">Mi carrito</a></li>
+            <li class="breadcrumb-item"  [routerLink]="['/home/checkout']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Pago</li>
           </ol>
         </nav>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <!-- no mostrar los productos en moviles -->
         <div class="col-md-6 d-none d-md-block">
             <div class="card">
@@ -60,45 +61,51 @@
                 <div class="card-body ">
                     <h3 class="fw-bold">Datos de pago</h3>
                     <hr>
-                    <form class="row g-3">
-                        <div class="col-12 alert alert-warning">
+                    <form class="row g-3" [formGroup]="payForm">
+                        <div class="col-12 alert alert-danger">
                             Este es un formulario de prueba, no introduzcas datos reales. Puede completar el formulario con datos ficticios.
                         </div>
                         <div class="col-12">
                             <label for="inputAddress" class="form-label">Dirección de envío</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" formControlName="direccion">
                         </div>
                         <div class="col-6">
                             <label for="inputCity" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="inputCity">
+                            <select id="inputCity" class="form-select" formControlName="ciudad">
+                                <option selected>Lima</option>
+                            </select>
                         </div>
                         <div class="col-6">
-                            <label for="inputState" class="form-label">Departamento</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="inputState" class="form-label">Distrito</label>
+                            <select id="inputState" class="form-select" formControlName="distrito">
+                                <option selected disabled value="">Seleccione un distrito</option>
+                                @for(distrito of distritos; track distrito){
+                                    <option [value]="distrito.codigo">{{distrito.nombre}}</option>
+                                }
                             </select>
                         </div>
                         <div class="col-6">
                             <label for="cardNumber" class="form-label">Número de tarjeta</label>
-                            <input type="text" class="form-control" id="cardNumber" value="1234 5678 1234 5678">
+                            <input type="text" class="form-control" id="cardNumber" value="1234 5678 1234 5678" formControlName="numero_tarjeta">
                         </div>
                         <div class="col-6">
                             <label for="cardExpiration" class="form-label">Fecha de expiración</label>
-                            <input type="text" class="form-control" id="cardExpiration " value="12/23">
+                            <input type="month" class="form-control" id="cardExpiration " value="12/23" formControlName="fecha_expiracion">
                         </div>
                         <div class="col-6">
                             <label for="cardCvv" class="form-label">CVV</label>
-                            <input type="text" class="form-control" id="cardCvv">
+                            <input type="text" class="form-control" id="cardCvv" value="123" formControlName="cvv">
                         </div>
                         <div class="col-6">
                             <label for="cardName" class="form-label">Nombre del titular</label>
-                            <input type="text" class="form-control" id="cardName">
+                            <input type="text" class="form-control" id="cardName" value="Juan Perez" formControlName="nombre_titular">
                         </div>
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Pagar</button>
                         </div>
                     </form>
+
+                    {{payForm.value | json}}
 
                 </div>
             </div>
