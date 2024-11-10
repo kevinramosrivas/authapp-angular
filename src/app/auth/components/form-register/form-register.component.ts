@@ -22,6 +22,7 @@ export class FormRegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router      = inject(Router);
+  public isLoad = false;
  
   private body : UserRegisterInfo = {
     name: '',
@@ -45,6 +46,7 @@ export class FormRegisterComponent {
 
 
   onSubmit() {
+    this.isLoad = true;
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
@@ -61,17 +63,19 @@ export class FormRegisterComponent {
     this.authService.registerUser(this.body).subscribe(
     {
       next: () => {
+        this.isLoad = false;
         Swal.fire({
           title: 'Registro exitoso',
-          text: 'Usuario registrado correctamente',
+          text: 'Usuario registrado correctamente, seras redirigido al inicio de sesión',
           icon: 'success',
           confirmButtonText: 'Aceptar'
         }).then(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['auth/login']);
         })
 
       },
       error: (error) => {
+        this.isLoad = false;
         Swal.fire({
           title: 'Error',
           text: "Error al registrar usuario",

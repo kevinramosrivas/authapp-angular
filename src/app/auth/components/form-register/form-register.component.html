@@ -34,8 +34,15 @@
         }
     </div>
     <div class="col-12">
-        <div class="d-grid">
-            <button class="btn bsb-btn-xl btn-primary" type="submit" [disabled]="registerForm.invalid" >Registrarse</button>
+        <div class="d-flex justify-content-center align-items-center">
+            @if(!isLoad){
+                <button class="btn bsb-btn-xl btn-primary" type="submit" [disabled]="registerForm.invalid" >Registrarse</button>
+            }
+            @else {
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            }
         </div>
     </div>
     </div>

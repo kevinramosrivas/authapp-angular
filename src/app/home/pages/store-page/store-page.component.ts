@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Categorie, Product, RangePrice } from '../../interfaces/products.interface';
 import { HomeService } from '../../services/product.service';
 
@@ -34,6 +34,9 @@ export class StorePageComponent implements OnDestroy {
   public loadingCategories: boolean = false;
   public hasHttpProductsError: boolean = false;
   public hasHttpCategoriesError: boolean = false;
+  public totalProducts = 0;
+  public offset = 0;
+  public limit = 0;
 
   constructor() {
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
@@ -80,6 +83,7 @@ export class StorePageComponent implements OnDestroy {
   private filterByCategory(idCategory: number){
     this.loading = true;
     this.selectedCategory = idCategory;
+    this.getNumberOfProducts(this.homeService.getProductsByCategorie(idCategory.toString()));
     this.homeService.getProductsByCategorie(idCategory.toString()).subscribe(
       {
         next: (response) => {
@@ -200,6 +204,16 @@ export class StorePageComponent implements OnDestroy {
     this.hasHttpCategoriesError = false;
     this.getCategories();
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
+  }
+
+  public getNumberOfProducts(obs:Observable<Product[]>){
+    console.log("Numero de productos");
+    obs.subscribe({
+      next: (response) => {
+        this.totalProducts = response.length;
+        console.log(this.totalProducts);
+      }
+    });
   }
 
 }

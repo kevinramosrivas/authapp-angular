@@ -34,7 +34,7 @@ export class HomeService {
       catchError(this.handleError)
     )
   }
-  private _getProductsByCategorie(id: string){
+  private _getProductsByCategorie(id: string, offset?:number, limit?:number){
     return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`).pipe(
       catchError(this.handleError)
     )
@@ -73,8 +73,8 @@ export class HomeService {
     return  this._getCategoryList()
   }
 
-  public getProductsByCategorie(id: string){
-    return this._getProductsByCategorie(id)
+  public getProductsByCategorie(id: string, offset?:number, limit?:number){
+    return this._getProductsByCategorie(id,offset,limit)
 
   }
 
