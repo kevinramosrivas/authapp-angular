@@ -69,14 +69,12 @@ export class AuthService {
         }
       );
     } else {
-      console.log('No hay tokens');
       this.setInvalidAuthentication();
     }
 
   }
 
   public refreshingToken() {
-    console.log('refreshing token');
     return this.http.post<LoginResponse>(`${this.urlbase}/auth/refresh-token`, {refreshToken: this.refreshToken})
     .pipe(
       catchError(() => {

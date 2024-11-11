@@ -45,15 +45,11 @@ export class ProductPageComponent implements OnDestroy {
             this.product = product
             this.MainImageProduct = product.images[0];
             this.getProductsSameCategory();
-            setTimeout(() => {
-              this.isLoading = false;
-            },200);
+            this.isLoading = false;
           },
           error: (error) => {
             this.hasHttpError = true;
-            setTimeout(() => {
-              this.isLoading = false;
-            },200);
+            this.isLoading = false;
           }
         }
       )
@@ -65,10 +61,8 @@ export class ProductPageComponent implements OnDestroy {
     //mostrar el mensaje de agregado por medio segundo y luego volver a mostrar el boton con el texto original
     this.isAddedToShopCar = 'Agregado';
     this.isAddedToShopCarIcon = 'bi-check2';
-    setTimeout(() => {
-      this.isAddedToShopCar = 'Agregar al carrito';
-      this.isAddedToShopCarIcon = 'bi-cart-plus';
-    }, 700);
+    this.isAddedToShopCar = 'Agregar al carrito';
+    this.isAddedToShopCarIcon = 'bi-cart-plus';
   
   }
 

@@ -36,7 +36,7 @@ export class StorePageComponent implements OnDestroy {
   public hasHttpCategoriesError: boolean = false;
   public totalProducts = 0;
   public offset = 0;
-  public limit = 0;
+  public limit = 12;
 
   constructor() {
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));
@@ -58,15 +58,12 @@ export class StorePageComponent implements OnDestroy {
       {
         next: (response) => {
           this.categories = response;
-          setTimeout(() => {
-            this.loadingCategories = false;
-          }, 200);
+          this.loadingCategories = false;
           this.hasHttpCategoriesError = false;
         },
         error: (error) => {
-          setTimeout(() => {
-            this.loadingCategories = false;
-          }, 200);
+          this.loadingCategories = false;
+
           this.hasHttpCategoriesError = true;
         }
       }
@@ -80,17 +77,15 @@ export class StorePageComponent implements OnDestroy {
   }
 
 
-  private filterByCategory(idCategory: number){
+  private filterByCategory(idCategory: number, offset?:number, limit?:number){
     this.loading = true;
     this.selectedCategory = idCategory;
     this.getNumberOfProducts(this.homeService.getProductsByCategorie(idCategory.toString()));
-    this.homeService.getProductsByCategorie(idCategory.toString()).subscribe(
+    this.homeService.getProductsByCategorie(idCategory.toString(),offset,limit).subscribe(
       {
         next: (response) => {
           this.products = response;
-          setTimeout(() => {
-            this.loading = false;
-          }, 200);
+          this.loading = false;
           this.hasHttpProductsError = false;
         },
         error: (error) => {
@@ -100,15 +95,14 @@ export class StorePageComponent implements OnDestroy {
     );
   }
 
-  private filterByPrice(minPrice: number, maxPrice: number){
+  private filterByPrice(minPrice: number, maxPrice: number,offset?:number, limit?:number){
     this.loading = true;
-    this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice).subscribe(
+    this.getNumberOfProducts(this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice));
+    this.homeService.getProductsByCategoryAndPrice(this.selectedCategory,minPrice, maxPrice,offset,limit).subscribe(
       {
         next: (response) => {
           this.products = response;
-          setTimeout(() => {
-            this.loading = false;
-          }, 200);
+          this.loading = false;
           this.hasHttpProductsError = false;
         },
         error: (error) => {
@@ -125,9 +119,7 @@ export class StorePageComponent implements OnDestroy {
       {
         next: (response) => {
           this.products = response;
-          setTimeout(() => {
-            this.loading = false;
-          }, 200);
+          this.loading = false;
           this.hasHttpProductsError = false;
         },
         error: (error) => {
@@ -178,20 +170,23 @@ export class StorePageComponent implements OnDestroy {
   }
 
   public verifiQueryParams(params:Params){
+    if(!params["page"]){this.offset = 0}
+    if(params["page"]){this.offset = parseInt(params["page"])}
     if (params["category"]) {
       if (!params["minPrice"] && !params["maxPrice"]) {
         this.rangePrice = { minPrice: 1, maxPrice: 1000 };
         this.orderBy.setValue('');
         this.selectedCategory = parseInt(params["category"]);
-        this.filterByCategory(this.selectedCategory);
-      } else if (params["minPrice"] && params["maxPrice"]) {
+        this.filterByCategory(this.selectedCategory, this.offset, this.limit);
+      }
+      else if (params["minPrice"] && params["maxPrice"]) {
         this.selectedCategory = parseInt(params["category"]);
         this.rangePrice = { minPrice: parseInt(params["minPrice"]), maxPrice: parseInt(params["maxPrice"]) };
-        this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]));
+        this.filterByPrice(parseInt(params["minPrice"]), parseInt(params["maxPrice"]),this.offset, this.limit);
       }
     } else if (!params["category"] && !params["minPrice"] && !params["maxPrice"] && !params["product"]) {
       this.selectedCategory = 1;
-      this.filterByCategory(this.selectedCategory);
+      this.filterByCategory(this.selectedCategory, this.offset, this.limit);
     } else if (params["product"] && (!params["category"] && !params["minPrice"] && !params["maxPrice"])) {
       this.filterByProuctName(params["product"]);
     }
@@ -207,14 +202,15 @@ export class StorePageComponent implements OnDestroy {
   }
 
   public getNumberOfProducts(obs:Observable<Product[]>){
-    console.log("Numero de productos");
     obs.subscribe({
       next: (response) => {
         this.totalProducts = response.length;
-        console.log(this.totalProducts);
       }
     });
   }
+
+
+
 
 }
 

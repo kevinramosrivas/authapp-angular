@@ -62,10 +62,8 @@ export class ProductCardComponent{
     //mostrar el mensaje de agregado por medio segundo y luego volver a mostrar el boton con el texto original
     this.isAddedToShopCar = 'Agregado';
     this.isAddedToShopCarIcon = 'bi-check2';
-    setTimeout(() => {
-      this.isAddedToShopCar = 'Agregar';
-      this.isAddedToShopCarIcon = 'bi-cart-plus';
-    }, 700);
+    this.isAddedToShopCar = 'Agregar';
+    this.isAddedToShopCarIcon = 'bi-cart-plus';
   
   }
 

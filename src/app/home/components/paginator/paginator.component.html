@@ -1,0 +1,19 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      @for(page of pages; track page; let i = $index ){
+        <li class="page-item" [ngClass]="{'active': (i+1) == currentPage}" [attr.aria-current]="(i+1) == currentPage ? 'page' : null">
+          <span class="page-link" [routerLink]="[]" [queryParams]="{page: page}" [queryParamsHandling]="'merge'">{{i+1}}</span>
+        </li>
+      }
+      <li class="page-item">
+        <a class="page-link"  aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+</nav>

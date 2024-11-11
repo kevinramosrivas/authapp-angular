@@ -152,11 +152,9 @@ export class ShopCarService{
           next: (isAvailable) => {
             product.isAvailable = isAvailable;
             this.saveShopCar();
-            console.log('isAvailable', isAvailable);
           },
           error: (error) => {
             product.isAvailable = false;
-            console.log('isAvailable', product.isAvailable);
           }
         }
       )

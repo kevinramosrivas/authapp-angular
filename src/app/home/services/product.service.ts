@@ -35,9 +35,16 @@ export class HomeService {
     )
   }
   private _getProductsByCategorie(id: string, offset?:number, limit?:number){
-    return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`).pipe(
-      catchError(this.handleError)
-    )
+    if(offset!=undefined && limit!=undefined){
+      return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products?offset=${offset}&limit=${limit}`).pipe(
+        catchError(this.handleError)
+      )
+    }
+    else{
+      return this.http.get<Product[]>(`${this.baseUrl}/categories/${id}/products`).pipe(
+        catchError(this.handleError)
+      )
+    }
   }
 
   private _getProductsByRangePrice(minPrice: number, maxPrice: number){
@@ -46,7 +53,12 @@ export class HomeService {
     )
   }
 
-  private _getProductsByCategoryAndRangePrice(id: number, minPrice: number, maxPrice: number){
+  private _getProductsByCategoryAndRangePrice(id: number, minPrice: number, maxPrice: number,offset?:number, limit?:number){
+    if(offset!=undefined && limit!=undefined){
+      return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}&offset=${offset}&limit=${limit}`).pipe(
+        catchError(this.handleError)
+      )
+    }
     return this.http.get<Product[]>(`${this.baseUrl}/products/?categoryId=${id}&price_min=${minPrice}&price_max=${maxPrice}`).pipe(
       catchError(this.handleError)
     )
@@ -82,8 +94,8 @@ export class HomeService {
     return this._getProductsByRangePrice(minPrice, maxPrice)
   }
 
-  public getProductsByCategoryAndPrice(id: number, minPrice: number, maxPrice: number){
-    return  this._getProductsByCategoryAndRangePrice(id, minPrice, maxPrice)
+  public getProductsByCategoryAndPrice(id: number, minPrice: number, maxPrice: number,offset?:number, limit?:number){
+    return  this._getProductsByCategoryAndRangePrice(id, minPrice, maxPrice,offset,limit)
   }
 
   public getProductsByName(name: string){
