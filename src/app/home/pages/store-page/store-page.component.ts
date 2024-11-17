@@ -36,7 +36,7 @@ export class StorePageComponent implements OnDestroy {
   public hasHttpCategoriesError: boolean = false;
   public totalProducts = 0;
   public offset = 0;
-  public limit = 12;
+  public limit = 9;
 
   constructor() {
     this.observableURL = this.route.queryParams.subscribe((params) => this.verifiQueryParams(params));

@@ -4,16 +4,10 @@ import { ShopCarService } from '../../services/shop-car.service';
 import { Product } from '../../interfaces/products.interface';
 import { HomeService } from '../../services/product.service';
 import { errorIziStore } from '../../interfaces/error.interface';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-checkout-page',
   templateUrl: './checkout-page.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
 })
 export class CheckoutPageComponent { 
 
@@ -80,13 +74,13 @@ export class CheckoutPageComponent {
   ];
   
   public payForm = this.fb.group({
-    direccion: [''],
-    ciudad: [''],
-    distrito: [''],
-    numero_tarjeta: [''],
-    fecha_expiracion: [''],
-    cvv: [''],
-    nombre_titular: [''],
+    direccion: ['Av. República de Panamá 257'],
+    ciudad: ['Lima'],
+    distrito: ['150122'],
+    numero_tarjeta: ['4970110000001029'],
+    fecha_expiracion: ['2024-04'],
+    cvv: ['123'],
+    nombre_titular: ['Juan Perez Prado'],
 
   });
 

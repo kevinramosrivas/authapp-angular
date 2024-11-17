@@ -93,7 +93,7 @@
                     <p class="card-text"><span class="badge rounded bg-success">Envio gratis <i class="bi bi-truck"></i></span> </p>
                     <h5 class="card-subtitle mb-2 text-body-secondary">Subtotal {{total() | currency: 'PEN': 'symbol'}}</h5>
                     @if(products().length != 0){
-                        <a class="btn btn-primary w-100 mt-2" [routerLink]="['/home/checkout']">Continuar compra</a>
+                        <a class="btn btn-primary w-100 mt-2" (click)="validateShopCar()">Continuar compra</a>
                     }
                 </div>
             </div>

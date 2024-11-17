@@ -6,9 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'paginator-products',
   templateUrl: './paginator.component.html',
   styles: `
-    :host {
-      display: block;
-    }
+  .page-item{
+    cursor: pointer;
+  }
   `,
 })
 export class PaginatorComponent implements OnChanges {
@@ -18,6 +18,7 @@ export class PaginatorComponent implements OnChanges {
   @Input() public hasHttpError: boolean = false;
   @Input() public offset: number = 0;
   public pages: number[] = [];
+  private router = inject(Router);
   
   ngOnChanges (changes : SimpleChanges): void {
     if (changes['totalProducts'] && changes['totalProducts'].currentValue !== 0) {
@@ -42,6 +43,10 @@ export class PaginatorComponent implements OnChanges {
     return Math.ceil(this.offset / this.limit) + 1;
   }
 
+  public get currentPageIndex(): number {
+    return this.pages.indexOf(this.offset);
+  }
+
   public get isLastPage(): boolean {
     return this.currentPage === this.totalPages;
   }
@@ -59,11 +64,17 @@ export class PaginatorComponent implements OnChanges {
   }
 
   public nextPage(): void {
-    this.offset += this.limit;
+    this.router.navigate([], {
+      queryParams: { page: this.pages[this.currentPageIndex + 1] },
+      queryParamsHandling: 'merge',
+    });
   }
 
   public previousPage(): void {
-    this.offset -= this.limit;
+    this.router.navigate([], {
+      queryParams: { page: this.pages[this.currentPageIndex - 1] },
+      queryParamsHandling: 'merge',
+    });
   }
 
   public firstPage(): void {

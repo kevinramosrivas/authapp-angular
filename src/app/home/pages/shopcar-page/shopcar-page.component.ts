@@ -4,6 +4,8 @@ import { HomeService } from '../../services/product.service';
 import { ShopCarService } from '../../services/shop-car.service';
 import { errorIziStore } from '../../interfaces/error.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shopcar-page',
@@ -34,6 +36,8 @@ export class ShopcarPageComponent {
   public hasHttpError: boolean = false;
 
   public suggestedProductsLoading: boolean = true;
+
+  public router = inject(Router);
 
   constructor() {
     this.getproductsListLimited();
@@ -70,6 +74,20 @@ export class ShopcarPageComponent {
   
   public removeAllProduct(product: Product) {
     this.shopCarService.removeAllProduct(product);
+  }
+
+  public validateShopCar(){
+    let isValid = this.shopCarService.validateShopCar();
+    if(!isValid){
+      Swal.fire({
+        title: 'Productos no disponibles',
+        text: 'Hay productos en el carrito que ya no están disponibles 😢, por favor eliminalos antes de continuar',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+    this.router.navigate(['home/checkout']);
   }
 
 }
