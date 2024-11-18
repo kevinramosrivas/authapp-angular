@@ -61,21 +61,31 @@
                 <div class="card-body ">
                     <h3 class="fw-bold">Datos de pago</h3>
                     <hr>
-                    <form class="row g-3" [formGroup]="payForm">
-                        <div class="col-12 alert alert-danger">
+                    <form class="row g-3" [formGroup]="payForm" (ngSubmit)="onSubmit()">
+                        <div class="col-12 alert alert-warning">
                             Este es un formulario de prueba, no introduzcas datos reales. Puede completar el formulario con datos ficticios.
                         </div>
                         <div class="col-12">
                             <label for="inputAddress" class="form-label">Dirección de envío</label>
                             <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" formControlName="direccion">
+                            @if(!isValidField('direccion')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    La dirección de envío es obligatoria
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <label for="inputCity" class="form-label">Ciudad</label>
                             <select id="inputCity" class="form-select" formControlName="ciudad">
                                 <option selected>Lima</option>
                             </select>
+                            @if(!isValidField('ciudad')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    La ciudad es obligatoria
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <label for="inputState" class="form-label">Distrito</label>
                             <select id="inputState" class="form-select" formControlName="distrito">
                                 <option selected disabled value="">Seleccione un distrito</option>
@@ -83,28 +93,57 @@
                                     <option [value]="distrito.codigo">{{distrito.nombre}}</option>
                                 }
                             </select>
+                            @if(!isValidField('distrito')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    El distrito es obligatorio
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+ 
+                        <div class="col-12">
                             <label for="cardNumber" class="form-label">Número de tarjeta</label>
-                            <input type="text" class="form-control" id="cardNumber" value="1234 5678 1234 5678" formControlName="numero_tarjeta">
+                            <input type="text" class="form-control" id="cardNumber"  formControlName="numero_tarjeta" maxlength="16">
+                            @if(!isValidField('numero_tarjeta')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    El número de tarjeta es obligatorio y debe tener 16 dígitos
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <label for="cardExpiration" class="form-label">Fecha de expiración</label>
-                            <input type="month" class="form-control" id="cardExpiration " value="12/23" formControlName="fecha_expiracion">
+                            <input type="month" class="form-control" id="cardExpiration "  formControlName="fecha_expiracion">
+                            @if(!isValidField('fecha_expiracion')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    La fecha de expiración es obligatoria
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <label for="cardCvv" class="form-label">CVV</label>
-                            <input type="text" class="form-control" id="cardCvv" value="123" formControlName="cvv">
+                            <input type="text" class="form-control" id="cardCvv" formControlName="cvv" maxlength="3">
+                            @if(!isValidField('cvv')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    El CVV es obligatorio y debe tener 3 dígitos
+                                </div>
+                            }
                         </div>
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <label for="cardName" class="form-label">Nombre del titular</label>
-                            <input type="text" class="form-control" id="cardName" value="Juan Perez" formControlName="nombre_titular">
+                            <input type="text" class="form-control" id="cardName" formControlName="nombre_titular">
+                            @if(!isValidField('nombre_titular')){
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    El nombre del titular es obligatorio
+                                </div>
+                            }
                         </div>
+
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary">Pagar</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="payForm.invalid">Pagar</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

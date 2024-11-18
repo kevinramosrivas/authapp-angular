@@ -74,13 +74,13 @@ export class CheckoutPageComponent {
   ];
   
   public payForm = this.fb.group({
-    direccion: ['Av. República de Panamá 257'],
-    ciudad: ['Lima'],
-    distrito: ['150122'],
-    numero_tarjeta: ['4970110000001029'],
-    fecha_expiracion: ['2024-04'],
-    cvv: ['123'],
-    nombre_titular: ['Juan Perez Prado'],
+    direccion: ['Av. República de Panamá 257', Validators.required],
+    ciudad: ['Lima', Validators.required],
+    distrito: ['150122', [Validators.required, Validators.pattern(/^[0-9]{6}$/)]],
+    numero_tarjeta: ['4970110000001029', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
+    fecha_expiracion: ['2024-04', [Validators.required]],
+    cvv: ['123', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
+    nombre_titular: ['Juan Perez Prado', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]]
 
   });
 
@@ -95,6 +95,10 @@ export class CheckoutPageComponent {
 
   public removeProductFromShopCar(product: Product) {
     this.shopCarService.removeProduct({ product, quantity: 1,isAvailable: true });
+  }
+
+  public isValidField(field: string): boolean|undefined {
+    return !((this.payForm.get(field)?.touched || this.payForm.get(field)?.dirty) && !this.payForm.get(field)?.valid);
   }
 
   public getproductsListLimited(){
@@ -119,5 +123,15 @@ export class CheckoutPageComponent {
   
   public removeAllProduct(product: Product) {
     this.shopCarService.removeAllProduct(product);
+  }
+
+  public onSubmit(){
+    this.payForm.markAllAsTouched();
+    if(this.payForm.valid){
+      console.log('Formulario válido');
+    } else {
+      console.log('Formulario inválido');
+    }
+
   }
 }
