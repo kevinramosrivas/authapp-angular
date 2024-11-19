@@ -163,8 +163,13 @@ export class ShopCarService{
   }
   //validar si todos los productos del carrito estan disponibles, si todos los productos se retorna true, de lo contrario false
   public validateShopCar() {
+    this.isValidating.update(() => true);
+    this.reviewShopCarAtInit();
     const items = this.shopCarItems();
-    return items.every((product) => product.isAvailable);
+    let response = items.every((product) => product.isAvailable);
+    this.isValidating.update(() => false);
+    return response;
+    
   }
 
   public clearShopCar() {
