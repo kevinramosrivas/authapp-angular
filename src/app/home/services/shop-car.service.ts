@@ -1,8 +1,9 @@
 import { ElementRef, inject, Injectable,  signal, ViewChild } from '@angular/core';
-import { ShopCarItem } from '../interfaces/shopcar-items.interface';
+import { Orders, ShopCarItem } from '../interfaces/shopcar-items.interface';
 import { HomeService } from './product.service';
 import { Product } from '../interfaces/products.interface';
 import Swal from 'sweetalert2';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -164,6 +165,42 @@ export class ShopCarService{
   public validateShopCar() {
     const items = this.shopCarItems();
     return items.every((product) => product.isAvailable);
+  }
+
+  public clearShopCar() {
+    this.shopCarItems.set([]);
+    this.numItems.set(0);
+    this.total.set(0);
+    this.saveShopCar();
+  }
+
+  public saveMyOrders() {
+    const shopCar = localStorage.getItem('shopCarIziStore');
+    let myOrders:Orders[] = this.getMyOrders();
+    if(shopCar){
+      let shopCarArray = JSON.parse(shopCar);
+      //añadir a myOrders el nuevo pedido
+      myOrders.push({
+        id: uuidv4(),
+        products: shopCarArray,
+        total: this.total(),
+        date: new Date(),
+        status: 'Pendiente'
+      });
+
+      localStorage.setItem('myOrdersIziStore', JSON.stringify(myOrders));
+      this.clearShopCar();
+    }
+  }
+
+
+
+  public getMyOrders():Orders[]{
+    const myOrders = localStorage.getItem('myOrdersIziStore');
+    if(myOrders){
+      return JSON.parse(myOrders);
+    }
+    return [];
   }
 
 

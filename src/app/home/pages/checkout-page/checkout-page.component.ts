@@ -5,9 +5,17 @@ import { Product } from '../../interfaces/products.interface';
 import { HomeService } from '../../services/product.service';
 import { errorIziStore } from '../../interfaces/error.interface';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './checkout-page.component.html',
+  styles: `
+   .checkout-product-card{
+      max-height: 60vh;
+      overflow-y: auto;
+   }
+  `,
 })
 export class CheckoutPageComponent { 
 
@@ -26,6 +34,8 @@ export class CheckoutPageComponent {
   public hasHttpError: boolean = false;
 
   public suggestedProductsLoading: boolean = true;
+
+  private router = inject(Router);
 
   public distritos = [
     { "nombre": "Lima", "codigo": "150101" },
@@ -84,42 +94,13 @@ export class CheckoutPageComponent {
 
   });
 
-  constructor() {
-    this.getproductsListLimited();
-  }
 
-
-  public addProductToShopCar(product: Product) {
-    this.shopCarService.addProduct({ product, quantity: 1,isAvailable: true });
-  }
-
-  public removeProductFromShopCar(product: Product) {
-    this.shopCarService.removeProduct({ product, quantity: 1,isAvailable: true });
-  }
 
   public isValidField(field: string): boolean|undefined {
     return !((this.payForm.get(field)?.touched || this.payForm.get(field)?.dirty) && !this.payForm.get(field)?.valid);
   }
 
-  public getproductsListLimited(){
-    this.homeService.getProductsList().subscribe(
-      {
-        next: (response: Product[]) => {
-          this.productsRecent = response.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()).slice(0, 8);
-          this.hasHttpError = false;
-          this.suggestedProductsLoading = false;
-        },
-        error: (error: errorIziStore) => {
-          this.hasHttpError = true;
-          this.suggestedProductsLoading = false;
-        }
-      }
-     );
-  }
 
-  public loadProducts(){
-    this.getproductsListLimited();
-  }
   
   public removeAllProduct(product: Product) {
     this.shopCarService.removeAllProduct(product);
@@ -127,11 +108,42 @@ export class CheckoutPageComponent {
 
   public onSubmit(){
     this.payForm.markAllAsTouched();
-    if(this.payForm.valid){
-      console.log('Formulario válido');
-    } else {
-      console.log('Formulario inválido');
+    if(this.payForm.invalid) return;
+    Swal.fire({
+      title: 'Validando compra',
+      text: 'Espere por favor',
+      icon: 'info',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+    let isValid = this.shopCarService.validateShopCar();
+    if(!isValid){
+      Swal.close();
+      Swal.fire({
+        title: 'Productos no disponibles',
+        text: 'Hay productos en el carrito que ya no están disponibles 😢, por favor eliminalos antes de continuar',
+        icon: 'error',
+        allowOutsideClick: false,
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.router.navigate(['home/myshopcar']);
+        return;
+      });
     }
+    setTimeout(() => {
+      Swal.close();
+      this.shopCarService.saveMyOrders();
+      Swal.fire({
+        title: 'Compra realizada',
+        text: 'Gracias por su compra',
+        icon: 'success',
+        allowOutsideClick: false,
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        this.router.navigate(['home/myorders']);
+      });
+      
+    }, 3000);
 
   }
 }

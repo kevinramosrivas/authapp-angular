@@ -5,3 +5,11 @@ export interface ShopCarItem {
     quantity: number;
     isAvailable: boolean;
 }
+
+export interface Orders{
+    id: string;
+    products: ShopCarItem[];
+    total: number;
+    date: Date;
+    status: string;
+}

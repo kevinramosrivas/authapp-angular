@@ -1,0 +1,67 @@
+
+<main class="container mb-4">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/home']">Inicio</a></li>
+            <li class="breadcrumb-item"  [routerLink]="['/home/myorders']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Mis pedidos</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>Mis pedidos</h1>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="accordion" id="accordionExample">
+            @for(order of myOrders; track order; let index = $index){
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" attr.data-bs-target="#collapse{{index}}" aria-expanded="true" attr.aria-controls="collapse{{index}}">
+                                <div class="row py-3 px-2 align-items-center justify-content-center w-100">
+                                    <div class="col-md-6 col-12">
+                                        <p class="m-0 fw-bold">🛻 Pedido</p>
+                                        <p>{{order.id}}</p>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <p class="m-0 fw-bold">🗓️ Fecha de compra</p>
+                                        <p>{{order.date | date:'short'}}</p>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <p class="m-0 fw-bold">✅ Estado</p>
+                                        <p>{{order.status}}</p>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <p class="m-0 fw-bold">💵 Total</p>
+                                        <p>{{order.total | currency: 'PEN': 'symbol'}}</p>
+                                    </div>
+                                </div>
+                            </button>
+                          </h2>
+                          <div id="collapse{{index}}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body row">
+                                @for(product of order.products; track product){
+                                    <div class="row py-3 px-2 align-items-center justify-content-center col-md-6 col-12">
+                                        <div class="col-6">
+                                            <image-component [src]="product.product.images[0] | url" 
+                                            i_class="object-fit-cover rounded" [i_width]="{sizeWeb: '120rem'}"  
+                                            [i_height]="{sizeWeb: '120rem'}" [isAvailable]="product.isAvailable"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="text-wrap m-0" [routerLink]="['/home/product']" [queryParams]="{id: product.product.id}">{{product.product.title}}</a>
+                                            <p class="fw-bold text-wrap m-0 ">{{product.product.price | currency: 'PEN': 'symbol'}}</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                          </div>
+                        </div>
+            }
+        </div>
+    </div>
+  
+</main>

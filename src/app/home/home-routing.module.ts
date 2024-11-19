@@ -8,6 +8,7 @@ import { StorePageComponent } from './pages/store-page/store-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { MyordersPageComponent } from './pages/myorders-page/myorders-page.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
       {path: 'profile', component: ProfilePageComponent,canActivate: [loginGuard]},
       {path: 'product', component: ProductPageComponent},
       {path: 'myshopcar', component: ShopcarPageComponent},
-      {path: 'checkout', component: CheckoutPageComponent,canActivate: [loginGuard]}
+      {path: 'checkout', component: CheckoutPageComponent,canActivate: [loginGuard]},
+      {path: 'myorders', component: MyordersPageComponent,canActivate: [loginGuard]}
     ]
   }
 ];

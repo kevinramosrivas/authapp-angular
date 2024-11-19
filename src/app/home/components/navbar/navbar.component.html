@@ -110,6 +110,7 @@
                     <ul class="dropdown-menu border border-0">
                       <li><h6 class="dropdown-header">Hola, {{currentUser()?.name}}</h6></li>
                       <li (click)="closeNavbar()"> <a  [routerLink]="['/home/profile']" class="dropdown-item">Mi perfil</a></li>
+                      <li (click)="closeNavbar()"> <a  [routerLink]="['/home/myorders']" class="dropdown-item">Mis pedidos</a></li>
                       <li (click)="closeNavbar()"> <a (click)="logout()" href="" class="dropdown-item">Cerrar Sesión</a></li>
                     </ul>
                   </div>

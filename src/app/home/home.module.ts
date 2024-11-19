@@ -26,6 +26,7 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { ShopcarPageComponent } from './pages/shopcar-page/shopcar-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { MyordersPageComponent } from './pages/myorders-page/myorders-page.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     ProductCardComponent,
     ShopcarPageComponent,
     CheckoutPageComponent,
+    MyordersPageComponent,
     PaginatorComponent,
     NavbarComponent,
     ImageComponent,
