@@ -40,15 +40,15 @@
             <span class="page-link" >...</span>
           </li>
         }
-        @if(currentPageIndex + 5 >= pages.length){
-          @for(offsetpage of pages.slice(pages.length - 5, pages.length); track offsetpage; let i = $index ){
+        @if(currentPageIndex + 2 >= pages.length){
+          @for(offsetpage of pages.slice(pages.length - 2, pages.length); track offsetpage; let i = $index ){
             <li class="page-item" [ngClass]="{'active': offsetpage == offset}" [attr.aria-current]="offsetpage == offset ? 'page' : null">
               <span class="page-link" [routerLink]="[]" [queryParams]="{page: offsetpage}" [queryParamsHandling]="'merge'">{{pages.indexOf(offsetpage) + 1}}</span>
             </li>
           }
         }
         @else{
-          @for(offsetpage of pages.slice(currentPageIndex, currentPageIndex + 5); track offsetpage; let i = $index ){
+          @for(offsetpage of pages.slice(currentPageIndex, currentPageIndex + 2); track offsetpage; let i = $index ){
             <li class="page-item" [ngClass]="{'active': offsetpage == offset}" [attr.aria-current]="offsetpage == offset ? 'page' : null">
               <span class="page-link" [routerLink]="[]" [queryParams]="{page: offsetpage}" [queryParamsHandling]="'merge'">{{pages.indexOf(offsetpage) + 1}}</span>
             </li>
