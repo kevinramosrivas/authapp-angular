@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ShopCarService } from '../../services/shop-car.service';
 import { Orders } from '../../interfaces/shopcar-items.interface';
 
@@ -14,10 +14,22 @@ import { Orders } from '../../interfaces/shopcar-items.interface';
     }
   `,
 })
-export class MyordersPageComponent {
+export class MyordersPageComponent implements OnInit {
 
   private shopCarService = inject(ShopCarService);
 
-  public myOrders:Orders[] = this.shopCarService.getMyOrders();
+  public myOrders:Orders[] = [];
+
+  public loading: boolean = false;
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.shopCarService.getMyOrders().subscribe((orders) => {
+      this.myOrders = orders;
+      this.loading = false;
+    });
+  }
+
+
 
 }

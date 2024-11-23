@@ -4,6 +4,7 @@ import { HomeService } from './product.service';
 import { Product } from '../interfaces/products.interface';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -181,7 +182,10 @@ export class ShopCarService{
 
   public saveMyOrders() {
     const shopCar = localStorage.getItem('shopCarIziStore');
-    let myOrders:Orders[] = this.getMyOrders();
+    let myOrders: Orders[] = [];
+    this.getMyOrders().subscribe((orders) => {
+      myOrders = orders;
+    });
     if(shopCar){
       let shopCarArray = JSON.parse(shopCar);
       //añadir a myOrders el nuevo pedido
@@ -200,12 +204,21 @@ export class ShopCarService{
 
 
 
-  public getMyOrders():Orders[]{
-    const myOrders = localStorage.getItem('myOrdersIziStore');
-    if(myOrders){
-      return JSON.parse(myOrders);
-    }
-    return [];
+  public getMyOrders(): Observable<Orders[]> {
+    return new Observable<Orders[]>((observer) => {
+      const myOrders = localStorage.getItem('myOrdersIziStore');
+      if (myOrders) {
+        let orders = JSON.parse(myOrders);
+        //ordenar los pedidos por fecha
+        orders = orders.sort((a: Orders, b: Orders) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+        observer.next(orders);
+      } else {
+        observer.next([]);
+      }
+      observer.complete();
+    });
   }
 
 
