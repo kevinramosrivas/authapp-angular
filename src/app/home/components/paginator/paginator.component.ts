@@ -40,10 +40,12 @@ export class PaginatorComponent implements OnChanges {
   }
 
   public get currentPage(): number {
+    console.log('current page:',Math.ceil(this.offset / this.limit) + 1);
     return Math.ceil(this.offset / this.limit) + 1;
   }
 
   public get currentPageIndex(): number {
+    console.log('current page index:',this.pages.indexOf(this.offset));
     return this.pages.indexOf(this.offset);
   }
 
@@ -88,4 +90,6 @@ export class PaginatorComponent implements OnChanges {
   public goToPage(page: number): void {
     this.offset = (page - 1) * this.limit;
   }
+
+  
 }
